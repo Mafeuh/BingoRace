@@ -25,12 +25,5 @@ class DatabaseSeeder extends Seeder
             'email' => 'leomafille.pro@gmail.com',
             'password' => bcrypt('pass'),
         ]);
-
-        for($i = 0; $i < 100; $i++){
-
-            Room::create([
-                'creator_id' => $moi->id,
-            ]);
-        }
     }
 }

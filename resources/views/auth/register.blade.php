@@ -4,7 +4,7 @@
 <div class="bg-green-100 mx-20 p-10 rounded-3xl shadow-lg shadow-green-300">
     <h1 class="text-3xl font-bold text-center">{{ __('Register') }}</h1>
 
-    <form method="POST" action="/" class="flex justify-center items-center text-right">
+    <form method="POST" action="/register" class="flex justify-center items-center text-right">
         @csrf
         <div class="flex-col space-y-2 border-t-2 pt-5 mt-3 border-green-600">
 

@@ -17,7 +17,9 @@
                 <div class="grid grid-cols-3 space-x-2 pt-5">
                     @foreach ($games as $game_it)
                     <div class="border-2 py-2 rounded-xl">
-                        {{ $game_it->name }}
+                        <p>{{ $game_it->name }}</p>
+                        <p class="text-xs">{{ sizeof($game_it->public_objectives) }} objectifs publics</p>
+                        <p class="text-xs">{{ sizeof($game_it->user_objectives) }} objectifs privés</p>
                     </div>
                     @endforeach
                 </div>

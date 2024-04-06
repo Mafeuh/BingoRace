@@ -55,6 +55,12 @@ class BingoGameController extends Controller
         $valid = request()->validate([
             'width' => ['required', 'integer', 'max:10', 'min:1'],
             'height' => ['required', 'integer', 'max:10', 'min:1'],
+            'objective_type' => ['required_without_all:public,private'],
         ]);
+        $width = $valid['width'];
+        $height = $valid['height'];
+        $types = $valid['objective_type'];
+
+        dd($width, $height, $types);
     }
 }

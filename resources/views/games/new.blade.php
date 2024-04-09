@@ -4,15 +4,24 @@
     <div>
         <div class="text-2xl font-bold">Nouveau Jeu</div>
 
-        <form action="/games/new/post" method="POST" class="grid grid-cols-2 w-1/4 space-y-2">
+        <form action="/games/new/post" method="POST">
             @csrf
-            <label for="name">Nom: </label>
-            <input type="text" name="name" id="name">
+            <div class="flex flex-col">
+                <label for="name">Nom*: </label>
+                <input type="text" name="name" id="name" class="w-1/4"/>
+                @error("name")
+                    <span class="col-start-2 text-red-500">{{ $message }}</span>
+                @enderror
+            </div>
 
-            <label for="image_url">URL de l'image: </label>
-            <input type="text" name="image_url" id="image_url">
+            <div class="flex flex-col">
+                <label for="image_url">URL de l'image: </label>
+                <input type="text" name="image_url" id="image_url" class="w-1/4"/>
+            </div>
 
-            <x-form-validation>Valider</x-form-validation>
+            <div class="mt-10">
+                <x-form-validation>Valider</x-form-validation>
+            </div>
         </form>
     </div>
 @endsection

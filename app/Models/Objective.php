@@ -12,7 +12,7 @@ class Objective extends Model
     protected $guarded = [];
 
     public static function GeneratePublicObjectives() {
-        for ($i = 0; $i < 3; $i++) {
+        for ($i = 0; $i < 50; $i++) {
             Objective::create([
                 'description' => "Objectif n°$i",
                 'game_id' => 1,

@@ -6,7 +6,7 @@
 
         <h2 class="text-center text-xl my-8">Choisis les jeux que tu veux utiliser dans ta partie de Bingo !</h2>
 
-        <form action="/room/setup" method="POST">
+        <form action="/start" method="POST">
             @csrf
             <div class="grid grid-cols-2">
                 <div class="bg-green-100 mr-5 rounded-3xl">
@@ -37,5 +37,8 @@
                 <x-form-validation>Commencer une partie !</x-form-validation>
             </div>
         </form>
+        @isset($error)
+            <div>{{ $error }}</div>
+        @endisset
     </div>
     @endsection

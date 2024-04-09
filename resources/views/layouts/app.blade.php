@@ -13,10 +13,11 @@
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
         <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+        @livewireStyles
     </head>
     <body class="h-screen flex flex-col">
         <div class="bg-green-400 py-4">
-            <a class="absolute right-0 mr-5 px-5 py-2 bg-red-400 rounded-full" href="/debug/adminzone">DEBUG: Ne pas toucher</a>
             @auth
             <form class="absolute ml-5" method="POST" action="/join">
                 <div>Rejoindre une partie</div>
@@ -49,5 +50,7 @@
 
         <hr>
         <x-footer></x-footer>
+
+        @livewireScripts
     </body>
 </html>

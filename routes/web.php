@@ -20,10 +20,6 @@ Route::get('/', function () {
     }
 })->name('home');
 
-Route::get('/debug/adminzone', function () { //Troll :)
-    return Redirect::to('https://www.youtube.com/watch?v=dQw4w9WgXcQ&pp=ygUkcmljayBhc3RsZXkgbmV2ZXIgZ29ubmEgZ2l2ZSB5b3UgdXAg');
-});
-
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -43,11 +39,14 @@ Route::middleware('auth')->group(function () {
         });
     });
 
-    Route::get('start', [BingoGameController::class,'start'])->name('bingo.start');
+    Route::get('start', [BingoGameController::class,'start']);
+    Route::post('start', [BingoGameController::class,'start_post']);
 
     Route::prefix('room')->group(function() {
-        Route::post('setup', [BingoGameController::class, 'start_post'])->name('room.setup');
-        Route::post('wait', [BingoGameController::class, 'check_and_wait'])->name('room.wait');
+        Route::get('setup', [RoomController::class, 'setup']);
+        Route::post('setup', [RoomController::class,'setup_post']);
+
+        Route::get('wait', [RoomController::class,'wait']);
     });
 });
 

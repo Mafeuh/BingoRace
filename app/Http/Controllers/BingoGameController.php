@@ -4,63 +4,38 @@ namespace App\Http\Controllers;
 
 use App\Models\Game;
 use App\Models\Room;
+use App\Rules\AtLeastOneCheckboxChecked;
 use Illuminate\Http\Request;
 
 class BingoGameController extends Controller
 {
     public static function start() {
-        request()->session()->remove("new_room");
-        request()->session()->remove("new_room_games_ids");
+        session()->remove("new_room");
+        session()->remove("new_room_games_ids");
 
-        $public_games = Game::whereNull("creator_id")->get();
-        $user_games = Game::where('creator_id', '==', auth()->user()->id)->get();
-
-        return view("bingo.select_games", [
-            'public_games' => $public_games,
-            'user_games'=> $user_games
+        return view('bingo.select_games', [
+            'public_games' => Game::whereNull('creator_id')->get(),
+            'user_games' => Game::where('creator_id', '==', auth()->user()->id)->get()
         ]);
     }
 
     public static function start_post() {
-        if(request()->session()->exists('new_room')) {
-            $room = request()->session()->get('new_room');
-            $games = request()->session()->get('new_room_games_ids');
-
-            return view('room.setup', [
-                'games' => $games,
-                'room' => $room
-            ]);
-        }
-
         $valid = request()->validate([
-            'game_checkboxes'=> ['required'],
+            'game_checkboxes' => ['array'],
+            'game_checkboxes.*' => []
         ]);
 
-        $games = Game::whereIn('id', $valid['game_checkboxes'])->get();
+        if(!array_key_exists('game_checkboxes', $valid)) {
+            return redirect('/start');
+        }
 
         $new_room = Room::create([
             'creator_id' => auth()->user()->id
         ]);
 
-        request()->session()->put('new_room', $new_room);
-        request()->session()->put('new_room_games_ids', $games);
+        session()->put('new_room_id', $new_room->id);
+        session()->put('new_room_games_ids', $valid['game_checkboxes']);
 
-        return view('room.setup', [
-            'games' => $games,
-            'room' => $new_room
-        ]);
-    }
-
-    public static function check_and_wait() {
-        $valid = request()->validate([
-            'width' => ['required', 'integer', 'max:10', 'min:1'],
-            'height' => ['required', 'integer', 'max:10', 'min:1'],
-            'objective_type' => ['required_without_all:public,private'],
-        ]);
-        $width = $valid['width'];
-        $height = $valid['height'];
-        $types = $valid['objective_type'];
-
-        dd($width, $height, $types);
+        return redirect('/room/setup');
     }
 }

@@ -9,8 +9,7 @@
         </span>
     </h2>
 
-    <form method="POST" action="/room/wait">
-        @csrf
+    <form action="/room/setup" method="POST">
         <div class="grid grid-cols-3 space-x-5 mt-5">
             <div class="bg-green-100 overflow-scroll p-5 text-center">
                 <span class="text-xl font-bold">Rappel des jeux</span>
@@ -24,6 +23,7 @@
                     @endforeach
                 </div>
             </div>
+        @csrf
 
             <div class="col-span-2 bg-green-100 p-5 text-center">
                 <span class="text-xl font-bold">Paramètres</span>

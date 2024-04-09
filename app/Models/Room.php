@@ -24,4 +24,8 @@ class Room extends Model
             $room->code = strtoupper(fake()->unique()->bothify($schema));
         });
     }
+
+    public function teams() {
+        return $this->hasMany(Team::class, 'room_id', 'id');
+    }
 }

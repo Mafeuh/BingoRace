@@ -10,7 +10,7 @@ class RoomController extends Controller
 {
     public function setup() {
         return view("room.setup", [
-            'room' => Room::find(session('new_room_id')),
+            'room' => Room::find(session('last_joined_room_id')),
             'games' => Game::findMany(session('new_room_games_ids')),
         ]);
     }
@@ -49,7 +49,19 @@ class RoomController extends Controller
 
     public function wait() {
         return view('room.waiting_room', [
-            'room' => Room::find(session('new_room_id'))
+            'room' => Room::find(session('last_joined_room_id'))
         ]);
+    }
+
+    public function join() {
+        $valid = request()->validate([
+            'code' => ['required', 'string', 'min:5', 'max:5']
+        ]);
+
+        $room = Room::all()->where('code', $valid['code'])->first();
+
+        session()->put('last_joined_room_id', $room->id);
+
+        return redirect('/room/wait');
     }
 }

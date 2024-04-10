@@ -20,11 +20,15 @@
         <div class="bg-green-400 py-4">
             @auth
             <form class="absolute ml-5" method="POST" action="/join">
+                @csrf
                 <div>Rejoindre une partie</div>
                 <div class="flex">
-                    <input class="text-center bg-green-300 border-0 border-b-2 w-20 rounded-l-xl mr-0 focus:outline-none" type="text" maxlength="5" placeholder="Code">
+                    <input name="code" class="text-center bg-green-300 border-0 border-b-2 w-20 rounded-l-xl mr-0 focus:outline-none" type="text" maxlength="5" placeholder="Code">
                     <button class="bg-green-600 p-2 rounded-r-xl hover:bg-green-900 hover:text-white hover:font-extrabold" type="submit">Rejoindre</button>
                 </div>
+                @error('code')
+                    <div>{{ $message }}</div>
+                @enderror
             </form>
             @endauth
             @guest

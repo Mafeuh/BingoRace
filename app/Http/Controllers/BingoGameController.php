@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 class BingoGameController extends Controller
 {
     public static function start() {
-        session()->remove("new_room");
+        session()->remove("last_joined_room_id");
         session()->remove("new_room_games_ids");
 
         return view('bingo.select_games', [
@@ -33,7 +33,7 @@ class BingoGameController extends Controller
             'creator_id' => auth()->user()->id
         ]);
 
-        session()->put('new_room_id', $new_room->id);
+        session()->put('last_joined_room_id', $new_room->id);
         session()->put('new_room_games_ids', $valid['game_checkboxes']);
 
         return redirect('/room/setup');

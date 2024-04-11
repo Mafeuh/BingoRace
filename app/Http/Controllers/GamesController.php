@@ -15,15 +15,17 @@ class GamesController extends Controller
     public static function store() {
         $valid = request()->validate([
             'name' => ['required'],
-            'image_url' => []
+            'image' => ['image', 'mimes:png,jpg,jpeg,gif', 'max:2048' ]
         ]);
 
         $name = $valid['name'];
-        $image = $valid['image_url'];
+        $path = request()->file('image')->store('public/images');
+
+        $imageUrl = str_replace('public', 'storage', $path);
 
         Game::create([
             'name' => $name,
-            'image_url' => $image,
+            'image_url' => $imageUrl,
             'creator_id' => auth()->user()->id
         ]);
 

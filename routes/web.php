@@ -29,7 +29,7 @@ Route::middleware('auth')->group(function () {
 
     Route::prefix('games')->group(function() {
         Route::get('new', [GamesController::class, 'new']);
-        Route::post('new/post', [GamesController::class, 'store']);
+        Route::post('new', [GamesController::class, 'store']);
 
         Route::get('list', [GamesController::class, 'list']);
 

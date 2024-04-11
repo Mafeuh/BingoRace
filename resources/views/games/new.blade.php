@@ -4,7 +4,7 @@
     <div>
         <div class="text-2xl font-bold">Nouveau Jeu</div>
 
-        <form action="/games/new/post" method="POST">
+        <form action="/games/new" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="flex flex-col">
                 <label for="name">Nom*: </label>
@@ -15,8 +15,11 @@
             </div>
 
             <div class="flex flex-col">
-                <label for="image_url">URL de l'image: </label>
-                <input type="text" name="image_url" id="image_url" class="w-1/4"/>
+                <label for="image">Image</label>
+                <input type="file" name="image" id="image" class="w-1/4"/>
+                @error("image")
+                    <span class="col-start-2 text-red-500">{{ $message }}</span>
+                @enderror
             </div>
 
             <div class="mt-10">

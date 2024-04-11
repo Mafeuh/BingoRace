@@ -13,6 +13,10 @@
         @endisset
     </div>
 
+    <div>
+        <img src="{{ asset($game->image_url) }}" alt="Image du jeu">
+    </div>
+
     @if(sizeof($game->public_objectives) > 0)
         <div id="public_objectives">
             <h2 class="text-2xl">Objectifs publics</h2>

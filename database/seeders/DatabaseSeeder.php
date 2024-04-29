@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Objective;
+use App\Models\Permission;
 use App\Models\Room;
 use App\Models\User;
 use App\Models\Game;
@@ -18,6 +19,7 @@ class DatabaseSeeder extends Seeder
     {
         Game::GeneratePublicGames();
         Objective::GeneratePublicObjectives();
+        Permission::GeneratePermissions();
 
         User::factory(10)->create();
         $moi = User::create([
@@ -25,5 +27,6 @@ class DatabaseSeeder extends Seeder
             'email' => 'leomafille.pro@gmail.com',
             'password' => bcrypt('pass'),
         ]);
+
     }
 }

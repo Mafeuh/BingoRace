@@ -13,9 +13,11 @@ return new class extends Migration
     {
         Schema::create('participants', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->references('id')->on('users');
             $table->foreignId('team_id')->references('id')->on('teams');
             $table->timestamps();
+
+            $table->unsignedBigInteger('participantable_id');
+            $table->string('participantable_type');
         });
     }
 

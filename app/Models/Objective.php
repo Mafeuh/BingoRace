@@ -12,15 +12,21 @@ class Objective extends Model
     protected $guarded = [];
 
     public static function GeneratePublicObjectives() {
-        for ($i = 0; $i < 50; $i++) {
-            Objective::create([
-                'description' => "Objectif n°$i",
-                'game_id' => 1,
+        for ($i = 1; $i <= 50; $i++) {
+            $public = PublicObjective::create([]);
+
+            $public->objective()->create([
+                'description' => 'Objectif N°'. $i,
+                'game_id'=> 1,
             ]);
         }
     }
 
     public function game() {
         return $this->belongsTo(Game::class, 'id', 'game_id');
+    }
+
+    public function objectiveable() {
+        return $this->morphTo();
     }
 }

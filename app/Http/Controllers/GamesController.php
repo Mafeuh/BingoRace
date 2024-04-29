@@ -19,9 +19,13 @@ class GamesController extends Controller
         ]);
 
         $name = $valid['name'];
-        $path = request()->file('image')->store('public/images');
 
-        $imageUrl = str_replace('public', 'storage', $path);
+        $imageUrl = '';
+
+        if(key_exists('image', $valid)) {
+            $path = request()->file('image')->store('public/images');
+            $imageUrl = str_replace('public', 'storage', $path);
+        }
 
         Game::create([
             'name' => $name,
@@ -29,7 +33,7 @@ class GamesController extends Controller
             'creator_id' => auth()->user()->id
         ]);
 
-        return to_route('home');
+        return redirect('/games/list');
     }
 
     public static function list() {
@@ -45,10 +49,15 @@ class GamesController extends Controller
 
     public static function show(Game $game) {
         $game_id = $game->id;
-        $game = Game::with([
-            'public_objectives',
-            'user_objectives',
-            'creator'])->find($game_id);
+        $game = Game::find($game_id);
+
+        if($game == null) {
+            return redirect('/');
+        }
+
+        if($game->creator_id != null && $game->creator->id != auth()->user()->id) {
+            return redirect('/');
+        }
 
         return view('games.show', [
             'game'=> $game

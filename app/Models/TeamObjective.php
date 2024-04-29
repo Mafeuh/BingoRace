@@ -5,13 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Participant extends Model
+class TeamObjective extends Model
 {
     use HasFactory;
 
     protected $guarded = [];
 
-    public function participantable() {
-        return $this->morphTo();
+    public function objective() {
+        return $this->morphOne(Objective::class, "objectiveable");
     }
 }

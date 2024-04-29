@@ -37,8 +37,12 @@ Route::middleware('auth')->group(function () {
             Route::get('', [GamesController::class,'show']);
 
             Route::get('/objective', [ObjectivesController::class, 'new']);
-            Route::post('/objective/post', [ObjectivesController::class, 'post']);
+            Route::post('/objective', [ObjectivesController::class, 'post']);
         });
+    });
+
+    Route::prefix('objectives')->group(function() {
+        Route::get('{id}/delete', [ObjectivesController::class,'delete']);
     });
 
     Route::get('start', [BingoGameController::class,'start']);
@@ -49,6 +53,8 @@ Route::middleware('auth')->group(function () {
         Route::post('setup', [RoomController::class,'setup_post']);
 
         Route::get('wait', [RoomController::class,'wait']);
+
+        Route::get('play', [RoomController::class,'start']);
     });
 });
 

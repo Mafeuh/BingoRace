@@ -3,12 +3,15 @@
 <div wire:poll>
     <div class="text-xl text-center">{{ sizeof($room->teams) }} équipes</div>
 
+    <div class="text-center">
+        <i class="text-sm">Si tu peux pas supprimer une équipe, reload la page</i>
+    </div>
+
     <div class="grid grid-cols-2">
         @foreach ($room->teams as $team)
-            <div class="bg-[{{$team->color}}] m-1">
+            <div class="m-1 rounded-2xl p-2" style="background-color: {{ $team->color }}">
                 <div class="text-xl text-center">
-                    <input class="w-full bg-transparent border-0 focus:ring-0 text-center"
-                    type="text" value="{{ $team->name }}">
+                    <p>{{ $team->name == '' ? '/' : $team->name}}</p>
                 </div>
                 <div class="text-center text-lg">
                     <span class="font-bold">{{ sizeof($team->participants) }}</span> membres
@@ -18,7 +21,13 @@
                 @endforeach
 
                 <div class="text-center">
-                    <button wire:click='join_team({{ $team->id }})'>Rejoindre</button>
+                    @if ($player_team_id == -1)
+                        <button wire:click='join_team({{ $team->id }})'>Rejoindre</button>
+                    @endif
+
+                    @if ($player_team_id == $team->id)
+                        <button wire:click='leave_team()'>Quitter l'équipe</button>
+                    @endif
 
                     @if (auth()->user()->id == $room->creator_id)
                         <button wire:click='delete_team({{ $team->id }})'>Supprimer</button>
@@ -28,9 +37,32 @@
         @endforeach
     </div>
 
-    <div class="text-center">
-        <input type="text" wire:model='new_team_name' class="w-1/4 border-0 focus:ring-0" placeholder="Nom...">
-        <input type="color" wire:model='new_team_color' class="h-4 w-4">
-        <button wire:click='new_team'>Nouvelle équipe</button>
+    <h2 class="text-center text-2xl">Nouvelle équipe</h2>
+    <div class="text-center grid grid-cols-3 gap-x-2">
+        <input type="text" wire:model='new_team_name' class="border-0 focus:ring-0" placeholder="Nom...">
+        <select
+            name="new_team_color"
+            wire:model='new_team_color'
+            style="background-color: {{$new_team_color}}"
+            onchange="changeBackgroundColor(this)">
+            <option value="" disabled selected>Couleur</option>
+            <option value="#ef4444" class="bg-red-500"></option>
+            <option value="#f97316" class="bg-orange-500"></option>
+            <option value="#eab308" class="bg-yellow-500"></option>
+            <option value="#84cc16" class="bg-lime-500"></option>
+            <option value="#10b981" class="bg-emerald-500"></option>
+            <option value="#06b6d4" class="bg-cyan-500"></option>
+            <option value="#6366f1" class="bg-indigo-500"></option>
+            <option value="#d946ef" class="bg-fuchsia-500"></option>
+        </select>
+
+        <button wire:click='new_team' class="p-1 bg-gray-200 rounded-full hover:bg-gray-400">Nouvelle équipe</button>
     </div>
 </div>
+<script>
+    function changeBackgroundColor(select) {
+        var selectedOption = select.options[select.selectedIndex];
+        var selectedColor = selectedOption.getAttribute('value');
+        select.style.backgroundColor = selectedColor;
+    }
+</script>

@@ -11,14 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('objectives', function (Blueprint $table) {
+        Schema::create('private_objectives', function (Blueprint $table) {
             $table->id();
-            $table->string('description');
-            $table->foreignId('game_id')->nullable()->references('id')->on('games');
-
-            $table->unsignedBigInteger('objectiveable_id');
-            $table->string('objectiveable_type');
-
+            $table->foreignId('user_id')->references('id')->on('users')->constrained()->cascadeOnDelete();
             $table->timestamps();
         });
     }
@@ -28,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('objectives');
+        Schema::dropIfExists('private_objectives');
     }
 };

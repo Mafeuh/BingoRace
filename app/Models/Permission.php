@@ -13,11 +13,18 @@ class Permission extends Model
 
     public static function GeneratePermissions() {
         $permissions = [
-            'admin' => 'Administrateurice',
+            'admin' => 'Administrateur.ice',
             'make_game_public' => 'Rendre un jeu public',
             'make_objective_public_on_public_game' => 'Rendre public un objectif de jeu public',
             'delete_public_game' => 'Supprimer un jeu public',
             'delete_user_account' => 'Supprimer un compte utilisateur',
-        ]
+        ];
+
+        foreach ($permissions as $key => $value) {
+            Permission::create([
+                'slug' => $key,
+                'description' => $value
+            ]);
+        }
     }
 }

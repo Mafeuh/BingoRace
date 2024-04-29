@@ -18,7 +18,7 @@
                     <div class="border-2 py-2 rounded-xl">
                         <p>{{ $game_it->name }}</p>
                         <p class="text-xs">{{ sizeof($game_it->public_objectives) }} objectifs publics</p>
-                        <p class="text-xs">{{ sizeof($game_it->user_objectives) }} objectifs privés</p>
+                        <p class="text-xs">{{ sizeof($game_it->private_objectives) }} objectifs privés</p>
                     </div>
                     @endforeach
                 </div>

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Game;
 use App\Models\Objective;
+use App\Models\PrivateObjective;
+use App\Models\PublicObjective;
 use Illuminate\Http\Request;
 
 class ObjectivesController extends Controller
@@ -19,15 +21,42 @@ class ObjectivesController extends Controller
                 'string',
                 'min:10',
                 'max:255'
-            ]
+            ],
+            'visibility' => ['required']
         ]);
 
-        Objective::create([
-            'description'=> $valid['description'],
-            'game_id' => $game->id,
-            'creator_id' => auth()->user()->id
-        ]);
+        if($valid['visibility'] == 'private') {
+            $obj = PrivateObjective::create([
+                'user_id' => auth()->user()->id
+            ]);
 
-        return view("games.show", ["game"=> $game]);
+            $obj->objective()->create(['description' => $valid['description'], 'game_id' => $game->id]);
+        }
+
+        else if($valid['visibility'] == 'public') {
+            $obj = PublicObjective::create([]);
+
+            $obj->objective()->create(['description'=> $valid['description'], 'game_id' => $game->id]);
+        }
+
+        else if($valid['visibility'] == 'team') {
+            //TODO: Implémenter la fonctionnalité d'équipe!
+
+            $obj = PrivateObjective::create([
+                'user_id'=> auth()->user()->id
+            ]);
+
+            $obj->objective()->create(['description'=> $valid['description'], 'game_id' => $game->id]);
+        }
+
+        return redirect("/games/$game->id");
+    }
+
+    public function delete(int $id)
+    {
+        $objective = Objective::find($id);
+        $objective->delete();
+
+        return redirect()->back();
     }
 }

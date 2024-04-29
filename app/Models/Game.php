@@ -13,9 +13,9 @@ class Game extends Model
 
     public static function GeneratePublicGames() {
         $games = [
-            'Minecraft' => '',
-            'Lethal Company'=> '',
-            'Sea of Thieves'=> '',
+            'Minecraft' => 'storage/images/minecraft.jpg',
+            'Lethal Company'=> 'storage/images/lethal.png',
+            'Sea of Thieves'=> 'storage/images/sot.jpg',
         ];
         foreach ($games as $game => $url) {
             Game::create([
@@ -25,15 +25,22 @@ class Game extends Model
         }
     }
 
-    public function public_objectives() {
-        return $this->hasMany(Objective::class, 'game_id', 'id')->whereNull('creator_id');
+    public function public_objectives()
+    {
+        return $this->hasMany(Objective::class, 'game_id')->where('objectiveable_type', 'App\Models\PublicObjective');
     }
 
-    public function user_objectives() {
-        return $this->hasMany(Objective::class,'game_id','id')->where('creator_id','===', auth()->user()->id);
+    public function private_objectives()
+    {
+        return $this->hasMany(Objective::class, 'game_id')->where('objectiveable_type', 'App\Models\PrivateObjective');
+    }
+
+    public function team_objectives()
+    {
+        return $this->hasMany(Objective::class, 'game_id')->where('objectiveable_type', 'App\Models\TeamObjective');
     }
 
     public function creator() {
-        return $this->belongsTo(User::class, 'creator_id', 'id');
+        return $this->belongsTo(User::class,'creator_id', 'id');
     }
 }

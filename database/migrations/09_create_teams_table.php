@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('teams', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('color', 6);
+            $table->string('color');
             $table->foreignId('room_id')->references('id')->on('rooms');
             $table->timestamps();
         });

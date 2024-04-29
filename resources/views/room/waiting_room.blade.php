@@ -16,6 +16,5 @@
             </h2>
         </div>
     </div>
-
 </div>
 @endsection

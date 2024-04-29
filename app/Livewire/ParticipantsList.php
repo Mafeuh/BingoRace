@@ -9,13 +9,14 @@ use Livewire\Component;
 
 class ParticipantsList extends Component
 {
+    public ?int $player_team_id = -1;
     public string $new_team_name = "";
     public string $new_team_color = "";
 
     public function new_team() {
         $new_team = Team::create([
             "name" => $this->new_team_name,
-            "color" => "999999",
+            "color" => $this->new_team_color,
             "room_id"=> session("last_joined_room_id"),
         ]);
     }
@@ -31,12 +32,16 @@ class ParticipantsList extends Component
     }
 
     public function join_team(int $team_id) {
-        $room_teams = Room::find(session("last_joined_room_id"))->teams;
+        $this->player_team_id = $team_id;
 
         Participant::create([
             'user_id' => auth()->user()->id,
             'team_id' => $team_id,
         ]);
+    }
+
+    public function leave_team() {
+        $this->player_team_id = -1;
     }
 
     public function render()

@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Models\Participant;
+use App\Models\AuthParticipant;
 use App\Models\Room;
 use App\Models\Team;
 use Livewire\Component;
@@ -34,8 +35,11 @@ class ParticipantsList extends Component
     public function join_team(int $team_id) {
         $this->player_team_id = $team_id;
 
-        Participant::create([
-            'user_id' => auth()->user()->id,
+        $auth = AuthParticipant::create([
+            'user_id' => auth()->user()->id
+        ]);
+
+        $auth->participant()->create([
             'team_id' => $team_id,
         ]);
     }

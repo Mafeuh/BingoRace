@@ -12,10 +12,10 @@ class BingoGrid extends Model
     protected $guarded = [];
 
     public function squares() {
-        return $this->hasMany(BingoGridSquare::class);
+        return $this->hasMany(BingoGridSquare::class, 'grid_id', 'id');
     }
 
     public function room() {
-        return $this->belongsTo(Room::class);
+        return $this->hasOne(Room::class, 'id', 'room_id');
     }
 }

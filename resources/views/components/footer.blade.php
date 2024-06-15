@@ -1,4 +1,13 @@
 <div class="text-center">
+    <div class="relative">
+        <div class="left-1/2 bottom-5 bg-red-200 absolute text-left px-5 py-3 -translate-x-1/2">
+            <div class="font-bold text-red-600">
+                Erreur !
+            </div>
+            {{ session('error', 'LONGUE ERREURLONGUE ERREURLONGUE ERREURLONGUE ERREURLONGUE ERREURLONGUE ERREURLONGUE ERREURLONGUE ERREURLONGUE ERREURLONGUE ERREUR') }}
+        </div>
+    </div>
+
     @auth
         <form method="POST" action="/logout" class="py-2">
             @csrf

@@ -40,4 +40,8 @@ class User extends Authenticatable
     public function moderated_games() {
         return $this->hasManyThrough(Game::class, GameModerator::class);
     }
+
+    public function participations() {
+        return $this->hasMany(AuthParticipant::class, 'user_id', 'id');
+    }
 }

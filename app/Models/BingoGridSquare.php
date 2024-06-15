@@ -11,7 +11,15 @@ class BingoGridSquare extends Model
 
     protected $guarded = [];
 
-    public function bingogrid() {
-        return $this->belongsTo(BingoGrid::class);
+    public function objective() {
+        return $this->hasOne(Objective::class, 'id', 'objective_id');
+    }
+
+    public function grid() {
+        return $this->hasOne(BingoGrid::class, 'id', 'grid_id');
+    }
+
+    public function checked_by() {
+        return $this->hasOne(Team::class, 'id', 'checked_by_team_id');
     }
 }

@@ -2,9 +2,8 @@
 
 @section('content')
 <div>
-    BLABLA
-
-    <pre>{{ json_encode($grid, JSON_PRETTY_PRINT) }}</pre>
-    <pre>{{ json_encode($objectives, JSON_PRETTY_PRINT) }}</pre>
+    <div>
+        <x-bingo-grid :grid="$room->grid"></x-bingo-grid>
+    </div>
 </div>
 @endsection

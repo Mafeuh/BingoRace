@@ -16,16 +16,32 @@ class Room extends Model
         parent::boot();
 
         static::creating(function ($room) {
-            $schema = '';
-            for ($i = 0; $i < 5; $i++) {
-                $schema .= fake()->randomKey(['#' => [], '?' => []]);
-            }
-
-            $room->code = strtoupper(fake()->unique()->bothify($schema));
+            $room->code = static::generateUniqueCode();
         });
+    }
+
+    protected static function codeExists($code)
+    {
+        return static::where('code', $code)->exists();
+    }
+    
+    private static function generateUniqueCode() {
+        do {
+            $code = static::generateCode();
+        } while (static::codeExists($code));
+
+        return $code;
+    }
+
+    private static function generateCode($length = 5) {
+        return substr(str_shuffle(str_repeat('0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ', ceil($length/strlen('0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ')))), 1, $length);
     }
 
     public function teams() {
         return $this->hasMany(Team::class, 'room_id', 'id');
+    }
+
+    public function grid() {
+        return $this->hasOne(BingoGrid::class, 'room_id', 'id');
     }
 }

@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('bingo_grids', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('room_id')->references('id')->on('rooms')->constrained()->cascadeOnDelete();
-            $table->integer('width')->unsigned();
-            $table->integer('height')->unsigned();
+            $table->integer('width');
+            $table->integer('height');
+            $table->foreignId('room_id')->references('id')->on('rooms')->cascadeOnDelete();
             $table->timestamps();
         });
     }

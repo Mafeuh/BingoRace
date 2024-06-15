@@ -17,7 +17,7 @@
                     <span class="font-bold">{{ sizeof($team->participants) }}</span> membres
                 </div>
                 @foreach ($team->participants as $participant)
-                    <div>- {{ $participant->user->name }}</div>
+                    <div>- {{ $participant->participantable->user->name }}</div>
                 @endforeach
 
                 <div class="text-center">

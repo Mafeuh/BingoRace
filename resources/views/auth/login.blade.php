@@ -21,6 +21,10 @@
                 <input type="password" name="password" id="password" class="col-span-2" required/>
             </div>
 
+            @error('password')
+                <div>{{ $message }}</div>
+            @enderror
+
             <div class="grid grid-cols-5">
                 <label for="remember_me" class="pr-5 align-middle col-span-2">{{ __('Remember me') }}</label>
                 <input id="remember_me" type="checkbox" name="remember" class="col-span-2">

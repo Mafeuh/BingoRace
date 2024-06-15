@@ -1,3 +1,7 @@
-<div>
-    <!-- Waste no more time arguing what a good man should be, be one. - Marcus Aurelius -->
+@props(['grid'])
+
+<div class="bg-white grid grid-cols-{{$grid->width}} w-fit">
+    @foreach ($grid->squares as $square)
+        <livewire:bingo-grid-square :square="$square"></bingo-grid-square>
+    @endforeach
 </div>

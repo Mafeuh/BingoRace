@@ -54,7 +54,7 @@ Route::middleware('auth')->group(function () {
 
         Route::get('wait', [RoomController::class,'wait']);
 
-        Route::get('play', [RoomController::class,'start']);
+        Route::get('start', [RoomController::class,'start']);
     });
 });
 

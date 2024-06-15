@@ -14,4 +14,8 @@ class Participant extends Model
     public function participantable() {
         return $this->morphTo();
     }
+
+    public function team() {
+        return $this->hasOne(Team::class, 'id', 'team_id');
+    }
 }

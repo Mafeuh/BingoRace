@@ -12,13 +12,14 @@ class Objective extends Model
     protected $guarded = [];
 
     public static function GeneratePublicObjectives() {
-        for ($i = 1; $i <= 50; $i++) {
-            $public = PublicObjective::create([]);
-
-            $public->objective()->create([
-                'description' => 'Objectif N°'. $i,
-                'game_id'=> 1,
-            ]);
+        foreach(Game::all() as $game) {
+            for($i = 0; $i < 10; $i++) {
+                $pub = PublicObjective::create([]);
+                $pub->objective()->create([
+                    'game_id' => $game->id,
+                    'description' => $game->name . $i
+                ]);
+            }
         }
     }
 

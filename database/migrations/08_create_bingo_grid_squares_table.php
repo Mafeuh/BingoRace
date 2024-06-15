@@ -13,8 +13,10 @@ return new class extends Migration
     {
         Schema::create('bingo_grid_squares', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('grid_id')->references('id')->on('bingo_grids')->constrained()->cascadeOnDelete();
-            $table->foreignId('objective_id')->references('id')->on('objectives')->constrained()->cascadeOnDelete();
+            $table->foreignId('grid_id')->references('id')->on('bingo_grids')->cascadeOnDelete();
+            $table->foreignId('objective_id')->references('id')->on('objectives')->cascadeOnDelete();
+            $table->dateTime('checked_at')->nullable();
+            $table->foreignId('checked_by_team_id')->nullable()->references('id')->on('teams')->nullOnDelete();
             $table->timestamps();
         });
     }

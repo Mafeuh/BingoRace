@@ -15,9 +15,6 @@ return new class extends Migration
             $table->id();
             $table->string('code', 5)->unique()->nullable();
             $table->foreignId('creator_id')->references('id')->on('users');
-            $table->boolean('has_public_objectives')->default(false);
-            $table->boolean('has_private_objectives')->default(false);
-            $table->boolean('has_team_objectives')->default(false);
             $table->timestamps();
         });
     }

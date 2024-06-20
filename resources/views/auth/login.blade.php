@@ -31,10 +31,10 @@
             </div>
 
             <div class="text-center">
-                <x-form-validation>{{__('Connect')}}</x-form-validation>
+                <x-form-validation>Se connecter</x-form-validation>
             </div>
 
-            <div>
+            <div class="text-center">
                 Pas de compte ? <a href="/register" class="text-green-600 font-bold">Inscrivez-vous !</a>
             </div>
         </div>

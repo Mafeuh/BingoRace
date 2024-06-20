@@ -48,7 +48,7 @@
                     @foreach ($game->private_objectives as $priv_obj)
                         <div class="relative bg-white px-10 py-2 text-center rounded-xl">
                             <a class="absolute right-5" href="/objectives/{{$priv_obj->id}}/delete">❌</a>
-                            {{$priv_obj->description}} {{ $priv_obj->id }}
+                            {{$priv_obj->description}}
                         </div>
                     @endforeach
                 </div>

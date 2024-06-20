@@ -33,6 +33,10 @@
             <div class="text-center">
                 <x-form-validation>{{__('Connect')}}</x-form-validation>
             </div>
+
+            <div>
+                Pas de compte ? <a href="/register" class="text-green-600 font-bold">Inscrivez-vous !</a>
+            </div>
         </div>
 
     {{-- <div class="flex items-center justify-end mt-4">

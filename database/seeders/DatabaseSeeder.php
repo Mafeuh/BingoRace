@@ -21,12 +21,16 @@ class DatabaseSeeder extends Seeder
         Objective::GeneratePublicObjectives();
         Permission::GeneratePermissions();
 
-        User::factory(10)->create();
         $moi = User::create([
             'name' => 'Mafeuh',
             'email' => 'leomafille.pro@gmail.com',
             'password' => bcrypt('pass'),
         ]);
 
+        $moi2 = User::create([
+            'name' => 'Raynavia',
+            'email' => 'mafmaf14.official@gmail.com',
+            'password' => bcrypt('pass')
+        ]);
     }
 }

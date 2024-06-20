@@ -1,11 +1,13 @@
 <div class="text-center">
     <div class="relative">
-        <div class="left-1/2 bottom-5 bg-red-200 absolute text-left px-5 py-3 -translate-x-1/2">
-            <div class="font-bold text-red-600">
-                Erreur !
+        @if (session('error'))
+            <div class="left-1/2 bottom-5 bg-red-200 absolute text-left px-5 py-3 -translate-x-1/2">
+                <div class="font-bold text-red-600">
+                    Erreur !
+                </div>
+                {{ session('error') }}
             </div>
-            {{ session('error', 'LONGUE ERREURLONGUE ERREURLONGUE ERREURLONGUE ERREURLONGUE ERREURLONGUE ERREURLONGUE ERREURLONGUE ERREURLONGUE ERREURLONGUE ERREUR') }}
-        </div>
+        @endif
     </div>
 
     @auth

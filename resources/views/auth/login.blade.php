@@ -17,7 +17,7 @@
 
             <!-- Password -->
             <div class="grid grid-cols-5">
-                <label for="password" class="pr-5 align-middle col-span-2">{{ __('Password') }}</label>
+                <label for="password" class="pr-5 align-middle col-span-2">Mot de passe</label>
                 <input type="password" name="password" id="password" class="col-span-2" required/>
             </div>
 
@@ -26,7 +26,7 @@
             @enderror
 
             <div class="grid grid-cols-5">
-                <label for="remember_me" class="pr-5 align-middle col-span-2">{{ __('Remember me') }}</label>
+                <label for="remember_me" class="pr-5 align-middle col-span-2">Rester connecté</label>
                 <input id="remember_me" type="checkbox" name="remember" class="col-span-2">
             </div>
 

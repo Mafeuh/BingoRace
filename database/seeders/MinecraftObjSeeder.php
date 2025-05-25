@@ -15,8 +15,8 @@ class MinecraftObjSeeder extends Seeder
      */
     public function run(): void
     {
-        PublicObjective::delete();
-        Objective::delete();
+        PublicObjective::truncate();
+        Objective::truncate();
 
         $minecraft = Game::find(1);
 

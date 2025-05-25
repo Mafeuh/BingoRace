@@ -18,7 +18,7 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         Game::GeneratePublicGames();
-        Objective::GeneratePublicObjectives();
+        //Objective::GeneratePublicObjectives();
         Permission::GeneratePermissions();
 
         $moi = User::create([

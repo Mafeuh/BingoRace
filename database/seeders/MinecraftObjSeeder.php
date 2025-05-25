@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Game;
+use App\Models\Objective;
 use App\Models\PublicObjective;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -14,6 +15,9 @@ class MinecraftObjSeeder extends Seeder
      */
     public function run(): void
     {
+        PublicObjective::delete();
+        Objective::delete();
+
         $minecraft = Game::find(1);
 
         $objectifs = [
@@ -55,6 +59,12 @@ class MinecraftObjSeeder extends Seeder
             'Faire un générateur à cobble de 0',
             'Pêcher autre chose qu\'un poisson',
             'Boire une potion',
+            'Adopter un chien',
+            'Adopter un perroquet',
+            'Chevaucher un cochon',
+            'Trade avec un villageois',
+            'Enchanter un objet',
+            'Chevaucher un Strider',
         ];
         
         foreach($objectifs as $obj) {

@@ -13,7 +13,7 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::get('/', function () {
-    if(Auth::check()) {
+    if(auth()->check()) {
         return view('auth-home');
     } else {
         return view('unauth-home');
@@ -54,7 +54,9 @@ Route::middleware('auth')->group(function () {
 
         Route::get('wait', [RoomController::class,'wait']);
 
-        Route::get('start', [RoomController::class,'start']);
+        Route::post('start', [RoomController::class,'start'])->name('room-start');
+        Route::get('play', [RoomController::class, 'play']);
+
     });
 });
 

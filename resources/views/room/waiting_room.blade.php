@@ -31,8 +31,14 @@
                 <div class="mt-10 text-center text-xl">
                     Une fois tous les participants présents, clique sur <span class="font-bold">Commencer</span> !
                 </div>
-                <div class="mt-5 text-center">
-                    <a href="/room/start" class="text-xl bg-green-500 px-5 py-3 rounded-full font-bold hover:bg-green-700">Commencer !</a>
+
+                <form action="{{ route('room-start') }}" method="POST">
+                    @csrf
+                    <button class="text-xl bg-green-500 px-5 py-3 rounded-full font-bold hover:bg-green-700" type="submit">Commencer !</button>
+                </form>
+            @else
+                <div wire:poll-1s>
+                    <x-redirect :check="$room->started" url="/room/play"/>
                 </div>
             @endif
         </div>

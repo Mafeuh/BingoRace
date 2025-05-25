@@ -97,6 +97,15 @@ class RoomController extends Controller
     public function start() {
         $room = Room::find(session('last_joined_room_id'));
 
+        $room->started = true;
+        $room->save();
+
+        return redirect("/room/play");
+    }
+
+    public function play() {
+        $room = Room::find(session('last_joined_room_id'));
+
         return view('room.play', [
             'room' => $room
         ]);

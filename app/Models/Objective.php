@@ -24,7 +24,7 @@ class Objective extends Model
     }
 
     public function game() {
-        return $this->belongsTo(Game::class, 'id', 'game_id');
+        return $this->belongsTo(Game::class, 'game_id', 'id');
     }
 
     public function objectiveable() {

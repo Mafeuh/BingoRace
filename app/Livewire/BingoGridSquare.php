@@ -34,6 +34,16 @@ class BingoGridSquare extends Component
             SquareChecked::dispatch($this->square->id);
 
             $this->square = \App\Models\BingoGridSquare::find($this->square->id);
+        } else {
+            $team = Team::findMany(
+                auth()->user()->participations->pluck('participant.team_id')
+            )->where('room_id', $this->square->grid->room_id)->first();
+
+            if($this->square->checked_by_team_id == $team->id) {
+                $this->square->checked_at = null;
+                $this->square->checked_by_team_id = null;
+                $this->square->save();
+            }
         }
     }
 

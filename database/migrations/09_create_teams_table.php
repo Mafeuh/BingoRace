@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('color');
             $table->foreignId('room_id')->references('id')->on('rooms');
+            $table->string('image_url')->nullable();
             $table->timestamps();
         });
     }

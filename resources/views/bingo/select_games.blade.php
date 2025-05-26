@@ -9,8 +9,8 @@
         <form action="/start" method="POST">
             @csrf
             <div class="grid grid-cols-2">
-                <div class="bg-green-100 mr-5 rounded-3xl">
-                    <h1 class="text-center text-xl my-3">Jeux Publics</h1>
+                <div class="bg-green-100 mr-5 rounded-3xl p-5">
+                    <p class="text-center font-bold text-xl">Jeux Publics</p>
                     @if (sizeof($public_games) == 0)
                         <div class="text-center">Hm c'est pas normal ça. Normalement y'a plein de trucs ici et tout. Hm.</div>
                     @else
@@ -21,8 +21,8 @@
                     </div>
                     @endif
                 </div>
-                <div class="bg-green-100 ml-5 rounded-3xl">
-                    <h1 class="text-center text-xl my-3">Tes Jeux</h1>
+                <div class="bg-green-100 ml-5 rounded-3xl p-5">
+                    <p class="text-center font-bold text-xl">Tes Jeux</p>
 
                     @if (sizeof($user_games) == 0)
                         <div class="text-center">Tu n'as pas encore importé tes propres jeux !</div>

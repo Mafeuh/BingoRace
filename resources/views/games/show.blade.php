@@ -29,7 +29,7 @@
                 </div>
             @else
                 <div class="text-center">
-                    Ce jeu n'a pas d'objectif publique !
+                    Ce jeu n'a pas d'objectif public !
                 </div>
             @endif
 
@@ -65,9 +65,16 @@
         </div>
     </div>
 
-    <details>
-        <pre>
-            {{ json_encode($game, JSON_PRETTY_PRINT) }}
-        </pre>
-    </details>
+    @if (auth()->user()->hasPermission('admin') || $game->creator_id == auth()->user()->id)
+        <div class="bg-red-100 m-5 p-5 border-red-200 border-4">
+            <p class="text-xl text-red-400 font-bold">❗DANGER ZONE❗</p>
+
+            <form class="mt-5" action="{{ route('games.delete') }}" method="POST">
+                <input type="hidden" name="game_id" value="{{$game->id}}">
+                @csrf
+                <button type="submit" class="bg-red-500 p-3 text-white font-bold rounded-full">Supprimer le jeu</button>
+
+            </form>
+        </div>
+    @endif
 @endsection

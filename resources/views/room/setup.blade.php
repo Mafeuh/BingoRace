@@ -1,13 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <h1 class="text-3xl text-center">Préparation de la partie</h1>
-    <h2 class="text-center">Code de la salle:
-        <span x-data="{ hidden: true }" x-on:click="hidden = !hidden">
-            <span x-show="hidden" class="bg-gray-700 text-white rounded-md">Clique pour révéler !</span>
-            <span x-show="!hidden">{{ $room->code }}</span>
-        </span>
-    </h2>
+    <h1 class="text-3xl text-center font-bold -mt-5">Préparation de la partie</h1>
 
     <form action="/room/setup" method="POST">
         <div class="grid grid-cols-3 space-x-5 mt-5">

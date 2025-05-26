@@ -14,8 +14,14 @@ use Illuminate\Http\Request;
 class RoomController extends Controller
 {
     public function setup() {
+        $new_room = Room::create([
+            'creator_id' => auth()->user()->id
+        ]);
+
+        session()->put('last_joined_room_id', $new_room->id);
+
         return view("room.setup", [
-            'room' => Room::find(session('last_joined_room_id')),
+            'room' => Room::find($new_room->id),
             'games' => Game::findMany(session('new_room_games_ids')),
         ]);
     }
@@ -116,10 +122,15 @@ class RoomController extends Controller
             'code' => ['required', 'string', 'min:5', 'max:5']
         ]);
 
-        $room = Room::all()->where('code', $valid['code'])->first();
+        $room = Room::all()->where('code', mb_strtoupper($valid['code']))->first();
 
-        session()->put('last_joined_room_id', $room->id);
+        if ($room) {
+            session()->put('last_joined_room_id', $room->id);
+    
+            return redirect('/room/wait');
+        }
 
-        return redirect('/room/wait');
+        session()->flash('error', 'Ce salon n\'existe pas !');
+        return redirect()->back();
     }
 }

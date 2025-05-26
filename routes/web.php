@@ -16,7 +16,7 @@ Route::get('/', function () {
     if(auth()->check()) {
         return view('auth-home');
     } else {
-        return view('unauth-home');
+        return redirect('/login');
     }
 })->name('home');
 
@@ -29,9 +29,11 @@ Route::middleware('auth')->group(function () {
 
     Route::prefix('games')->group(function() {
         Route::get('new', [GamesController::class, 'new']);
-        Route::post('new', [GamesController::class, 'store']);
+        Route::post('new_post', [GamesController::class, 'store'])->name('games.new_post');
 
-        Route::get('list', [GamesController::class, 'list']);
+        Route::post('delete', [GamesController::class, 'delete'])->name('games.delete');
+
+        Route::get('list', [GamesController::class, 'list'])->name('games.list');
 
         Route::prefix('{game}')->group(function() {
             Route::get('', [GamesController::class,'show']);

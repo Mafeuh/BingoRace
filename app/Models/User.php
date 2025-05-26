@@ -44,4 +44,17 @@ class User extends Authenticatable
     public function participations() {
         return $this->hasMany(AuthParticipant::class, 'user_id', 'id');
     }
+
+    public function permissions() {
+        return $this->hasMany(UserPermission::class, 'user_id', 'id');
+    }
+
+    public function hasPermission(string $slug) {
+        foreach($this->permissions()->get() as $permission) {
+            if ($permission->permission->slug == $slug) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

@@ -7,19 +7,37 @@ use App\Models\AuthParticipant;
 use App\Models\Room;
 use App\Models\Team;
 use Livewire\Component;
+use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
+use Livewire\WithFileUploads;
 
 class ParticipantsList extends Component
 {
+    use WithFileUploads;
     public ?int $player_team_id = -1;
     public string $new_team_name = "";
     public string $new_team_color = "";
+    public ?TemporaryUploadedFile $new_team_image = null;
+
+    public function remove_image() {
+        $this->new_team_image = null;
+    }
 
     public function new_team() {
-        $new_team = Team::create([
-            "name" => $this->new_team_name,
-            "color" => $this->new_team_color,
-            "room_id"=> session("last_joined_room_id"),
-        ]);
+        if($this->new_team_color != "") {
+            $imageUrl = '';
+
+            if($this->new_team_image != null) {
+                $path = $this->new_team_image->store('public/images');
+                $imageUrl = str_replace('public', 'storage', $path);
+            }
+
+            $new_team = Team::create([
+                "name" => $this->new_team_name,
+                "color" => $this->new_team_color,
+                "room_id" => session("last_joined_room_id"),
+                "image_url" => $imageUrl
+            ]);
+        }
     }
 
     public function delete_team(int $team_id) {

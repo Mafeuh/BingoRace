@@ -38,7 +38,10 @@
                 </form>
             @else
                 <div wire:poll-1s>
-                    <x-redirect :check="$room->started" url="/room/play"/>
+                    @php
+                        $started = \App\Models\Room::find($room->id)->started;
+                    @endphp
+                    <x-redirect :check="$started" url="/room/play"/>
                 </div>
             @endif
         </div>

@@ -7,6 +7,7 @@ use App\Models\Permission;
 use App\Models\Room;
 use App\Models\User;
 use App\Models\Game;
+use App\Models\UserPermission;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -17,20 +18,17 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        Game::GeneratePublicGames();
-        //Objective::GeneratePublicObjectives();
         Permission::GeneratePermissions();
 
-        $moi = User::create([
-            'name' => 'Mafeuh',
-            'email' => 'leomafille.pro@gmail.com',
-            'password' => bcrypt('pass'),
+        $admin = User::create([
+            'email' => config('app.admin_email'),
+            'password' => bcrypt(config('app.admin_pass')),
+            'name' => 'Admin',
         ]);
 
-        $moi2 = User::create([
-            'name' => 'Raynavia',
-            'email' => 'mafmaf14.official@gmail.com',
-            'password' => bcrypt('pass')
+        UserPermission::create([
+            'user_id' => $admin->id,
+            'permission_id' => 1
         ]);
     }
 }

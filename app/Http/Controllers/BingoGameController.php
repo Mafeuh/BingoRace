@@ -28,12 +28,7 @@ class BingoGameController extends Controller
         if(!array_key_exists('game_checkboxes', $valid)) {
             return redirect('/start');
         }
-
-        $new_room = Room::create([
-            'creator_id' => auth()->user()->id
-        ]);
-
-        session()->put('last_joined_room_id', $new_room->id);
+        
         session()->put('new_room_games_ids', $valid['game_checkboxes']);
 
         return redirect('/room/setup');

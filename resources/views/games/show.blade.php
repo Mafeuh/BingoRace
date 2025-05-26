@@ -24,7 +24,7 @@
     <div class="grid grid-cols-2 gap-x-5">
         <div class="bg-green-100 p-5 rounded-3xl">
             <h2 class="text-2xl text-center mb-5">
-                Objectifs publics
+                {{ sizeof($game->public_objectives) }} objectifs publics
                 @if ($can_manage_public_objectives)
                     <span>
                         <a href="/games/{{$game->id}}/objective"
@@ -53,7 +53,7 @@
 
         <div class="bg-green-100 p-5 rounded-3xl">
             <h2 class="text-2xl text-center mb-5">
-                Tes objectifs personnalisés
+                Tes {{ sizeof($game->private_objectives) }} objectifs personnalisés
                 <span>
                     <a href="/games/{{$game->id}}/objective"
                     class="bg-green-500 px-3 py-3 rounded-full right hover:bg-green-600">

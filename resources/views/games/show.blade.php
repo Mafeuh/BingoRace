@@ -1,26 +1,42 @@
 @extends('layouts.app')
 
 @section('content')
+    @php
+        $can_manage_public_objectives = auth()->user()->isAdmin() || auth()->user()->id == $game->creator_id;
+    @endphp
+
     <h1 class="text-3xl text-center">Informations sur <span class="font-bold">{{$game->name}}</span></h1>
 
     <div class="m-5 text-center">
-        @if($game->creator_id == null)
-            <div>Ce jeu est un jeu public ! N'importe qui peut ajouter ses propres objectifs dessus pour ses parties personnelles.</div>
-        @elseif ($game->creator_id == auth()->user()->id)
-            <div>C'est ton jeu, c'est tes règles ! Importe tes propres objectifs, privés ou publiques !</div>
+        @if (auth()->user()->isAdmin())
+            <div>Vous êtes admin ! Vous avez tous les droits mouahahaha !</div>
         @else
-            <div>Ce jeu a été ajouté par {{$game->creator->name}}. C'est le/la seul.e personne à pouvoir ajouter des objectifs.</div>
-        @endisset
+            @if($game->creator_id == null)
+                <div>Ce jeu est un jeu public ! N'importe qui peut ajouter ses propres objectifs dessus pour ses parties personnelles.</div>
+            @elseif ($game->creator_id == auth()->user()->id)
+                <div>C'est ton jeu, c'est tes règles ! Importe tes propres objectifs, privés ou publiques !</div>
+            @else
+                <div>Ce jeu a été ajouté par {{$game->creator->name}}. C'est le/la seul.e personne à pouvoir ajouter des objectifs.</div>
+            @endif
+        @endif
     </div>
 
     <div class="grid grid-cols-2 gap-x-5">
         <div class="bg-green-100 p-5 rounded-3xl">
-            <h2 class="text-2xl text-center mb-5">Objectifs publics</h2>
+            <h2 class="text-2xl text-center mb-5">
+                Objectifs publics
+                @if ($can_manage_public_objectives)
+                    <span>
+                        <a href="/games/{{$game->id}}/objective"
+                            class="bg-green-500 px-3 py-3 rounded-full hover:bg-green-600">➕</a>
+                    </span>
+                @endif
+            </h2>
             @if(sizeof($game->public_objectives) > 0)
                 <div class="grid grid-cols-2 gap-2">
                     @foreach ($game->public_objectives as $pub_obj)
                         <div class="relative bg-white px-10 py-2 text-center rounded-xl">
-                            @if ($game->creator_id == auth()->user()->id)
+                            @if ($can_manage_public_objectives)
                                 <a class="absolute right-5" href="/objectives/{{$pub_obj->id}}/delete">❌</a>
                             @endif
                             {{$pub_obj->description}}
@@ -33,16 +49,18 @@
                 </div>
             @endif
 
-            @if ($game->creator_id == auth()->user()->id)
-                <div class="text-right mt-10">
-                    <a href="/games/{{$game->id}}/objective"
-                        class="bg-green-500 px-3 py-3 rounded-full right hover:bg-green-600">➕</a>
-                </div>
-            @endif
         </div>
 
         <div class="bg-green-100 p-5 rounded-3xl">
-            <h2 class="text-2xl text-center mb-5">Tes objectifs personnalisés</h2>
+            <h2 class="text-2xl text-center mb-5">
+                Tes objectifs personnalisés
+                <span>
+                    <a href="/games/{{$game->id}}/objective"
+                    class="bg-green-500 px-3 py-3 rounded-full right hover:bg-green-600">
+                    ➕
+                    </a>
+                </span>
+            </h2>
             @if(sizeof($game->private_objectives) > 0)
                 <div class="grid grid-cols-2 gap-2">
                     @foreach ($game->private_objectives as $priv_obj)
@@ -57,11 +75,6 @@
                     Vous n'avez pas encore créé d'objectif !
                 </div>
             @endif
-
-            <div class="text-right mt-10">
-                <a href="/games/{{$game->id}}/objective"
-                    class="bg-green-500 px-3 py-3 rounded-full right hover:bg-green-600">➕</a>
-            </div>
         </div>
     </div>
 

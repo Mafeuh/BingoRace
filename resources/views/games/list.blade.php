@@ -4,6 +4,9 @@
 
 <div>
     <h1 class="text-3xl text-center font-bold -mt-5 mb-5">Liste des jeux</h1>
+    <div class="text-center m-5">
+        <a href="/games/new" class="bg-green-500 p-2 rounded-full hover:bg-green-700">Créer un jeu !</a>
+    </div>
 
     <div class="grid grid-cols-2 gap-x-10">
         <div class="bg-green-100 rounded-3xl p-5 font-bold">

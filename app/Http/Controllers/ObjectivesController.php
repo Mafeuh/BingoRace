@@ -6,6 +6,7 @@ use App\Models\Game;
 use App\Models\Objective;
 use App\Models\PrivateObjective;
 use App\Models\PublicObjective;
+use App\View\Components\redirect;
 use Illuminate\Http\Request;
 
 class ObjectivesController extends Controller
@@ -16,46 +17,50 @@ class ObjectivesController extends Controller
 
     public static function post(Game $game){
         $valid = request()->validate([
-            'description' => [
-                'required',
-                'string',
-                'min:10',
-                'max:255'
-            ],
-            'visibility' => ['required']
+            'objectives' => ['string', 'required'],
+            'visibility' => ['string', 'required']
         ]);
 
-        if($valid['visibility'] == 'private') {
-            $obj = PrivateObjective::create([
-                'user_id' => auth()->user()->id
-            ]);
+        $objectives = mb_split('\r\n', $valid['objectives']);
 
-            $obj->objective()->create(['description' => $valid['description'], 'game_id' => $game->id]);
+        if($valid['objectives']) {
+            if($valid['visibility'] == 'public') {
+                foreach($objectives as $obj) {
+                    $pub = PublicObjective::create([]);
+                    $pub->objective()->create([
+                        'game_id' => $game->id,
+                        'description' => $obj
+                    ]);
+                }
+            } elseif($valid['visibility'] == 'private') {
+                foreach($objectives as $obj) {
+                    $pub = PrivateObjective::create([
+                        'user_id' => auth()->user()->id
+                    ]);
+                    $pub->objective()->create([
+                        'game_id' => $game->id,
+                        'description' => $obj
+                    ]);
+                }
+            }
         }
 
-        else if($valid['visibility'] == 'public') {
-            $obj = PublicObjective::create([]);
+        session()->flash('message', sizeof($objectives) . ' ajouté(s) à ' . $game->name);
 
-            $obj->objective()->create(['description'=> $valid['description'], 'game_id' => $game->id]);
-        }
-
-        else if($valid['visibility'] == 'team') {
-            //TODO: Implémenter la fonctionnalité d'équipe!
-
-            $obj = PrivateObjective::create([
-                'user_id'=> auth()->user()->id
-            ]);
-
-            $obj->objective()->create(['description'=> $valid['description'], 'game_id' => $game->id]);
-        }
-
-        return redirect("/games/$game->id");
+        return redirect()->back();
     }
 
     public function delete(int $id)
     {
         $objective = Objective::find($id);
-        $objective->delete();
+
+        if($objective->game->creator_id == auth()->user()->id || auth()->user()->isAdmin()) {
+            $objective->delete();
+            session()->flash('message', 'Objectif supprimé !');
+        } else {
+            session()->flash('error', 'Vous ne pouvez pas supprimer cet objectif !');
+        }
+
 
         return redirect()->back();
     }

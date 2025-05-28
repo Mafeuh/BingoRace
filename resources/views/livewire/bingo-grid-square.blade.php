@@ -1,4 +1,4 @@
-@props(['square'])
+@props(['square', 'editable'])
 
 <div wire:poll.1s wire:click="try_check" @class([
         'size-32 lg:size-36 rounded-lg flex items-center justify-center m-1 border border-4', 
@@ -11,7 +11,7 @@
         <div>
             {{ $square->objective->game->name }}
         </div>
-        <div>
+        <div class="text-sm">
             {{$square->objective->description}}
         </div>
     </div>
@@ -34,6 +34,4 @@
         ">
     </div>
     @endif
-
-
 </div>

@@ -4,7 +4,7 @@
 <div class="h-fit">
     <div class="grid grid-cols-3 h-fit">
         <div class="bg-white p-3 shadow-inner shadow-green-100 rounded-3xl h-fit">
-            <livewire:participants-list />
+            <livewire:participants-list :room="$room" />
         </div>
         <div class="col-span-2">
             <div>
@@ -27,22 +27,21 @@
                 </div>
             </div>
 
+            <div class="justify-center flex text-center my-4">
+                <livewire:room-timer-setter :room="$room" :disabled="auth()->user()->id !== $room->creator_id"/>
+            </div>
+
             @if (auth()->user()->id == $room->creator_id)
                 <div class="mt-10 text-center text-xl">
                     Une fois tous les participants présents, clique sur <span class="font-bold">Commencer</span> !
                 </div>
 
-                <form action="{{ route('room-start') }}" method="POST">
+                <form action="{{ route('room-start') }}" method="POST" class="text-center">
                     @csrf
-                    <button class="text-xl bg-green-500 px-5 py-3 rounded-full font-bold hover:bg-green-700" type="submit">Commencer !</button>
+                    <button class="text-xl bg-green-500 px-5 py-3 rounded-full font-bold hover:bg-green-700 active:animate-ping" type="submit">Commencer !</button>
                 </form>
             @else
-                <div wire:poll-1s>
-                    @php
-                        $started = \App\Models\Room::find($room->id)->started;
-                    @endphp
-                    <x-redirect :check="$started" url="/room/play"/>
-                </div>
+                <livewire:redirect-to-room :room="$room" />
             @endif
         </div>
 

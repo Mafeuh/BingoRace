@@ -6,6 +6,7 @@ use App\Models\Participant;
 use App\Models\AuthParticipant;
 use App\Models\Room;
 use App\Models\Team;
+use App\Models\User;
 use Livewire\Component;
 use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
 use Livewire\WithFileUploads;
@@ -13,10 +14,21 @@ use Livewire\WithFileUploads;
 class ParticipantsList extends Component
 {
     use WithFileUploads;
+
+    public ?Room $room = null;
     public ?int $player_team_id = -1;
     public string $new_team_name = "";
     public string $new_team_color = "";
     public ?TemporaryUploadedFile $new_team_image = null;
+
+    public ?Team $userTeam = null;
+
+    public function mount(Room $room)
+    {
+        $this->room = $room;
+        $this->userTeam = $this->user_in_team(auth()->user());
+    }
+
 
     public function remove_image() {
         $this->new_team_image = null;
@@ -34,7 +46,7 @@ class ParticipantsList extends Component
             $new_team = Team::create([
                 "name" => $this->new_team_name,
                 "color" => $this->new_team_color,
-                "room_id" => session("last_joined_room_id"),
+                "room_id" => $this->room->id,
                 "image_url" => $imageUrl
             ]);
         }
@@ -60,10 +72,22 @@ class ParticipantsList extends Component
         $auth->participant()->create([
             'team_id' => $team_id,
         ]);
+
+        $this->userTeam = Team::find($team_id);
     }
 
     public function leave_team() {
+        foreach ($this->userTeam->participants as $participant) {
+            if (
+                $participant->participantable_type === AuthParticipant::class &&
+                optional($participant->participantable->user)->id === auth()->id()
+            ) {
+                $participant->delete();
+            }
+        }
+
         $this->player_team_id = -1;
+        $this->userTeam = null;
     }
 
     public function render()
@@ -71,5 +95,20 @@ class ParticipantsList extends Component
         return view('livewire.participants-list', [
             'room' => Room::find(session('last_joined_room_id')),
         ]);
+    }
+
+    public function user_in_team(User $user): ?Team
+    {
+        foreach ($this->room->teams as $team) {
+            foreach ($team->participants as $participant) {
+                if (
+                    $participant->participantable_type === AuthParticipant::class &&
+                    optional($participant->participantable->user)->id === $user->id
+                ) {
+                    return $team;
+                }
+            }
+        }
+        return null;
     }
 }

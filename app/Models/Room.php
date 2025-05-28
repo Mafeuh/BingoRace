@@ -33,6 +33,10 @@ class Room extends Model
         return $code;
     }
 
+    public function hasStarted() {
+        return $this->started_at != null;
+    }
+
     private static function generateCode($length = 5) {
         return substr(str_shuffle(str_repeat('0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ', ceil($length/strlen('0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ')))), 1, $length);
     }

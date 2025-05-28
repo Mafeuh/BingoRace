@@ -2,7 +2,6 @@
 
 <div wire:poll.1s>
     <div class="text-xl text-center">{{ sizeof($room->teams) }} équipes</div>
-
     <div class="text-center">
         <i class="text-sm">Si tu peux pas supprimer une équipe, reload la page</i>
     </div>
@@ -26,11 +25,11 @@
                 @endforeach
 
                 <div class="text-center">
-                    @if ($player_team_id == -1)
+                    @if (!$userTeam)
                         <button wire:click='join_team({{ $team->id }})'>Rejoindre</button>
                     @endif
 
-                    @if ($player_team_id == $team->id)
+                    @if ($userTeam?->id == $team->id)
                         <button wire:click='leave_team()'>Quitter l'équipe</button>
                     @endif
 

@@ -38,7 +38,7 @@
                 </div>
             @endguest
 
-            <div class="text-white text-3xl font-bold text-center">BingoRace!</div>
+            <div class="text-white text-3xl font-bold text-center"><a href="/" class="select-none">BingoRace!</a></div>
 
             @auth
             <div class="text-center py-5">

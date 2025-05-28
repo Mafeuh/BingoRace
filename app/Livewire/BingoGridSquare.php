@@ -10,6 +10,7 @@ use \App\Models\BingoGridSquare as BingoGridSquareModel;
 
 class BingoGridSquare extends Component
 {
+    public bool $editable;
     public BingoGridSquareModel $square;
 
     #[On('echo:bingo-room,SquareChecked')]
@@ -22,27 +23,29 @@ class BingoGridSquare extends Component
     }
 
     public function try_check() {
-        if(!$this->square->checked_at) {
-            $this->square->checked_at = now();
-
-            $team = Team::findMany(
-                auth()->user()->participations->pluck('participant.team_id')
-            )->where('room_id', $this->square->grid->room_id)->first();
-            $this->square->checked_by_team_id = $team->id;
-            $this->square->save();
-
-            //SquareChecked::dispatch($this->square->id);
-
-            $this->square = \App\Models\BingoGridSquare::find($this->square->id);
-        } else {
-            $team = Team::findMany(
-                auth()->user()->participations->pluck('participant.team_id')
-            )->where('room_id', $this->square->grid->room_id)->first();
-
-            if($this->square->checked_by_team_id == $team->id) {
-                $this->square->checked_at = null;
-                $this->square->checked_by_team_id = null;
+        if($this->editable) {
+            if(!$this->square->checked_at) {
+                $this->square->checked_at = now();
+    
+                $team = Team::findMany(
+                    auth()->user()->participations->pluck('participant.team_id')
+                )->where('room_id', $this->square->grid->room_id)->first();
+                $this->square->checked_by_team_id = $team->id;
                 $this->square->save();
+    
+                //SquareChecked::dispatch($this->square->id);
+    
+                $this->square = \App\Models\BingoGridSquare::find($this->square->id);
+            } else {
+                $team = Team::findMany(
+                    auth()->user()->participations->pluck('participant.team_id')
+                )->where('room_id', $this->square->grid->room_id)->first();
+    
+                if($this->square->checked_by_team_id == $team->id) {
+                    $this->square->checked_at = null;
+                    $this->square->checked_by_team_id = null;
+                    $this->square->save();
+                }
             }
         }
     }

@@ -8,6 +8,8 @@ use App\Models\Game;
 use App\Models\Objective;
 use App\Models\Room;
 use App\Models\Team;
+use App\View\Components\redirect;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 
@@ -18,7 +20,8 @@ class RoomController extends Controller
             'creator_id' => auth()->user()->id
         ]);
 
-        session()->put('last_joined_room_id', $new_room->id);
+        auth()->user()->last_joined_room_id = $new_room->id;
+        auth()->user()->save();
 
         return view("room.setup", [
             'room' => Room::find($new_room->id),
@@ -70,7 +73,7 @@ class RoomController extends Controller
             ->limit($height * $width)
             ->get();
 
-        $room = Room::find(session('last_joined_room_id'));
+        $room = Room::find(auth()->user()->last_joined_room_id);
         $room->grid()->create([
             'width' => $width,
             'height' => $height
@@ -95,26 +98,37 @@ class RoomController extends Controller
     }
 
     public function wait() {
+        $r = Room::find(auth()->user()->last_joined_room_id);
+
         return view('room.waiting_room', [
-            'room' => Room::find(session('last_joined_room_id'))
+            'room' => $r
         ]);
     }
 
     public function start() {
-        $room = Room::find(session('last_joined_room_id'));
+        $room = Room::find(auth()->user()->last_joined_room_id);
 
-        $room->started = true;
+        $room->started_at = now();
         $room->save();
 
         return redirect("/room/play");
     }
 
     public function play() {
-        $room = Room::find(session('last_joined_room_id'));
+        $room = Room::find(auth()->user()->last_joined_room_id);
 
-        return view('room.play', [
-            'room' => $room
-        ]);
+        $cache_hide_time = Carbon::parse($room->started_at)->addSeconds(10)->setTimezone('UTC');
+
+        if($room->started_at != null) {
+            return view('room.play', [
+                'room' => $room,
+                'cache_hide_time' => $cache_hide_time->timestamp,
+                'server_time' => now()->timestamp
+            ]);
+        } else {
+            session()->flash('message', 'Cette salle n\'a pas encore commencé !');
+            return redirect()->back();
+        }
     }
 
     public function join() {
@@ -125,7 +139,8 @@ class RoomController extends Controller
         $room = Room::all()->where('code', mb_strtoupper($valid['code']))->first();
 
         if ($room) {
-            session()->put('last_joined_room_id', $room->id);
+            auth()->user()->last_joined_room_id = $room->id;
+            auth()->user()->save();
     
             return redirect('/room/wait');
         }

@@ -15,7 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('code', 5)->unique()->nullable();
             $table->foreignId('creator_id')->references('id')->on('users');
-            $table->boolean('started')->default(false);
+            $table->timestamp('started_at')->nullable();
+            $table->unsignedInteger('duration_seconds')->nullable();
             $table->timestamps();
         });
     }

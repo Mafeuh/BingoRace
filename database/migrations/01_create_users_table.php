@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->foreignId('last_joined_room_id')->nullable()->references('id')->on('rooms');
             $table->rememberToken();
             $table->timestamps();
         });

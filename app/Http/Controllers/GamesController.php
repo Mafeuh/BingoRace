@@ -63,7 +63,7 @@ class GamesController extends Controller
 
         $obj_count = sizeof($public_objectives) + sizeof($private_objectives);
 
-        session()->flash('message', 'Le jeu '.$name.' a bien été créé'.($obj_count > 0 ? `, avec $obj_count objectifs` : '').'.');
+        session()->flash('message', 'Le jeu '.$name.' a bien été créé'.($obj_count > 0 ? ', avec '.$obj_count.' objectifs' : '').'.');
 
         return redirect('/games/'.$g->id);
     }

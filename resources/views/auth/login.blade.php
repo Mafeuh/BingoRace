@@ -22,7 +22,7 @@
     
                 <!-- Password -->
                 <div class="flex flex-col">
-                    <x-form.label for="email">E-mail</x-form.label>
+                    <x-form.label for="password">Mot de passe</x-form.label>
                     <x-form.password-input name="password" required :value="old('password')" placeholder="Mot de passe"/>
     
                     @error('password')

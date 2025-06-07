@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="h-full flex items-center justify-center">
-    <div class="bg-green-100 p-10 rounded-3xl shadow-lg shadow-green-300">
+    <div class="bg-white p-10 rounded-3xl shadow-lg shadow-white">
         <h1 class="text-3xl font-bold text-center">{{ __('Connexion') }}</h1>
         <!-- Session Status -->
         <x-auth-session-status class="mb-4" :status="session('status')" />
@@ -41,7 +41,7 @@
                 </div>
     
                 <div class="text-center">
-                    Pas de compte ? <a href="/register" class="text-green-600 font-bold">Inscrivez-vous !</a>
+                    Pas de compte ? <a href="/register" class="text-green-600 font-bold">Inscris-toi !</a>
                 </div>
             </div>
     

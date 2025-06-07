@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="justify-center flex h-full">
-    <form enctype="multipart/form-data" method="POST" action="{{ route('games.new_post') }}" class="bg-green-50 px-40 py-10 rounded-3xl" name="blbblbblblb">
+    <form enctype="multipart/form-data" method="POST" action="{{ route('games.new_post') }}" class="bg-white px-40 py-10 rounded-3xl" name="blbblbblblb">
         @csrf
         <h1 class="text-3xl text-center font-bold">Création d'un jeu</h1>
         <div class="text-center my-5">

@@ -14,7 +14,7 @@
             @if($game->creator_id == null)
                 <div>Ce jeu est un jeu public ! N'importe qui peut ajouter ses propres objectifs dessus pour ses parties personnelles.</div>
             @elseif ($game->creator_id == auth()->user()->id)
-                <div>C'est ton jeu, c'est tes règles ! Importe tes propres objectifs, privés ou publiques !</div>
+                <div>C'est ton jeu, c'est tes règles ! Importe tes propres objectifs, privés ou publics !</div>
             @else
                 <div>Ce jeu a été ajouté par {{$game->creator->name}}. C'est le/la seul.e personne à pouvoir ajouter des objectifs.</div>
             @endif
@@ -78,15 +78,24 @@
         </div>
     </div>
 
-    @if (auth()->user()->hasPermission('admin') || $game->creator_id == auth()->user()->id)
+    @if (auth()->user()->isAdmin() || $game->creator_id == auth()->user()->id)
         <div class="bg-red-100 m-5 p-5 border-red-200 border-4">
             <p class="text-xl text-red-400 font-bold">❗DANGER ZONE❗</p>
 
-            <form class="mt-5" action="{{ route('games.delete') }}" method="POST">
-                <input type="hidden" name="game_id" value="{{$game->id}}">
+            <form class="my-5" action="{{ route('games.delete') }}" method="POST">
                 @csrf
+                <input type="hidden" name="game_id" value="{{$game->id}}">
                 <button type="submit" class="bg-red-500 p-3 text-white font-bold rounded-full">Supprimer le jeu</button>
-
+            </form>
+            <hr class="border-red-200 border-2">
+            <form class="mt-5" action="{{ route('games.rename')}}" method="POST">
+                @csrf
+                <input type="hidden" name="game_id" value="{{$game->id}}">
+                <div>
+                    <label class="text-red-500 font-bold" for="new_name">Renommer le jeu</label>
+                </div>
+                <x-form.text-input :value="$game->name" name="new_name"/>
+                <button type="submit" class="bg-red-500 p-3 text-white font-bold rounded-full">Valider</button>
             </form>
         </div>
     @endif

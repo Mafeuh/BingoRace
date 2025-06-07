@@ -9,7 +9,7 @@
     </div>
 
     <div class="grid grid-cols-2 gap-x-10">
-        <div class="bg-green-100 rounded-3xl p-5 font-bold">
+        <div class="bg-white rounded-3xl p-5 font-bold">
             <h2 class="text-xl text-center">Jeux publics</h2>
             <div class="grid grid-cols-3 gap-5 mt-5">
                 @foreach ($public_games as $game_it)
@@ -20,7 +20,7 @@
             </div>
         </div>
 
-        <div class="bg-green-100 rounded-3xl p-5 font-bold">
+        <div class="bg-white rounded-3xl p-5 font-bold">
             <h2 class="text-xl text-center">Jeux personnels</h2>
             <div class="grid grid-cols-3 gap-5 mt-5">
                 @forelse ($user_games as $game_it)

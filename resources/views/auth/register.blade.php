@@ -3,7 +3,7 @@
 @section('content')
 <div class="h-full flex items-center justify-center">
 
-    <div class="bg-green-100 mx-20 px-20 py-10 rounded-3xl shadow-lg shadow-green-300">
+    <div class="bg-white mx-20 px-20 py-10 rounded-3xl shadow-lg shadow-white">
         <h1 class="text-3xl font-bold text-center">{{ __('Register') }}</h1>
         
         <form method="POST" action="/register" class="flex justify-center items-center">
@@ -40,6 +40,9 @@
                 
                 <div class="text-center">
                     <x-form-validation>S'inscrire !</x-form-validation>
+                </div>
+                <div class="text-center">
+                    Déjà un compte ? <a href="/login" class="text-green-600 font-bold">Connecte-toi !</a>
                 </div>
             </div>
             

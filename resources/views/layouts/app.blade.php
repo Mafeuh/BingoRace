@@ -13,42 +13,53 @@
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
         <script src="https://cdn.tailwindcss.com"></script>
         <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+        @vite('resources/css/app.css')
 
         @livewireStyles
     </head>
     <body class="h-screen flex flex-col">
-        <div class="bg-green-400 py-4">
+        <div class="bg-emerald-700 py-4">
             @auth
-            <form class="absolute ml-5" method="POST" action="/join">
-                @csrf
-                <div>Rejoindre une partie</div>
-                <div class="flex">
-                    <input name="code" class="text-center bg-green-300 border-0 border-b-2 w-20 rounded-l-xl mr-0 focus:outline-none" type="text" maxlength="5" placeholder="Code">
-                    <button class="bg-green-600 p-2 rounded-r-xl hover:bg-green-900 hover:text-white hover:font-extrabold" type="submit">Rejoindre</button>
-                </div>
-                @error('code')
-                    <div>{{ $message }}</div>
-                @enderror
-            </form>
+                <form class="ml-5 absolute" method="POST" action="/join">
+                    @csrf
+                    <div class="font-bold text-white">Rejoindre une partie</div>
+                    <div class="flex-col">
+                        <div class="flex">
+                            <input name="code" class="text-center bg-emerald-300 border-0 border-b-2 w-20 rounded-l-xl mr-0 focus:outline-none" type="text" maxlength="5" placeholder="Code">
+                            <button class="bg-emerald-600 p-2 rounded-r-xl hover:bg-emerald-900 hover:text-white hover:font-extrabold" type="submit">Rejoindre</button>
+                        </div>
+                        <div>
+                            @error('code')
+                                <div>{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+                </form>
             @endauth
-            @guest
+            {{-- @guest
                 <div class="absolute right-0">
-                    <a class="bg-green-200 px-4 py-2 rounded-2xl" href="/login">Connexion</a>
-                    <a class="bg-green-200 px-4 py-2 rounded-2xl" href="/register">Inscription</a>
+                    <a class="bg-emerald-200 px-4 py-2 rounded-2xl" href="/login">Connexion</a>
+                    <a class="bg-emerald-200 px-4 py-2 rounded-2xl" href="/register">Inscription</a>
                 </div>
-            @endguest
+            @endguest --}}
 
-            <div class="text-white text-3xl font-bold text-center"><a href="/" class="select-none">BingoRace!</a></div>
-
+            <div class="my-4 text-transparent text-5xl font-bold text-center flex justify-center">
+                <div class="w-min hover:scale-110 transform transition-all duration-300 ease-in-out rotate-1">
+                    <a href="/" class="select-none bg-clip-text bg-gradient-to-r from-green-500 to-lime-200">
+                        BingoRace!
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="bg-gradient-to-b from-emerald-700 to-emerald-800">
             @auth
             <div class="text-center py-5">
                 <x-header-navbar></x-header-navbar>
             </div>
             @endauth
-
         </div>
 
-        <div class="bg-green-200 p-10 flex-grow">
+        <div class="bg-emerald-100 p-10 flex-grow" style="">
             @yield('content')
         </div>
 

@@ -32,6 +32,7 @@ Route::middleware('auth')->group(function () {
         Route::post('new_post', [GamesController::class, 'store'])->name('games.new_post');
 
         Route::post('delete', [GamesController::class, 'delete'])->name('games.delete');
+        Route::post('rename', [GamesController::class, 'rename'])->name('games.rename');
 
         Route::get('list', [GamesController::class, 'list'])->name('games.list');
 

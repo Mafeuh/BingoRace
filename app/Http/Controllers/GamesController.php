@@ -98,16 +98,44 @@ class GamesController extends Controller
 
     public function delete(Request $request) {
         $game_id = $request->get('game_id');
-
+        
         $game = Game::find($game_id);
 
-        $game->public_objectives()->delete();
-        $game->private_objectives()->delete();
+        if(!auth()->user()->isAdmin() || auth()->user()->id == $game->creator_id) {
+            session()->flash('error', 'Vous n\'avez pas la permission de supprimer ce jeu !');
 
-        session()->flash('message', 'Le jeu '.$game->name.' a été supprimé.');
+            return redirect()->back();
+        } else {
+            $game->public_objectives()->delete();
+            $game->private_objectives()->delete();
+    
+            session()->flash('message', 'Le jeu '.$game->name.' a été supprimé.');
+    
+            $game->delete();
+            
+            return to_route('games.list');
+        }
+    }
 
-        $game->delete();
+    public function rename(Request $request) {
+        $game_id = $request->get('game_id');
         
-        return to_route('games.list');
+        $game = Game::find($game_id);
+
+        if(!auth()->user()->isAdmin() || auth()->user()->id == $game->creator_id) {
+            session()->flash('error', 'Vous n\'avez pas la permission de renommer ce jeu !');
+
+            return redirect()->back();
+        } else {
+            $new_name = $request->get('new_name');
+            $old_name = $game->name;
+
+            $game->name = $new_name;
+            $game->save();
+
+            session()->flash('message', 'Le jeu '.$old_name.' a été renommé en '.$new_name.'.');
+                
+            return redirect()->back();
+        }
     }
 }

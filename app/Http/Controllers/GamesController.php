@@ -30,7 +30,7 @@ class GamesController extends Controller
         $imageUrl = '';
 
         if(key_exists('preview_image', $valid)) {
-            $path = request()->file('preview_image')->store('images', 'public');
+            $path = request()->file('preview_image')->store('public/images');
             $imageUrl = str_replace('public', 'storage', $path);
         }
 

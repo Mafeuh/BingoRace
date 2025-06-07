@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('bingo_grid_squares', function (Blueprint $table) {
-            $table->foreign('checked_bg_team_id')->references('id')->on('teams')->nullOnDelete();
+            $table->foreign('checked_by_team_id')->references('id')->on('teams')->nullOnDelete();
         });
     }
 

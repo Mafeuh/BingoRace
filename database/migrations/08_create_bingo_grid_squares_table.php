@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('grid_id')->references('id')->on('bingo_grids')->cascadeOnDelete();
             $table->foreignId('objective_id')->references('id')->on('objectives')->cascadeOnDelete();
             $table->dateTime('checked_at')->nullable();
-            $table->foreignId('checked_by_team_id')->nullable()->references('id')->on('teams')->nullOnDelete();
+            $table->foreignId('checked_by_team_id')->nullable();
             $table->timestamps();
         });
     }

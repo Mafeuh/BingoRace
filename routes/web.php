@@ -6,14 +6,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoomController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\GamesController;
-
-Route::get('/test', function() {
-    return view('test-timer');
-});
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+use App\Http\Middleware\CheckUserPermission;
 
 Route::get('/', function () {
     if(auth()->check()) {
@@ -26,9 +19,17 @@ Route::get('/', function () {
 Route::post('/join', [RoomController::class,'join']);
 
 Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::group([
+        'prefix' => 'admin',
+        'middleware' => [
+            CheckUserPermission::class . ':'
+        ]
+        ], function() {
+            Route::get('/', function() {
+
+            });
+        }
+    );
 
     Route::prefix('games')->group(function() {
         Route::get('new', [GamesController::class, 'new']);

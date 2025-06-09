@@ -13,7 +13,7 @@
             <p>Tu peux en quelques secondes créer une partie de Bingo, choisir un ou plusieurs jeux pour ta grille, choisir la taille de la grille, inviter des amis dans ta partie, créer des équipes et commencer à jouer !</p>
 
             <div class="justify-center flex m-5">
-                <img src="{{ asset('storage/images/grille.png') }}" class="w-2/3" alt="">
+                <img src="{{ asset('storage/images/grille.png') }}" class="w-2/5" alt="">
             </div>
 
             <p>Le site contient des <a href="/games/list" class="text-emerald-600 font-bold">jeux pré-définis</a>, avec des objectifs publics que tout le monde peut utiliser.</p>
@@ -25,14 +25,10 @@
             <h1 class="text-center text-emerald-600 text-2xl font-bold">
                 Les boutons pratiques
             </h1>
-            <div>
-                <a href="/start">Créer un salon</a>
-            </div>
-            <div>
-                <a href="/games/list">Liste des jeux publics</a>
-            </div>
-            <div>
-                <a href="/games/new">Créer un nouveau jeu</a>
+            <div class="space-x-2">
+                <a href="/start" class="p-2 bg-green-300 rounded-full shadow-green-300 shadow-sm">Créer un salon</a>
+                <a href="/games/list" class="p-2 bg-green-300 rounded-full shadow-green-300 shadow-sm">Liste des jeux publics</a>
+                <a href="/games/new" class="p-2 bg-green-300 rounded-full shadow-green-300 shadow-sm">Créer un nouveau jeu</a>
             </div>
             @if (sizeof(auth()->user()->private_games) > 0)
                 <h2>Tes jeux</h2>

@@ -27,7 +27,7 @@ class BingoGridSquare extends Component
 
     public function try_check() {
         $this->room = Room::find($this->square->grid->room_id);
-        if(now()->timestamp > \Carbon\Carbon::parse($this->room->started_at)->addSeconds($this->room->duration_seconds)->timestamp) {
+        // if(now()->timestamp > \Carbon\Carbon::parse($this->room->started_at)->addSeconds($this->room->duration_seconds)->timestamp) {
 
             if(!$this->square->checked_at) {
                 $this->square->checked_at = now();
@@ -53,7 +53,7 @@ class BingoGridSquare extends Component
                 }
             }
 
-        }
+        // }
     }
 
     public function render()

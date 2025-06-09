@@ -53,7 +53,12 @@
             }
         }
 
-        updateTimer();
-        var intervalId = setInterval(updateTimer, 1000);
+        if(Math.floor({{ $ends_at }} - Date.now() / 1000) > 0) {
+            updateTimer();
+            var intervalId = setInterval(updateTimer, 1000);
+        } else {
+            document.getElementById('timer').hidden = true;
+            dispatchEvent(timerEndedEvent);
+        }
     });
 </script>

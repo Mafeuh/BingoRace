@@ -7,10 +7,13 @@ use App\Models\Team;
 use Livewire\Attributes\On;
 use Livewire\Component;
 use \App\Models\BingoGridSquare as BingoGridSquareModel;
+use App\Models\Room;
 
 class BingoGridSquare extends Component
 {
     public bool $editable;
+
+    private Room $room;
     public BingoGridSquareModel $square;
 
     #[On('echo:bingo-room,SquareChecked')]
@@ -23,17 +26,19 @@ class BingoGridSquare extends Component
     }
 
     public function try_check() {
-        if($this->editable) {
+        $this->room = Room::find($this->square->grid->room_id);
+        if(now()->timestamp > \Carbon\Carbon::parse($this->room->started_at)->addSeconds($this->room->duration_seconds)->timestamp) {
+
             if(!$this->square->checked_at) {
                 $this->square->checked_at = now();
     
                 $team = Team::findMany(
                     auth()->user()->participations->pluck('participant.team_id')
                 )->where('room_id', $this->square->grid->room_id)->first();
-                $this->square->checked_by_team_id = $team->id;
-                $this->square->save();
-    
-                //SquareChecked::dispatch($this->square->id);
+                if($team) {
+                    $this->square->checked_by_team_id = $team->id;
+                    $this->square->save();
+                }
     
                 $this->square = \App\Models\BingoGridSquare::find($this->square->id);
             } else {
@@ -47,6 +52,7 @@ class BingoGridSquare extends Component
                     $this->square->save();
                 }
             }
+
         }
     }
 

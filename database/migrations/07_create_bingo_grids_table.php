@@ -16,6 +16,7 @@ return new class extends Migration
             $table->integer('width');
             $table->integer('height');
             $table->foreignId('room_id')->references('id')->on('rooms')->cascadeOnDelete();
+            $table->boolean('frozen')->default(false);
             $table->timestamps();
         });
     }

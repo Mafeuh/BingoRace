@@ -51,8 +51,9 @@
     @endphp
 
     @if ($room->duration_seconds != null)
-        <div id="timer" class="text-center -mt-4 mb-4">
-            <livewire:room-timer :room="$room"/>
+    <div class="-mt-8 flex justify-center mb-1">
+        <div id="timer" class="text-center justify-center">
+            <x-room-timer :room="$room"/>
     
             <script>
                 window.addEventListener('timer_ended', function() {
@@ -60,6 +61,7 @@
                 });
             </script>
         </div>
+    </div>
     @endif
 
     <div id="grid" @class(["relative justify-center flex-0 flex", 'opacity-0' => $cache_hide_time - $server_time > 0]) >
@@ -77,12 +79,12 @@
     </div>
     
     @isset($team)
-    <div class="text-center my-10 text-xl">
+    <div class="text-center my-4">
         Tu es dans l'équipe 
         <span class=" rounded-lg bg-[{{$team->color}}] px-3 py-2">{{ $team->name }}</span> !
     </div>
     @else
-    <div class="text-center my-10 text-xl">
+    <div class="text-center my-4 text-xl">
         Tu es spectateur !
     </div>
     @endisset

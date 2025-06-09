@@ -43,7 +43,7 @@
                 </div>
             @endguest --}}
 
-            <div class="my-4 text-transparent text-5xl font-bold text-center flex justify-center">
+            <div class="text-transparent text-4xl font-bold text-center flex justify-center">
                 <div class="w-min hover:scale-110 transform transition-all duration-300 ease-in-out rotate-1">
                     <a href="/" class="select-none bg-clip-text bg-gradient-to-r from-green-500 to-lime-200">
                         BingoRace!
@@ -53,7 +53,7 @@
         </div>
         <div class="bg-gradient-to-b from-emerald-700 to-emerald-800">
             @auth
-            <div class="text-center py-5">
+            <div class="text-center pb-4">
                 <x-header-navbar></x-header-navbar>
             </div>
             @endauth

@@ -7,6 +7,9 @@ use App\Http\Controllers\RoomController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\GamesController;
 
+Route::get('/test', function() {
+    return view('test-timer');
+});
 
 Route::get('/dashboard', function () {
     return view('dashboard');

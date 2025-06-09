@@ -1,1 +1,0 @@
-<input type="text" disabled class="w-32 text-center py-2 px-4 border-4 rounded-full  {{ $back_color }} {{ $border_color }} {{ $text_color }} text-2xl" value="{{ $displayed_time }}" wire:poll.1s="tick"></span>

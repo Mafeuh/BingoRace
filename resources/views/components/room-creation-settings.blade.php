@@ -1,12 +1,16 @@
 <div class="grid grid-cols-3 space-x-4">
     <div class="bg-green-50 p-4">
         <h2 class="text-xl">Grille</h2>
-        <div class="grid grid-cols-2 text-left">
-            <label for="grid_width">Largeur</label>
-            <input type="number" min="1" max="10" value="5" name="grid_width" id="grid_width">
+        <div class="grid grid-cols-2">
+            <div>
+                <x-form.label for="grid_width">Largeur de la grille</x-form.label>
+                <x-form.number-input name="grid_width" min="1" max="10" value="5"/>
+            </div>
 
-            <label for="grid_height">Hauteur</label>
-            <input type="number" min="1" max="10" value="5" name="grid_height" id="grid_height">
+            <div>
+                <x-form.label for="grid_height">Hauteur de la grille</x-form.label>
+                <x-form.number-input name="grid_height" min="1" max="10" value="5"/>
+            </div>
         </div>
     </div>
 

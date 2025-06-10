@@ -48,4 +48,8 @@ class Room extends Model
     public function grid() {
         return $this->hasOne(BingoGrid::class, 'room_id', 'id');
     }
+
+    public function games() {
+        return $this->belongsToMany(Game::class, RoomSelectedGame::class, 'room_id', 'game_id');
+    }
 }

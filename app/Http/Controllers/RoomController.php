@@ -16,16 +16,11 @@ use Illuminate\Http\Request;
 class RoomController extends Controller
 {
     public function setup() {
-        $new_room = Room::create([
-            'creator_id' => auth()->user()->id
-        ]);
-
-        auth()->user()->last_joined_room_id = $new_room->id;
-        auth()->user()->save();
+        $room = Room::find(auth()->user()->last_joined_room_id);
 
         return view("room.setup", [
-            'room' => Room::find($new_room->id),
-            'games' => Game::findMany(session('new_room_games_ids')),
+            'room' => $room,
+            'games' => $room->games,
         ]);
     }
 
@@ -34,19 +29,20 @@ class RoomController extends Controller
             'grid_height' => ['required', 'min:1', 'max:10'],
             'grid_width' => ['required', 'min:1', 'max:10'],
             'objective_type' => ['array'],
-            'objective_type.*' => []
+            'objective_type.*' => [],
+            'room_id' => []
         ]);
+
         if(!array_key_exists('objective_type', $valid)) {
             return redirect('/room/setup');
         }
         $height = $valid['grid_height'];
         $width = $valid['grid_width'];
+        $room = Room::find($valid['room_id']);
 
-        $games_ids = session('new_room_games_ids');
+        $games = $room->games;
 
         $total_objective_count = 0;
-
-        $games = Game::findMany($games_ids);
 
         $has_public = in_array('public', $valid['objective_type']);
         $has_private = in_array('private', $valid['objective_type']);

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BingoGameController;
 use App\Http\Controllers\ObjectivesController;
 use App\Http\Controllers\ProfileController;
@@ -25,9 +26,8 @@ Route::middleware('auth')->group(function () {
             CheckUserPermission::class . ':'
         ]
         ], function() {
-            Route::get('/', function() {
-
-            });
+            Route::get('/', [AdminController::class, 'index'])->name('admin.index');
+            Route::post('/join', [AdminController::class, 'join_room'])->name('admin.join_room');
         }
     );
 
@@ -63,7 +63,6 @@ Route::middleware('auth')->group(function () {
 
         Route::post('start', [RoomController::class,'start'])->name('room-start');
         Route::get('play', [RoomController::class, 'play']);
-
     });
 });
 

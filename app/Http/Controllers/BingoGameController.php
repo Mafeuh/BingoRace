@@ -4,15 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\Game;
 use App\Models\Room;
+use App\Models\RoomSelectedGame;
 use App\Rules\AtLeastOneCheckboxChecked;
+use App\View\Components\redirect;
 use Illuminate\Http\Request;
 
 class BingoGameController extends Controller
 {
     public static function start() {
-        session()->remove("last_joined_room_id");
-        session()->remove("new_room_games_ids");
-
         return view('bingo.select_games', [
             'public_games' => Game::whereNull('creator_id')->get(),
             'user_games' => Game::where('creator_id', '==', auth()->user()->id)->get()
@@ -28,9 +27,21 @@ class BingoGameController extends Controller
         if(!array_key_exists('game_checkboxes', $valid)) {
             return redirect('/start');
         }
-        
-        session()->put('new_room_games_ids', $valid['game_checkboxes']);
 
+        $new_room = Room::create([
+            'creator_id' => auth()->user()->id
+        ]);
+
+        auth()->user()->last_joined_room_id = $new_room->id;
+        auth()->user()->save();
+
+        foreach($valid['game_checkboxes'] as $game_id) {
+            RoomSelectedGame::create([
+                'room_id' => $new_room->id,
+                'game_id' => $game_id
+            ]);
+        }        
+        
         return redirect('/room/setup');
     }
 }

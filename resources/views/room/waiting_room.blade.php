@@ -14,6 +14,16 @@
                         <span x-show="hidden" class="bg-gray-700 text-white rounded-md">Clique pour révéler !</span>
                         <span x-show="!hidden" class="font-bold">{{ $room->code }}</span>
                     </span>
+
+                        <button onclick="copyText()">Copier</button>
+                        <script>
+                            function copyText() {
+                                const texte = "{{ $room->code }}";
+                                navigator.clipboard.writeText(texte)
+                                    .then(() => alert("Code de la salle copié !"))
+                                    .catch(err => alert("Erreur : " + err));
+                            }
+                        </script>
                 </h2>
             </div>
 

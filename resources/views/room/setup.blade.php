@@ -4,10 +4,10 @@
     <h1 class="text-3xl text-center font-bold -mt-5">Préparation de la partie</h1>
 
     <form action="/room/setup" method="POST">
-        <div class="grid grid-cols-3 space-x-5 mt-5">
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5 mt-5">
             <div class="bg-green-100 overflow-scroll p-5 text-center">
                 <span class="text-xl font-bold">Rappel des jeux</span>
-                <div class="grid grid-cols-3 space-x-2 pt-5">
+                <div class="grid grid-cols-2 sm:grid-cols-3 space-x-2 pt-5">
                     @foreach ($games as $game_it)
                     <div class="bg-white py-2 rounded-xl relative" style="padding-top: 100%; background-position:center; background-size:cover; background-repeat: no-repeat; background-image: url({{ asset($game_it->image_url) }});">
                         <div class="absolute transition-all inset-0 w-full h-full bg-white/50 hover:bg-white/80 rounded-xl flex justify-center items-center">
@@ -24,7 +24,7 @@
             </div>
         @csrf
 
-            <div class="col-span-2 bg-green-100 p-5 text-center">
+            <div class="lg:col-span-2 bg-green-100 p-5 text-center">
                 <span class="text-xl font-bold">Paramètres</span>
                 <x-room-creation-settings></x-room-creation-settings>
             </div>

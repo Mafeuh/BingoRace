@@ -2,28 +2,26 @@
 
 @section('content')
 <div class="h-fit">
-    <div class="grid grid-cols-3 h-fit">
+    <div class="grid lg:grid-cols-3 h-fit gap-5">
         <div class="bg-white p-3 shadow-inner shadow-green-100 rounded-3xl h-fit">
             <livewire:participants-list :room="$room" />
         </div>
-        <div class="col-span-2">
+        <div>
             <div>
                 <h1 class="text-3xl text-center">La partie est sur le point de commencer !</h1>
                 <h2 class="text-2xl text-center">Code de la salle :
-                    <span x-data="{ hidden: true }" x-on:click="hidden = !hidden">
-                        <span x-show="hidden" class="bg-gray-700 text-white rounded-md">Clique pour révéler !</span>
-                        <span x-show="!hidden" class="font-bold">{{ $room->code }}</span>
+                    <span x-data="{ show: false }" x-on:click="show = !show">
+                        <span x-show="!show" class="bg-gray-700 text-white rounded-md">Révéler !</span>
+                        <span x-show="show" class="font-bold">{{ $room->code }}</span>
                     </span>
-
-                        <button onclick="copyText()">Copier</button>
-                        <script>
-                            function copyText() {
-                                const texte = "{{ $room->code }}";
-                                navigator.clipboard.writeText(texte)
-                                    .then(() => alert("Code de la salle copié !"))
-                                    .catch(err => alert("Erreur : " + err));
-                            }
-                        </script>
+                    <button class="bg-white shadow-xl rounded-full py-2 px-4" onclick="copyText()" id="copy_button">Copier ?</button>
+                    <script>
+                        function copyText() {
+                            const texte = "{{ $room->code }}";
+                            navigator.clipboard.writeText(texte)
+                                .then(() => document.getElementById('copy_button').innerText = "Copié !");
+                        }
+                    </script>
                 </h2>
             </div>
 

@@ -5,8 +5,8 @@
     @if ($cache_hide_time - $server_time > 0)
         <div id="cache" class="bg-green-300 absolute w-full h-full z-10 transition-all duration-100 flex flex-col place-content-center items-center rounded-3xl">
             <div class="text-center space-y-5">
-                <h1 class="text-8xl text-white font-bold">Préparez-vous !</h1>
-                <h2 class="text-4xl text-white">Ce cache disparait dans <span id="cache_timer"></span>s</h2>
+                <h1 class="text-4xl lg:text-8xl text-white font-bold">Préparez-vous !</h1>
+                <h2 class="lg:text-4xl text-white">Ce cache disparait dans <span id="cache_timer"></span>s</h2>
             </div>
 
             <div id="countdown" class="text-2xl font-bold text-red-600"></div>
@@ -65,7 +65,7 @@
     @endif
 
     <div id="grid" @class(["relative justify-center flex-0 flex", 'opacity-0' => $cache_hide_time - $server_time > 0]) >
-        <x-bingo-grid :grid="$room->grid" :editable="isset($team)"></x-bingo-grid>
+        <x-bingo-grid :grid="$room->grid" :team="$team" :editable="isset($team)"></x-bingo-grid>
 
         @if ($room->duration_seconds != null)
             <div id="victory_cache" class="bg-green-300/70 hidden absolute w-full h-full z-10 transition-all duration-100 flex flex-col place-content-center items-center rounded-3xl">

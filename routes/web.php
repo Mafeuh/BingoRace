@@ -19,7 +19,7 @@ Route::get('/', function () {
 
 Route::post('/join', [RoomController::class,'join']);
 
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth', 'verified'])->group(function () {
     Route::group([
         'prefix' => 'admin',
         'middleware' => [

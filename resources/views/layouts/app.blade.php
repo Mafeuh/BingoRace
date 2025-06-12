@@ -18,42 +18,62 @@
         @livewireStyles
     </head>
     <body class="h-screen flex flex-col">
-        <div class="bg-emerald-700 py-4">
-            @auth
-                <form class="ml-5 absolute" method="POST" action="/join">
-                    @csrf
-                    <div class="font-bold text-white">Rejoindre une partie</div>
-                    <div class="flex-col">
-                        <div class="flex">
-                            <input name="code" class="text-center bg-emerald-300 border-0 border-b-2 w-20 rounded-l-xl mr-0 focus:outline-none" type="text" maxlength="5" placeholder="Code">
-                            <button class="bg-emerald-600 p-2 rounded-r-xl hover:bg-emerald-900 hover:text-white hover:font-extrabold" type="submit">Rejoindre</button>
+        <div class="bg-emerald-700 grid grid-cols-2 sm:grid-cols-3">
+            <div class="hidden md:inline">
+                @auth
+                    <form class="ml-5 absolute hidden sm:inline" method="POST" action="/join">
+                        @csrf
+                        <div class="font-bold text-white">Rejoindre une partie</div>
+                        <div class="flex-col">
+                            <div class="flex">
+                                <input name="code" class="text-center bg-emerald-300 border-0 border-b-2 w-20 rounded-l-xl mr-0 focus:outline-none" type="text" maxlength="5" placeholder="Code">
+                                <button class="bg-emerald-600 p-2 rounded-r-xl hover:bg-emerald-900 hover:text-white hover:font-extrabold" type="submit">Rejoindre</button>
+                            </div>
+                            <div>
+                                @error('code')
+                                    <div>{{ $message }}</div>
+                                @enderror
+                            </div>
                         </div>
-                        <div>
-                            @error('code')
-                                <div>{{ $message }}</div>
-                            @enderror
-                        </div>
-                    </div>
-                </form>
-            @endauth
-            {{-- @guest
-                <div class="absolute right-0">
-                    <a class="bg-emerald-200 px-4 py-2 rounded-2xl" href="/login">Connexion</a>
-                    <a class="bg-emerald-200 px-4 py-2 rounded-2xl" href="/register">Inscription</a>
+                    </form>
+                @endauth
+            </div>
+            
+            @if(auth()->user()?->isAdmin())
+                <div class="absolute top-0">
+                    <span class="sm:hidden">XS</span>
+                    <span class="hidden sm:inline md:hidden">SM</span>
+                    <span class="hidden md:inline lg:hidden">MD</span>
+                    <span class="hidden lg:inline xl:hidden">LG</span>
+                    <span class="hidden xl:inline 2xl:hidden">XL</span>
+                    <span class="hidden 2xl:inline">2XL</span>
                 </div>
-            @endguest --}}
-
-            <div class="text-transparent text-4xl font-bold text-center flex justify-center">
+            @endif
+                
+                
+            <div class="text-transparent text-4xl font-bold text-center flex justify-center relative my-5">
                 <div class="w-min hover:scale-110 transform transition-all duration-300 ease-in-out rotate-1">
                     <a href="/" class="select-none bg-clip-text bg-gradient-to-r from-green-500 to-lime-200">
                         BingoRace!
                     </a>
                 </div>
             </div>
+
+            <div>
+                <div class="absolute right-10 sm:hidden mt-3">
+                    <x-burger-nav/>
+                </div>
+
+                @auth
+                    <div class="absolute right-0 hidden sm:block top-2">
+                        <x-header-profile-shortcut/>
+                    </div>
+                @endauth
+            </div>
         </div>
         <div class="bg-gradient-to-b from-emerald-700 to-emerald-800">
             @auth
-            <div class="text-center pb-4">
+            <div class="text-center pb-4 hidden sm:block">
                 <x-header-navbar></x-header-navbar>
             </div>
             @endauth

@@ -12,6 +12,7 @@ use App\Models\Room;
 class BingoGridSquare extends Component
 {
     public bool $editable;
+    public Team $team;
 
     private Room $room;
     public BingoGridSquareModel $square;

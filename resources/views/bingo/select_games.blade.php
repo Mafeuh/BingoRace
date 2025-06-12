@@ -8,11 +8,11 @@
 
         <form action="/start" method="POST">
             @csrf
-            <div class="grid grid-cols-2">
-                <div class="bg-green-100 mr-5 rounded-3xl p-5">
+            <div class="grid md:grid-cols-2 gap-5">
+                <div class="bg-green-100 rounded-3xl p-2 shadow-lg">
                     <p class="text-center font-bold text-xl">Jeux Publics</p>
                     @if (sizeof($public_games) == 0)
-                        <div class="text-center">Hm c'est pas normal ça. Normalement y'a plein de trucs ici et tout. Hm.</div>
+                        <div class="text-center">Ici s'afficheront tous les jeux publics.</div>
                     @else
                     <div class="space-y-5 pb-5">
                         @foreach ($public_games as $game_it)
@@ -21,7 +21,7 @@
                     </div>
                     @endif
                 </div>
-                <div class="bg-green-100 ml-5 rounded-3xl p-5">
+                <div class="bg-green-100 rounded-3xl p-2 shadow-lg">
                     <p class="text-center font-bold text-xl">Tes Jeux</p>
 
                     @if (sizeof($user_games) == 0)

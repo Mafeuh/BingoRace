@@ -4,7 +4,7 @@
     <div class="bg-green-50 h-full p-2 rounded-xl shadow-lg">
         <h1 class="text-center text-2xl font-bold text-red-900">Zone administrateur</h1>
 
-        <div class="grid grid-cols-3 h-fit">
+        <div class="grid xl:grid-cols-3 h-fit space-x-5">
             <form action="{{ route('admin.join_room') }}" method="POST">
                 @csrf
                 <div class="bg-white p-4">
@@ -42,6 +42,9 @@
                     </div>
                 </div>
             </form>
+
+            <div class="bg-white p-4">
+            </div>
         </div>
     </div>
 @endsection

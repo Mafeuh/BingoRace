@@ -50,6 +50,25 @@ class ObjectivesController extends Controller
         return redirect()->back();
     }
 
+    public function edit(Objective $objective) {
+        return view('objectives.edit', [
+            'objective' => $objective
+        ]);
+    }
+
+    public function edit_post(Objective $objective) {
+        $new_text = request()->input('description');
+
+        $objective->description = $new_text;
+        $objective->save();
+
+        session()->flash('message', "L'objectif a bien été renommé.");
+
+        return redirect()->back();
+    }
+
+    
+
     public function delete(int $id)
     {
         $objective = Objective::find($id);

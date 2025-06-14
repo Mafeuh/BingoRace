@@ -49,7 +49,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     });
 
     Route::prefix('objectives')->group(function() {
+        Route::get('{objective}/edit', [ObjectivesController::class,'edit']);
+        Route::post('{objective}/edit_post', [ObjectivesController::class,'edit_post']);
         Route::get('{id}/delete', [ObjectivesController::class,'delete']);
+
     });
 
     Route::get('start', [BingoGameController::class,'start']);

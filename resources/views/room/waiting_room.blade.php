@@ -6,15 +6,15 @@
         <div class="bg-white p-3 shadow-inner shadow-green-100 rounded-3xl h-fit">
             <livewire:participants-list :room="$room" />
         </div>
-        <div>
+        <div class="lg:col-span-2 2xl:col-span-1">
             <div>
                 <h1 class="text-3xl text-center">La partie est sur le point de commencer !</h1>
                 <h2 class="text-2xl text-center">Code de la salle :
                     <span x-data="{ show: false }" x-on:click="show = !show">
-                        <span x-show="!show" class="bg-gray-700 text-white rounded-md">Révéler !</span>
+                        <span x-show="!show" class="bg-gray-700 text-white rounded-md">Révéler&nbsp;!</span>
                         <span x-show="show" class="font-bold">{{ $room->code }}</span>
                     </span>
-                    <button class="bg-white shadow-xl rounded-full py-2 px-4" onclick="copyText()" id="copy_button">Copier ?</button>
+                    <button class="bg-white shadow-xl rounded-full py-2 px-4" onclick="copyText()" id="copy_button">Copier&nbsp;?</button>
                     <script>
                         function copyText() {
                             const texte = "{{ $room->code }}";

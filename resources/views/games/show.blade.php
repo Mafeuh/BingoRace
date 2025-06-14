@@ -38,6 +38,7 @@
                         <div class="relative bg-white px-10 py-2 text-center rounded-xl">
                             @if ($can_manage_public_objectives)
                                 <a class="absolute right-5" href="/objectives/{{$pub_obj->id}}/delete">❌</a>
+                                <a class="absolute right-10" href="/objectives/{{$pub_obj->id}}/edit">✏️</a>
                             @endif
                             {{$pub_obj->description}}
                         </div>

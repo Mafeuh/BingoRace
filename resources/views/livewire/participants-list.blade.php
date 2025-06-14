@@ -2,9 +2,18 @@
 
 <div wire:poll.1s>
     <div class="text-xl text-center">{{ sizeof($room->teams) }} équipes</div>
-    <div class="text-center">
-        <i class="text-sm">Si tu peux pas supprimer une équipe, reload la page</i>
-    </div>
+    @if (auth()->user()->id == $room->creator_id)
+        <div class="text-center">
+            <i class="text-sm">Si tu peux pas supprimer une équipe, reload la page</i>
+        </div>
+    @endif
+
+    @if (!$userTeam)
+        <div class="bg-red-100 border-2 border-red-400 p-2">
+            <h1 class="text-red-700 font-bold text-lg">⚠️ Attention !</h1>
+            <p>Tu n'es pas dans une équipe. Si la partie se lance, tu seras spectateur !</p>
+        </div>
+    @endif
 
     <div class="grid grid-cols-2">
         @foreach ($room->teams as $team)
@@ -20,21 +29,24 @@
                 <div class="text-center text-lg">
                     <span class="font-bold">{{ sizeof($team->participants) }}</span> membres
                 </div>
-                @foreach ($team->participants as $participant)
-                    <div>- {{ $participant->participantable->user->name }}</div>
-                @endforeach
 
-                <div class="text-center">
+                <div class="space-y-2">
+                    @foreach ($team->participants as $participant)
+                        <span class="bg-white/70 py-1 shadow-lg px-2 rounded inline-block">{{ $participant->participantable->user->name }}@if ($participant->participantable->user->id == auth()->user()->id)&nbsp;(toi)@endif</span>
+                    @endforeach
+                </div>
+
+                <div class="text-center space-y-2">
                     @if (!$userTeam)
-                        <button wire:click='join_team({{ $team->id }})'>Rejoindre</button>
+                        <button class="bg-white py-1 px-2 shadow shadow-black rounded-full text-green-800 font-bold" wire:click='join_team({{ $team->id }})'>Rejoindre</button>
                     @endif
 
                     @if ($userTeam?->id == $team->id)
-                        <button wire:click='leave_team()'>Quitter l'équipe</button>
+                        <button class="bg-white py-1 px-2 shadow shadow-black rounded-full font-bold" wire:click='leave_team()'>Quitter l'équipe</button>
                     @endif
 
                     @if (auth()->user()->id == $room->creator_id)
-                        <button wire:click='delete_team({{ $team->id }})'>Supprimer</button>
+                        <button class="bg-white py-1 px-2 shadow shadow-black rounded-full text-red-600 font-bold" wire:click='delete_team({{ $team->id }})'>Supprimer</button>
                     @endif
                 </div>
             </div>
@@ -81,8 +93,11 @@
                 <button wire:click="remove_image" class="bg-gray-200 p-2 rounded-full">Supprimer l'image</button>
             </div>
             @endif
-            <div class="flex flex-0 justify-center m-5">
-                <button wire:click='new_team' class="p-2 bg-green-200 rounded-full hover:bg-green-400">Nouvelle équipe</button>
+            <div class="flex flex-0 justify-center m-5 gap-x-5">
+                <button wire:click='new_team' class="p-2 bg-green-200 rounded-full hover:bg-green-400">Créer l'équipe</button>
+                @if (!$userTeam)
+                    <button wire:click='new_team_and_join' class="p-2 bg-green-200 rounded-full hover:bg-green-400">Créer l'équipe et rejoindre </button>
+                @endif
             </div>
         </div>
 

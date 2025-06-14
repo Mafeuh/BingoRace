@@ -43,12 +43,32 @@ class ParticipantsList extends Component
                 $imageUrl = str_replace('public', 'storage', $path);
             }
 
+            Team::create([
+                "name" => $this->new_team_name,
+                "color" => $this->new_team_color,
+                "room_id" => $this->room->id,
+                "image_url" => $imageUrl
+            ]);
+        }
+    }
+
+    public function new_team_and_join() {
+        if($this->new_team_color != "") {
+            $imageUrl = '';
+
+            if($this->new_team_image != null) {
+                $path = $this->new_team_image->store('public/images');
+                $imageUrl = str_replace('public', 'storage', $path);
+            }
+
             $new_team = Team::create([
                 "name" => $this->new_team_name,
                 "color" => $this->new_team_color,
                 "room_id" => $this->room->id,
                 "image_url" => $imageUrl
             ]);
+
+            $this->join_team($new_team->id);
         }
     }
 

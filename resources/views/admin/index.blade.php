@@ -8,7 +8,7 @@
             <form action="{{ route('admin.join_room') }}" method="POST">
                 @csrf
                 <div class="bg-white p-4">
-                    <h2 class="text-center font-bold p-2">Historique des parties lancées</h2>
+                    <h1 class="text-center text-xl">Historique des parties lancées</h1>
     
                     <div class="grid grid-cols-5 gap-x-2 select-none" x-data="{ hide_codes: true }">
                         <div class="font-bold text-center">Numéro de la salle</div>
@@ -43,7 +43,10 @@
                 </div>
             </form>
 
-            <div class="bg-white p-4">
+            <div class="bg-white p-4 col-span-2">
+                <h1 class="text-xl text-center mb-10">Gérer les permissions</h1>
+
+                <livewire:user-permission-editor/>
             </div>
         </div>
     </div>

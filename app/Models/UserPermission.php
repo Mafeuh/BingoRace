@@ -9,6 +9,8 @@ class UserPermission extends Model
 {
     use HasFactory;
 
+    public $guarded = [];
+
     public function permission() {
         return $this->hasOne(Permission::class, 'id', 'permission_id');
     }

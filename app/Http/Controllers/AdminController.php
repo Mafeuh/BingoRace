@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Permission;
 use App\Models\Room;
 use App\View\Components\redirect;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller

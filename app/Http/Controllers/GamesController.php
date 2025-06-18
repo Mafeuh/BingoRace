@@ -69,13 +69,16 @@ class GamesController extends Controller
     }
 
     public function list() {
-        $public_games = Game::all()->whereNull('creator_id');
+        $official_games = Game::all()->where('is_official', '==', 1);
 
-        $user_games = Game::all()->where('creator_id', '===', auth()->user()->id);
+        $public_games = Game::all()->where('is_public', '==', 1)->where('is_official', '==', 0);
+
+        $auth_games = Game::all()->where('creator_id', '===', auth()->user()->id);
 
         return view('games.list', [
+            'official_games' => $official_games,
             'public_games' => $public_games,
-            'user_games'=> $user_games
+            'auth_games'=> $auth_games
         ]);
     }
 

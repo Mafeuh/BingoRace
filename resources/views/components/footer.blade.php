@@ -22,10 +22,24 @@
     @auth
     <form method="POST" action="/logout" class="py-2">
         @csrf
-        <span>Connecté en tant que <b>{{ auth()->user()->name . (auth()->user()->hasPermission('admin') ? ' 🗿' : '') }}</b>
-        <button type="submit" class="px-3 py-2 rounded-full bg-green-100 text-green-600 font-bold">Se déconnecter</button>
+        <div class="ml-2 flex gap-2 items-center absolute">
+            <a href="{{ route('lang.switch', 'fr') }}" class="{{ App::getLocale() === 'fr' ? 'font-bold underline' : '' }}">
+                🇫🇷 
+            </a>
+            <a href="{{ route('lang.switch', 'en') }}" class="{{ App::getLocale() === 'en' ? 'font-bold underline' : '' }}">
+                🇬🇧 
+            </a>
+        </div>
+        
+
+        <span>{{ __('footer.status.connected_as') }} <b>{{ auth()->user()->name . (auth()->user()->hasPermission('admin') ? ' 🗿' : '') }}</b>
+        <button type="submit" class="px-3 py-2 rounded-full bg-green-100 text-green-600 font-bold">
+            {{ __('footer.status.logout') }}
+        </button>
         @if (auth()->user()->isAdmin())
-            <a href="/admin" class="bg-red-100 px-3 py-2 rounded-full font-bold text-red-600">Zone<nobr> admin</a>
+            <a href="/admin" class="bg-red-100 px-3 py-2 rounded-full font-bold text-red-600">
+                {{ __('footer.status.admin_zone')}}
+            </a>
         @endif
         </span>
     </form>

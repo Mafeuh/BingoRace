@@ -8,30 +8,42 @@
         </div>
         <div class="lg:col-span-2 2xl:col-span-1">
             <div>
-                <h1 class="text-3xl text-center">La partie est sur le point de commencer !</h1>
-                <h2 class="text-2xl text-center">Code de la salle :
+                <h1 class="text-3xl text-center">
+                    {{ __('room.wait.title') }}
+                </h1>
+                <h2 class="text-2xl text-center">
+                    {{ __('room.wait.code.label') }}
                     <span x-data="{ show: false }" x-on:click="show = !show">
-                        <span x-show="!show" class="bg-gray-700 text-white rounded-md">Révéler&nbsp;!</span>
+                        <span x-show="!show" class="bg-gray-700 text-white rounded-md">
+                            {{ __('room.wait.code.reveal') }}
+                        </span>
                         <span x-show="show" class="font-bold">{{ $room->code }}</span>
                     </span>
-                    <button class="bg-white shadow-xl rounded-full py-2 px-4" onclick="copyText()" id="copy_button">Copier&nbsp;?</button>
+                    <button class="bg-white shadow-xl rounded-full py-2 px-4" onclick="copyText()" id="copy_button">
+                        {{ __('room.wait.code.copy') }}
+                    </button>
                     <script>
                         function copyText() {
                             const texte = "{{ $room->code }}";
                             navigator.clipboard.writeText(texte)
-                                .then(() => document.getElementById('copy_button').innerText = "Copié !");
+                                .then(() => document.getElementById('copy_button').innerText = "{{ __('room.wait.code.copied') }}");
                         }
                     </script>
                 </h2>
             </div>
 
             <div class="bg-green-100 m-5 p-5 rounded-xl">
-                <div class="font-bold text-green-500">Rappel des règles:</div>
-                <div>
-                    Une grille de  {{ $room->grid->height * $room->grid->width }} cases va apparaître. Chacune de ces cases va contenir un objectif à remplir.
+                <div class="font-bold text-green-700">
+                    {{ __('room.wait.rules.title') }}
                 </div>
                 <div>
-                    Pour gagner, faites en sorte que votre équipe coche plus de case que les autres équipes. Pour cocher une case, il faut évidemment remplir l'objectif :).
+                    {{ __('room.wait.rules.description1', ['amount' => $room->grid->height * $room->grid->width]) }}
+                </div>
+                <div>
+                    {{ __('room.wait.rules.description2') }}
+                </div>
+                <div class="mt-5">
+                    {{ __('room.wait.rules.description3') }}
                 </div>
             </div>
 
@@ -41,12 +53,15 @@
 
             @if (auth()->user()->id == $room->creator_id)
                 <div class="mt-10 text-center text-xl">
-                    Une fois tous les participants présents, clique sur <span class="font-bold">Commencer</span> !
+                    {{ __('room.wait.start.label') }}
+                    <span class="font-bold">{{ __('room.wait.start.button') }}</span>
                 </div>
 
                 <form action="{{ route('room-start') }}" method="POST" class="text-center">
                     @csrf
-                    <button class="text-xl bg-green-500 px-5 py-3 rounded-full font-bold hover:bg-green-700 active:animate-ping" type="submit">Commencer !</button>
+                    <button class="text-xl bg-green-500 px-5 py-3 rounded-full font-bold hover:bg-green-700 active:animate-ping" type="submit">
+                        {{ __('room.wait.start.button') }}
+                    </button>
                 </form>
             @else
                 <livewire:redirect-to-room :room="$room" />

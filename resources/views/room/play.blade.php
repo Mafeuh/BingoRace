@@ -5,8 +5,12 @@
     @if ($cache_hide_time - $server_time > 0)
         <div id="cache" class="bg-green-300 absolute w-full h-full z-10 transition-all duration-100 flex flex-col place-content-center items-center rounded-3xl">
             <div class="text-center space-y-5">
-                <h1 class="text-4xl lg:text-8xl text-white font-bold">Préparez-vous !</h1>
-                <h2 class="lg:text-4xl text-white">Ce cache disparait dans <span id="cache_timer"></span>s</h2>
+                <h1 class="text-4xl lg:text-8xl text-white font-bold">
+                    {{ __('room.play.starting_cache.title') }}
+                </h1>
+                <h2 class="lg:text-4xl text-white">
+                    {{ __('room.play.starting_cache.description') }} <span id="cache_timer"></span>
+                </h2>
             </div>
 
             <div id="countdown" class="text-2xl font-bold text-red-600"></div>
@@ -70,7 +74,9 @@
         @if ($room->duration_seconds != null)
             <div id="victory_cache" class="bg-green-300/70 hidden absolute w-full h-full z-10 transition-all duration-100 flex flex-col place-content-center items-center rounded-3xl">
                 <div class="text-center space-y-5">
-                    <h1 class="text-8xl text-white font-bold">Partie terminée !!</h1>
+                    <h1 class="text-8xl text-white font-bold">
+                        {{ __('room.play.ending_cache.description') }}
+                    </h1>
                 </div>
         
                 <div id="countdown" class="text-2xl font-bold text-red-600"></div>
@@ -80,12 +86,11 @@
     
     @isset($team)
     <div class="text-center my-4">
-        Tu es dans l'équipe 
-        <span class=" rounded-lg bg-[{{$team->color}}] px-3 py-2">{{ $team->name }}</span> !
+        {{ __('room.play.team.your_team') }} <span class=" rounded-lg bg-[{{$team->color}}] px-3 py-2">{{ $team->name }}</span> !
     </div>
     @else
     <div class="text-center my-4 text-xl">
-        Tu es spectateur !
+        {{ __('room.play.team.no_team') }}
     </div>
     @endisset
     

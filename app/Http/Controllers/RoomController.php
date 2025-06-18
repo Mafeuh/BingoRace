@@ -15,6 +15,10 @@ use Illuminate\Http\Request;
 
 class RoomController extends Controller
 {
+    public function start() {
+        return view('room.start');
+    }
+
     public function setup() {
         $room = Room::find(auth()->user()->last_joined_room_id);
 
@@ -101,7 +105,7 @@ class RoomController extends Controller
         ]);
     }
 
-    public function start() {
+    public function begin() {
         $room = Room::find(auth()->user()->last_joined_room_id);
 
         $room->started_at = now();

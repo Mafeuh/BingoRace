@@ -16,10 +16,15 @@
             @csrf
             <div class="flex">
                 <div>
-                    <x-form.label for="code">Rejoindre une partie</x-form.label>
-                    <x-form.text-input name="code" maxlength="5" minlength="5" placeholder="Code de la salle"/>
+                    <x-form.label for="code">{{ __('header.join_room.title') }}</x-form.label>
+                    <x-form.text-input 
+                        name="code" 
+                        maxlength="5" 
+                        minlength="5" 
+                        placeholder="{{ __('header.join_room.code') }}"
+                    />
                     <div class="text-center">
-                        <x-form.submit-input>Rejoindre</x-form.submit-input>
+                        <x-form.submit-input>{{ __('header.join_room_join') }}</x-form.submit-input>
                     </div>
                 </div>
                 <div>
@@ -30,13 +35,19 @@
             </div>
         </form>
         <div class="text-center my-4">
-            <a class="bg-white rounded-full shadow-lg px-5 py-2 font-bold text-green-900" href="/games/new">Nouveau jeu</a>
+            <a class="bg-white rounded-full shadow-lg px-5 py-2 font-bold text-green-900" href="/games/new">
+                {{ __('header.nav.add_game') }}
+            </a>
         </div>
         <div class="text-center my-4">
-            <a class="bg-white rounded-full shadow-lg px-5 py-2 font-bold text-green-900" href="/games/list">Liste des jeux</a>
+            <a class="bg-white rounded-full shadow-lg px-5 py-2 font-bold text-green-900" href="/games/list">
+                {{ __('header.nav.list_games') }}
+            </a>
         </div>
         <div class="text-center my-4">
-            <a class="bg-white rounded-full shadow-lg px-5 py-2 font-bold text-green-900" href="/start">Démarrer une partie !</a>
+            <a class="bg-white rounded-full shadow-lg px-5 py-2 font-bold text-green-900" href="/room/start">
+                {{ __('header.nav.create_room') }}
+            </a>
         </div>
     </div>
 </div>

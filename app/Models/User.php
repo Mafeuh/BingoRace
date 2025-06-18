@@ -61,6 +61,10 @@ class User extends Authenticatable
         return false;
     }
 
+    public function favorite_games() {
+        return $this->belongsToMany(Game::class, 'favorite_games');
+    }
+
     public function isAdmin() {
         return $this->hasPermission('admin');
     }

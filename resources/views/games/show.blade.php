@@ -5,18 +5,28 @@
         $can_manage_public_objectives = auth()->user()->isAdmin() || auth()->user()->id == $game->creator_id;
     @endphp
 
-    <h1 class="text-3xl text-center">Informations sur <span class="font-bold">{{$game->name}}</span></h1>
+    <h1 class="text-3xl text-center">
+        {{ __('game.show.title', ['name' => $game->name]) }}
+    </h1>
 
     <div class="m-5 text-center">
         @if (auth()->user()->isAdmin())
-            <div>Vous êtes admin ! Vous avez tous les droits mouahahaha !</div>
+            <div>
+                {{ __('game.show.permissions.admin')}}
+            </div>
         @else
             @if($game->creator_id == null)
-                <div>Ce jeu est un jeu public ! N'importe qui peut ajouter ses propres objectifs dessus pour ses parties personnelles.</div>
+                <div>
+                    {{ __('game.show.permissions.public_game') }}
+                </div>
             @elseif ($game->creator_id == auth()->user()->id)
-                <div>C'est ton jeu, c'est tes règles ! Importe tes propres objectifs, privés ou publics !</div>
+                <div>
+                    {{ __('game.show.permissions.creator_auth') }}
+                </div>
             @else
-                <div>Ce jeu a été ajouté par {{$game->creator->name}}. C'est le/la seul.e personne à pouvoir ajouter des objectifs.</div>
+                <div>
+                    {{ __('game.show.permissions.default') }}
+                </div>
             @endif
         @endif
     </div>
@@ -24,7 +34,7 @@
     <div class="grid grid-cols-2 gap-x-5">
         <div class="bg-green-100 p-5 rounded-3xl">
             <h2 class="text-2xl text-center mb-5">
-                {{ sizeof($game->public_objectives) }} objectifs publics
+                {{ __('game.show.public_objectives.title', ['amount' => sizeof($game->public_objectives)]) }}
                 @if ($can_manage_public_objectives)
                     <span>
                         <a href="/games/{{$game->id}}/objective"
@@ -46,7 +56,7 @@
                 </div>
             @else
                 <div class="text-center">
-                    Ce jeu n'a pas d'objectif public !
+                    {{ __('game.show.public_objectives.empty') }}
                 </div>
             @endif
 
@@ -54,7 +64,8 @@
 
         <div class="bg-green-100 p-5 rounded-3xl">
             <h2 class="text-2xl text-center mb-5">
-                Tes {{ sizeof($game->private_objectives) }} objectifs personnalisés
+                {{ __('game.show.private_objectives.title', ['amount' => sizeof($game->private_objectives)]) }}
+                
                 <span>
                     <a href="/games/{{$game->id}}/objective"
                     class="bg-green-500 px-3 py-3 rounded-full right hover:bg-green-600">
@@ -73,7 +84,8 @@
                 </div>
             @else
                 <div class="text-center">
-                    Vous n'avez pas encore créé d'objectif !
+                    {{ __('game.show.private_objectives.empty') }}
+
                 </div>
             @endif
         </div>
@@ -86,17 +98,23 @@
             <form class="my-5" action="{{ route('games.delete') }}" method="POST">
                 @csrf
                 <input type="hidden" name="game_id" value="{{$game->id}}">
-                <button type="submit" class="bg-red-500 p-3 text-white font-bold rounded-full">Supprimer le jeu</button>
+                <button type="submit" class="bg-red-500 p-3 text-white font-bold rounded-full">
+                    {{ __('game.show.danger.delete') }}
+                </button>
             </form>
             <hr class="border-red-200 border-2">
             <form class="mt-5" action="{{ route('games.rename')}}" method="POST">
                 @csrf
                 <input type="hidden" name="game_id" value="{{$game->id}}">
                 <div>
-                    <label class="text-red-500 font-bold" for="new_name">Renommer le jeu</label>
+                    <label class="text-red-500 font-bold" for="new_name">
+                        {{ __('game.show.danger.rename.label') }}
+                    </label>
                 </div>
                 <x-form.text-input :value="$game->name" name="new_name"/>
-                <button type="submit" class="bg-red-500 p-3 text-white font-bold rounded-full">Valider</button>
+                <button type="submit" class="bg-red-500 p-3 text-white font-bold rounded-full">
+                    {{ __('game.show.danger.rename.submit') }}
+                </button>
             </form>
         </div>
     @endif

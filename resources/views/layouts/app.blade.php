@@ -18,16 +18,23 @@
         @livewireStyles
     </head>
     <body class="h-screen flex flex-col">
-        <div class="bg-emerald-700 grid grid-cols-2 sm:grid-cols-3">
-            <div class="hidden md:inline">
+        <div class="bg-emerald-700 grid grid-cols-2 sm:grid-cols-3 ">
+            <div class="hidden sm:inline">
                 @auth
                     <form class="ml-5 absolute hidden sm:inline" method="POST" action="/join">
                         @csrf
-                        <div class="font-bold text-white">Rejoindre une partie</div>
+                        <div class="font-bold text-white">{{ __('header.join_room.title') }}</div>
                         <div class="flex-col">
                             <div class="flex">
-                                <input name="code" class="text-center bg-emerald-300 border-0 border-b-2 w-20 rounded-l-xl mr-0 focus:outline-none" type="text" maxlength="5" placeholder="Code">
-                                <button class="bg-emerald-600 p-2 rounded-r-xl hover:bg-emerald-900 hover:text-white hover:font-extrabold" type="submit">Rejoindre</button>
+                                <input 
+                                    name="code" 
+                                    class="text-center bg-emerald-300 border-0 border-b-2 w-20 rounded-l-xl mr-0 focus:outline-none" 
+                                    type="text" 
+                                    maxlength="5" 
+                                    placeholder="{{ __('header.join_room.code') }}">
+                                <button class="bg-emerald-600 p-2 rounded-r-xl hover:bg-emerald-900 hover:text-white hover:font-extrabold" type="submit">
+                                    {{ __('header.join_room_join') }}
+                                </button>
                             </div>
                             <div>
                                 @error('code')
@@ -79,12 +86,14 @@
             @endauth
         </div>
 
-        <div class="bg-emerald-100 p-10 flex-grow" style="">
+        <div class="bg-emerald-100 px-10 pb-32 pt-8 flex-grow" style="">
             @yield('content')
         </div>
 
-        <hr>
-        <x-footer></x-footer>
+        <div class="fixed bottom-0 w-full">
+            <hr>
+            <x-footer></x-footer>
+        </div>
 
         <script src="{{ mix('js/app.js') }}"></script>
 

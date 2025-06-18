@@ -22,10 +22,10 @@
         @csrf
         <div class="ml-2 flex gap-2 items-center absolute">
             <a href="{{ route('lang.switch', 'fr') }}" class="{{ App::getLocale() === 'fr' ? 'font-bold underline' : '' }}">
-                🇫🇷 
+                FR
             </a>
             <a href="{{ route('lang.switch', 'en') }}" class="{{ App::getLocale() === 'en' ? 'font-bold underline' : '' }}">
-                🇬🇧 
+                EN 
             </a>
         </div>
         

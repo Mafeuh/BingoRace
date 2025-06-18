@@ -26,6 +26,7 @@ Route::middleware(SetLocale::class)->group(function() {
         }
         return redirect()->back();
     })->name('lang.switch');
+    
     Route::get('/', function () {
         if(auth()->check()) {
             return view('auth-home');

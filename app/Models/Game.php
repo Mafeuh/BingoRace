@@ -25,6 +25,18 @@ class Game extends Model
         }
     }
 
+    public static function getPublicGames() {
+        return Game::where('is_public',  1)->where('is_official', 0);
+    }
+
+    public static function getOfficialGames() {
+        return Game::where('is_official', 1);
+    }
+
+    public static function getAuthPrivateGames() {
+        return Game::where('creator_id', auth()->user()->id)->where('is_public',  0)->where('is_official', 0);
+    }
+
     public function public_objectives()
     {
         return $this->hasMany(Objective::class, 'game_id')->where('objectiveable_type', 'App\Models\PublicObjective');

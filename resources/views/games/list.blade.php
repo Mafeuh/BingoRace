@@ -13,7 +13,5 @@
         <livewire:public-games-list/>
         <livewire:private-games-list/>
     </div>
-
-
 </div>
 @endsection

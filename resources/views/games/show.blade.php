@@ -5,9 +5,21 @@
         $can_manage_public_objectives = auth()->user()->isAdmin() || auth()->user()->id == $game->creator_id;
     @endphp
 
-    <h1 class="text-3xl text-center">
-        {{ __('game.show.title', ['name' => $game->name]) }}
-    </h1>
+    <div class="relative">
+        <h1 class="text-3xl text-center">
+            {{ __('game.show.title', ['name' => $game->name]) }}
+        </h1>
+        <div class="absolute right-2 top-2 transition-all duration-1000 flex" x-data="{ show: true }">
+            <form method="post" action="{{ route('game.flag', ['game' => $game->id]) }}" class="bg-red-100 p-1 rounded-full mr-2" :class="{ 'hidden': show }">
+                @csrf
+                <x-form.text-input placeholder="{{ __('game.show.flag.reason.label') }}" name="reason" />
+                <button type="submit" class="bg-red-200 rounded-full border-red-500 border p-2">
+                    {{ __('game.show.flag.reason.validate') }}
+                </button>
+            </form>
+            <div class="bg-red-100 text-xl p-2 rounded-full border-2 border-red-400" x-on:click="show = !show">🚩</div>
+        </div>
+    </div>
 
     <div class="m-5 text-center">
         @if (auth()->user()->isAdmin())

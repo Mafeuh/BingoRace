@@ -5,20 +5,29 @@ return [
     'card.private_objectives' => ":amount objectifs privés",
 
     'creation.title' => "Création d'un jeu",
-    'creation.visibility.subtitle.admin' => "Vous êtes admin ! Le jeu sera public.",
-    'creation.visibility.subtitle' => "Vous ne pouvez créer que des jeux en visibilité privée.",
     
     'creation.form.name.label' => "Nom",
     'creation.form.name.placeholder' => "Nom du jeu",
-
+    
     'creation.form.public_objectives.label' => "Objectifs publics",
     'creation.form.public_objectives.placeholder' => "Objectif public 1\nObjectif public 2\n...",
     
     'creation.form.private_objectives.label' => "Objectifs privés",
     'creation.form.private_objectives.placeholder' => "Objectif privé 1\nObjectif privé 2\n...",
-
+    
     'creation.form.image.label' => "Image",
     'creation.form.image.message' => "Format optimal des images: 2/3 (largeur x hauteur: 100x150, 200x300...)",
+    
+    'creation.form.visibility.label' => "Visibilité",
+    'creation.form.visibility.value.public' => "Public",
+    'creation.form.visibility.value.private' => "Privé",
+    'creation.form.visibility.value.official' => "Officiel",
+    'creation.form.visibility.placeholder' => "Visibilité",
+    
+    'creation.visibility.unallowed.official' => "Vous n'avez pas la permission de faire des jeux en visibilité 'officielle'.",
+    'creation.visibility.subtitle.admin' => "Les jeux officiels sont des jeux par défaut proposés par le site.",
+    'creation.visibility.subtitle.text1' => "La visibilité 'privée' cache votre jeu aux autres utilisateurs.",
+    'creation.visibility.subtitle.text2' => "La visibilité 'public' rend votre jeu visible dans la liste des jeux.",
     
     'creation.form.submit' => "Valider",
 
@@ -50,4 +59,7 @@ return [
     'show.danger.delete' => "Supprimer le jeu",
     'show.danger.rename.label' => "Renommer le jeu",
     'show.danger.rename.submit' => "Valider",
+    
+    'show.flag.reason.label' => "Raison",
+    'show.flag.reason.validate' => "Envoyer",
 ];

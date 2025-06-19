@@ -11,10 +11,10 @@ class OfficialGamesList extends Component
     public $official_games = [];
 
     public function mount() {
-        $this->official_games = Game::where('is_official',  true)->get();
+        $this->official_games = Game::getOfficialGames()->get();
     }
     public function updatedName() {
-        $this->official_games = Game::where('is_official', true)->where('name', 'like', "%".$this->name."%")->get();
+        $this->official_games = Game::getOfficialGames()->where('name', 'like', "%".$this->name."%")->get();
     }
     public function render()
     {

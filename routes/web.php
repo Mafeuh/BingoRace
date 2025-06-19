@@ -63,6 +63,8 @@ Route::middleware(SetLocale::class)->group(function() {
     
             Route::prefix('{game}')->group(function() {
                 Route::get('', [GamesController::class,'show']);
+
+                Route::post('/flag', [GamesController::class, 'flag'])->name('game.flag');
     
                 Route::get('/objective', [ObjectivesController::class, 'new']);
                 Route::post('/objective', [ObjectivesController::class, 'post']);
@@ -72,8 +74,7 @@ Route::middleware(SetLocale::class)->group(function() {
         Route::prefix('objectives')->group(function() {
             Route::get('{objective}/edit', [ObjectivesController::class,'edit']);
             Route::post('{objective}/edit_post', [ObjectivesController::class,'edit_post']);
-            Route::get('{id}/delete', [ObjectivesController::class,'delete']);
-    
+            Route::get('{id}/delete', [ObjectivesController::class,'delete']);    
         });
     
         Route::prefix('room')->group(function() {

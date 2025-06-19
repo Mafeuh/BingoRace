@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\FlaggedGame;
 use Illuminate\Http\Request;
 use App\Models\Game;
 use App\Models\Objective;
@@ -20,9 +21,31 @@ class GamesController extends Controller
             'name' => ['required'],
             'preview_image' => ['image', 'mimes:png,jpg,jpeg,gif', 'max:2048' ],
             'public_objectives' => [],
-            'private_objectives' => []
+            'private_objectives' => [],
+            'visibility' => []
         ]);
+        
+        $visibility = $valid['visibility'];
 
+        if($visibility == "official") {
+            if(!auth()->user()->isAdmin()){
+                session()->flash('error', __('game.creation.visibility.unallowed.official'));
+    
+                return redirect()->back();
+            }
+
+            $is_official = true;
+            $is_public = false;
+        }
+        if($visibility == "public") {
+            $is_official = false;
+            $is_public = true;
+        }
+        if($visibility == "private") {
+            $is_official = false;
+            $is_public = false;
+        }
+        
         $name = $valid['name'];
         $public_objectives = mb_split('\r\n', $valid['public_objectives']);
         $private_objectives = mb_split('\r\n', $valid['private_objectives']);
@@ -37,7 +60,9 @@ class GamesController extends Controller
         $g = Game::create([
             'name' => $name,
             'image_url' => $imageUrl,
-            'creator_id' => auth()->user()->hasPermission('admin') ? null : auth()->user()->id
+            'creator_id' => auth()->user()->id,
+            'is_official' => $is_official,
+            'is_public' => $is_public
         ]);
 
         if($valid['public_objectives']) {
@@ -69,17 +94,18 @@ class GamesController extends Controller
     }
 
     public function list() {
-        $official_games = Game::all()->where('is_official', '==', 1);
+        return view('games.list');
+    }
 
-        $public_games = Game::all()->where('is_public', '==', 1)->where('is_official', '==', 0);
-
-        $auth_games = Game::all()->where('creator_id', '===', auth()->user()->id);
-
-        return view('games.list', [
-            'official_games' => $official_games,
-            'public_games' => $public_games,
-            'auth_games'=> $auth_games
+    public function flag(Game $game) {
+        $flagged = FlaggedGame::create([
+            'game_id' => $game->id,
+            'reason' => request()->input('reason')
         ]);
+
+        session()->flash('message', 'Le jeu a été report');
+
+        return redirect()->back();
     }
 
     public function show(Game $game) {

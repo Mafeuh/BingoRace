@@ -11,10 +11,10 @@ class PrivateGamesList extends Component
     public $private_games = [];
 
     public function mount() {
-        $this->private_games = Game::where('creator_id', '==', auth()->user()->id)->get();
+        $this->private_games = Game::getAuthPrivateGames()->get();
     }
     public function updatedName() {
-        $this->private_games = Game::where('creator_id', '==', auth()->user()->id)->where('name', 'like', "%".$this->name."%")->get();
+        $this->private_games = Game::getAuthPrivateGames()->where('name', 'like', "%".$this->name."%")->get();
     }
     public function render()
     {

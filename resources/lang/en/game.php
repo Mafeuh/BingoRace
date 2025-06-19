@@ -5,8 +5,6 @@ return [
     'card.private_objectives' => ":amount private objectives",
 
     'creation.title' => "Creation of a game",
-    'creation.visibility.subtitle.admin' => "You are an admin! The game will be public.",
-    'creation.visibility.subtitle' => "You can only create private games.",
     
     'creation.form.name.label' => "Name",
     'creation.form.name.placeholder' => "Name of the game",
@@ -19,6 +17,17 @@ return [
 
     'creation.form.image.label' => "Image",
     'creation.form.image.message' => "Optimal image shape: 2x3 (width x height: 100x150, 200x300...)",
+
+    'creation.form.visibility.label' => "Visibility",
+    'creation.form.visibility.value.public' => "Public",
+    'creation.form.visibility.value.private' => "Private",
+    'creation.form.visibility.value.official' => "Official",
+    'creation.form.visibility.placeholder' => "Visibility",
+
+    'creation.visibility.unallowed.official' => "You cannot create 'official' games.",
+    'creation.visibility.subtitle.admin' => "Official games are games approved by BingoRace's staff.",
+    'creation.visibility.subtitle.text1' => "The 'private' option hides your game from other users.",
+    'creation.visibility.subtitle.text2' => "The 'public' option makes your game visible in the games list.",
 
     'creation.form.submit' => "Validate",
 
@@ -50,4 +59,7 @@ return [
     'show.danger.delete' => "Delete the game",
     'show.danger.rename.label' => "Rename the game",
     'show.danger.rename.submit' => "Validate",
+
+    'show.flag.reason.label' => "Reason",
+    'show.flag.reason.validate' => "Send report",
 ];

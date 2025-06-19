@@ -11,10 +11,10 @@ class PublicGamesList extends Component
     public $public_games = [];
 
     public function mount() {
-        $this->public_games = Game::where('is_public',  true)->where('is_official', false)->get();
+        $this->public_games = Game::getPublicGames()->get();
     }
     public function updatedName() {
-            $this->public_games = Game::where('is_public',  true)->where('is_official', false)->where('name', 'like', "%".$this->name."%")->get();
+        $this->public_games = Game::getPublicGames()->where('name', 'like', "%".$this->name."%")->get();
     }
     public function render()
     {

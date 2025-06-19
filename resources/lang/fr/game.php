@@ -61,5 +61,5 @@ return [
     'show.danger.rename.submit' => "Valider",
     
     'show.flag.reason.label' => "Raison",
-    'show.flag.reason.validate' => "Envoyer",
+    'show.flag.reason.validate' => "Signaler",
 ];

@@ -142,7 +142,7 @@ class GamesController extends Controller
     }
 
     public function show(Game $game) {
-        if($game->is_official || $game->is_public) {
+        if($game->is_official || $game->is_public || $game->creator_id == auth()->user()->id) {
             return view('games.show', [
                 'game'=> $game
             ]);

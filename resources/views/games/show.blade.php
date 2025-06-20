@@ -100,7 +100,7 @@
                 </div>
             @else
                 <div>
-                    {{ __('game.show.permissions.default') }}
+                    {{ __('game.show.permissions.default', ['creator_name' => $game->creator?->name]) }}
                 </div>
             @endif
         @endif

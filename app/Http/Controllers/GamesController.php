@@ -16,6 +16,39 @@ class GamesController extends Controller
         return view('games.new');
     }
 
+    public function set_visibility(Game $game) {
+        $new_visibility = request()->input('visibility');
+
+        $message_key = "game.show.visibility.message.valid." . $new_visibility;
+
+        if($new_visibility == 'official_on' || $new_visibility == 'official_off') {
+            if(auth()->user()->isAdmin()) {
+                $game->is_official = $new_visibility == 'official_on';
+                $game->save();
+
+                session()->flash('message', __($message_key));
+            } else {
+                session()->flash('error', __($message_key));
+            }
+            return redirect()->back();
+        }
+
+        if($game->creator_id == auth()->user()->id || auth()->user()->isAdmin()) {
+            if($new_visibility == 'public') {
+                $game->is_public = true;
+                $game->save();
+            }
+            if($new_visibility == 'private') {
+                $game->is_public = false;
+                $game->save();
+            }
+            session()->flash('message', __(key: $message_key));
+            return redirect()->back();
+        }
+        session()->flash('error', __(key: 'game.show.visibility.message.invalid'));
+        return redirect()->back();
+    }
+
     public function store() {
         $valid = request()->validate([
             'name' => ['required'],
@@ -130,11 +163,7 @@ class GamesController extends Controller
         
         $game = Game::find($game_id);
 
-        if(!auth()->user()->isAdmin() || auth()->user()->id == $game->creator_id) {
-            session()->flash('error', 'Vous n\'avez pas la permission de supprimer ce jeu !');
-
-            return redirect()->back();
-        } else {
+        if(auth()->user()->isAdmin() || auth()->user()->id == $game->creator_id) {
             $game->public_objectives()->delete();
             $game->private_objectives()->delete();
     
@@ -144,6 +173,10 @@ class GamesController extends Controller
             
             return to_route('games.list');
         }
+        session()->flash('error', 'Vous n\'avez pas la permission de supprimer ce jeu !');
+
+        return redirect()->back();
+
     }
 
     public function rename(Request $request) {

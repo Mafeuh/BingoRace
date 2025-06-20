@@ -74,14 +74,14 @@
     </p>
     <div class="space-y-5">
         <div class="flex flex-col">
-            <x-input-label for="new_team_name">
+            <x-form.label for="new_team_name">
                 {{ __('room.wait.teams.new_team.name.label') }}
-            </x-input-label>
-            <x-custom-text-input wire_model="new_team_name" placeholder="{{ __('room.wait.teams.new_team.name.placeholder') }}" name="new_team_name"/>
+            </x-form.label>
+            <x-form.text-input wire_model="new_team_name" placeholder="{{ __('room.wait.teams.new_team.name.placeholder') }}" name="new_team_name"/>
         </div>
 
         <div class="flex flex-col">
-            <x-input-label for="new_team_color">{{ __('room.wait.teams.new_team.color.label') }}</x-input-label>
+            <x-form.label for="new_team_color">{{ __('room.wait.teams.new_team.color.label') }}</x-form.label>
             <select
                 required=""
                 name="new_team_color"
@@ -102,10 +102,10 @@
         </div>
 
         <div class="flex flex-col">
-            <x-input-label for="new_team_image">
+            <x-form.label for="new_team_image">
                 {{ __('room.wait.teams.new_team.image.label') }}
-            </x-input-label>
-            <x-input-filedrop wire_model="new_team_image" name="new_team_image" message="{{ __('room.wait.teams.new_team.image.message') }}"/>
+            </x-form.label>
+            <x-form.filedrop-input wire_model="new_team_image" name="new_team_image" message="{{ __('room.wait.teams.new_team.image.message') }}"/>
             
             @if ($new_team_image != null)
             <div class="flex flex-0 justify-center m-5">

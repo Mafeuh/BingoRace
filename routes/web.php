@@ -68,6 +68,8 @@ Route::middleware(SetLocale::class)->group(function() {
     
                 Route::get('/objective', [ObjectivesController::class, 'new']);
                 Route::post('/objective', [ObjectivesController::class, 'post']);
+
+                Route::post('set_visibility', [GamesController::class, 'set_visibility'])->name('game.set_visibility');
             });
         });
     

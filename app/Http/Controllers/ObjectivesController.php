@@ -57,6 +57,12 @@ class ObjectivesController extends Controller
     }
 
     public function edit_post(Objective $objective) {
+        if(auth()->user()->id != $objective->game->creator_id) {
+            session()->flash('error', __('auth.invalid_access'));
+
+            return redirect()->back();
+        }
+        
         $new_text = request()->input('description');
 
         $objective->description = $new_text;
@@ -64,7 +70,7 @@ class ObjectivesController extends Controller
 
         session()->flash('message', "L'objectif a bien été renommé.");
 
-        return redirect()->back();
+        return redirect('/games/'.$objective->game->id);
     }
 
     

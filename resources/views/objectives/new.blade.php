@@ -15,28 +15,28 @@
             </div>
         </div>
         <div class="flex flex-col">
-            <x-input-label for="objectives">Objectifs</x-input-label>
-            <x-input-textbox name="objectives" placeholder="Objectif 1\nObjectif 2\n..."/>
+            <x-form.label for="objectives">Objectifs</x-form.label>
+            <x-form.textbox-input name="objectives" placeholder="Objectif 1\nObjectif 2\n..."/>
             @error('objectives')
                 <span class="text-red-500">{{ __($message) }}</span>
             @enderror
         </div>
 
         <div class="flex flex-col mt-5">
-            <x-custom-select name="visibility">
+            <x-form.select-input name="visibility">
                 <option value="" disabled selected>Visibilité</option>
                 @if (auth()->user()->id == $game->creator_id || auth()->user()->isAdmin())
                     <option value="public">Public</option>
                 @endif
                 <option value="private">Privé</option>
-            </x-custom-select>
+            </x-form.select-input>
             @error('visibility')
                 <span class="text-red-500">{{ __($message) }}</span>
             @enderror
         </div>
 
         <div class="mt-5">
-            <x-form-validation>Je valide !</x-form-validation>
+            <x-form.submit-input>Je valide !</x-form.submit-input>
         </div>
     </form>
 </div>

@@ -67,7 +67,7 @@
             </div>
 
             <div>
-                <div class="absolute right-10 sm:hidden mt-3">
+                <div class="absolute right-10 sm:hidden mt-3 z-50">
                     <x-burger-nav/>
                 </div>
 
@@ -86,7 +86,7 @@
             @endauth
         </div>
 
-        <div class="bg-emerald-100 px-10 pb-32 pt-8 flex-grow" style="">
+        <div class="bg-emerald-100 px-4 lg:px-10 pb-32 pt-8 flex-grow" style="">
             @yield('content')
         </div>
 

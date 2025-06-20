@@ -73,14 +73,14 @@
 
         <div class="flex flex-col mt-5">
             <x-form.label for="preview_image">{{ __('game.creation.form.image.label') }}</x-form.label>
-            <x-input-filedrop name="preview_image" message="{{ __('game.creation.form.image.message') }}"></x-input-filedrop>
+            <x-form.filedrop-input name="preview_image" message="{{ __('game.creation.form.image.message') }}"></x-form.filedrop-input>
             @error('preview_image')
                 <span class="text-red-500">{{ __($message) }}</span>
             @enderror
         </div>
 
         <div class="mt-5 justify-center flex">
-            <x-form-validation>{{ __('game.creation.form.submit') }}</x-form-validation>
+            <x-form.submit-input>{{ __('game.creation.form.submit') }}</x-form.submit-input>
         </div>
     </form>
 </div>

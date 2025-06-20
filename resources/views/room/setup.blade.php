@@ -74,11 +74,11 @@
         </div>
         <div class="text-center pt-5">
             <input type="hidden" name="room_id" value="{{ $room->id }}">
-            <x-form-validation>
+            <x-form.submit-input>
                 <span class="font-bold">
                     {{ __('room.setup.submit') }}
                 </span>
-            </x-form-validation>
+            </x-form.submit-input>
         </div>
     </form>
 @endsection

@@ -19,7 +19,9 @@
         id="{{ $name }}"
         @required($required != null)
         class="hidden" />
-    <p class="text-gray-500">{{ __('form.input.image.text') }}</p>
+    <p class="text-gray-500">
+      {{ __('form.input.image.text') }}
+    </p>
     <p class="text-gray-500 text-sm">{{ $message }}</p>
     <div id="preview" class="mt-4"></div>
 </div>

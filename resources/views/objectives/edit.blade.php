@@ -15,7 +15,7 @@
 
 
         <div class="mt-5">
-            <x-form-validation>Je valide !</x-form-validation>
+            <x-form.submit-input>Je valide !</x-form.submit-input>
         </div>
     </form>
 </div>

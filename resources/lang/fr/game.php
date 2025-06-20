@@ -60,6 +60,21 @@ return [
     'show.danger.rename.label' => "Renommer le jeu",
     'show.danger.rename.submit' => "Valider",
     
+    'show.flag.title' => "Signaler",
     'show.flag.reason.label' => "Raison",
     'show.flag.reason.validate' => "Signaler",
+    
+    'show.visibility.title' => "Changer la visibilité",
+    'show.visibility.is_public' => "Ce jeu est public.",
+    'show.visibility.is_private' => "Ce jeu est private.",
+    'show.visibility.is_official' => "Ce jeu est official.",
+    'show.visibility.to_public' => "Mets le public!",
+    'show.visibility.to_private' => "Mets le privé!",
+    'show.visibility.to_official_on' => "Mets le officiel!",
+    'show.visibility.to_official_off' => "Mets le pas officiel!",
+    'show.visibility.message.valid.public' => "Visibilité changée en public!",
+    'show.visibility.message.valid.private' => "Visibilité changée en privé!",
+    'show.visibility.message.valid.official_on' => "Visibilité changée en officiel!",
+    'show.visibility.message.valid.official_off' => "Visibilité changée en pas officiel!",
+    'show.visibility.message.invalid' => "Impossible de changer la visibilité.",
 ];

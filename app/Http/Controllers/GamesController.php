@@ -142,20 +142,12 @@ class GamesController extends Controller
     }
 
     public function show(Game $game) {
-        $game_id = $game->id;
-        $game = Game::find($game_id);
-
-        if($game == null) {
-            return redirect('/');
+        if($game->is_official || $game->is_public) {
+            return view('games.show', [
+                'game'=> $game
+            ]);
         }
-
-        if($game->creator_id != null && $game->creator->id != auth()->user()->id) {
-            return redirect('/');
-        }
-
-        return view('games.show', [
-            'game'=> $game
-        ]);
+        return redirect()->back();
     }
 
     public function delete(Request $request) {

@@ -67,7 +67,7 @@ return [
     'show.visibility.title' => "Changer la visibilité",
     'show.visibility.is_public' => "Ce jeu est public.",
     'show.visibility.is_private' => "Ce jeu est private.",
-    'show.visibility.is_official' => "Ce jeu est official.",
+    'show.visibility.is_official' => "Ce jeu est officiel.",
     'show.visibility.to_public' => "Mets le public!",
     'show.visibility.to_private' => "Mets le privé!",
     'show.visibility.to_official_on' => "Mets le officiel!",

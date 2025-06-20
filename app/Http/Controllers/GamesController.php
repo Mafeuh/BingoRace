@@ -176,11 +176,7 @@ class GamesController extends Controller
         
         $game = Game::find($game_id);
 
-        if(!auth()->user()->isAdmin() || auth()->user()->id == $game->creator_id) {
-            session()->flash('error', 'Vous n\'avez pas la permission de renommer ce jeu !');
-
-            return redirect()->back();
-        } else {
+        if(auth()->user()->isAdmin() || auth()->user()->id == $game->creator_id) {
             $new_name = $request->get('new_name');
             $old_name = $game->name;
 
@@ -191,5 +187,8 @@ class GamesController extends Controller
                 
             return redirect()->back();
         }
+        session()->flash('error', 'Vous n\'avez pas la permission de renommer ce jeu !');
+
+        return redirect()->back();
     }
 }

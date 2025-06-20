@@ -29,40 +29,42 @@
             <div class="bg-red-100 text-xl p-2 rounded-full border-2 border-red-400" x-on:click="show = !show">🚩</div>
         </div>
         
-        <div class="justify-center flex mt-2">
-            <form method="post" action="{{ route('game.set_visibility', ['game' => $game->id]) }}">
-                @csrf
-                <div>
-                    <h2 class="text-green-600 font-bold">
-                        {{ __('game.show.visibility.title') }}
-                    </h2>
-                </div>
+        @if (auth()->user()->isAdmin() || auth()->user()->id == $game->creator_id)
+            <div class="justify-center flex mt-2">
+                <form method="post" action="{{ route('game.set_visibility', ['game' => $game->id]) }}">
+                    @csrf
+                    <div>
+                        <h2 class="text-green-600 font-bold">
+                            {{ __('game.show.visibility.title') }}
+                        </h2>
+                    </div>
 
-                <div class="flex gap-2">
-                    @if(auth()->user()->isAdmin())
-                        @if ($game->is_official)
-                            <button type="submit" name="visibility" value="official_off" class="bg-green-300 hover:bg-green-500 p-2 rounded-full">
-                                {{ __('game.show.visibility.to_official_off') }}
+                    <div class="flex gap-2">
+                        @if(auth()->user()->isAdmin())
+                            @if ($game->is_official)
+                                <button type="submit" name="visibility" value="official_off" class="bg-green-300 hover:bg-green-500 p-2 rounded-full">
+                                    {{ __('game.show.visibility.to_official_off') }}
+                                </button>
+                            @else
+                                <button type="submit" name="visibility" value="official_on" class="bg-green-300 hover:bg-green-500 p-2 rounded-full">
+                                    {{ __('game.show.visibility.to_official_on') }}
+                                </button>
+                            @endif
+                        @endif
+
+                        @if ($game->is_public)
+                            <button type="submit" name="visibility" value="private" class="bg-green-300 hover:bg-green-500 p-2 rounded-full">
+                                {{ __('game.show.visibility.to_private') }}
                             </button>
                         @else
-                            <button type="submit" name="visibility" value="official_on" class="bg-green-300 hover:bg-green-500 p-2 rounded-full">
-                                {{ __('game.show.visibility.to_official_on') }}
+                            <button type="submit" name="visibility" value="public" class="bg-green-300 hover:bg-green-500 p-2 rounded-full">
+                                {{ __('game.show.visibility.to_public') }}
                             </button>
                         @endif
-                    @endif
-
-                    @if ($game->is_public)
-                        <button type="submit" name="visibility" value="private" class="bg-green-300 hover:bg-green-500 p-2 rounded-full">
-                            {{ __('game.show.visibility.to_private') }}
-                        </button>
-                    @else
-                        <button type="submit" name="visibility" value="public" class="bg-green-300 hover:bg-green-500 p-2 rounded-full">
-                            {{ __('game.show.visibility.to_public') }}
-                        </button>
-                    @endif
-                </div>
-            </form>
-        </div>
+                    </div>
+                </form>
+            </div>
+        @endif
 
         <div class="justify-center flex mt-2 lg:hidden">
             <form method="post" action="{{ route('game.flag', ['game' => $game->id]) }}" class="bg-red-100 p-2 rounded-lg">

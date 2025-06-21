@@ -24,6 +24,9 @@ return [
     'creation.form.visibility.value.official' => "Officiel",
     'creation.form.visibility.placeholder' => "Visibilité",
     
+    'creation.form.language.label' => "Langue",
+    'creation.form.language.invalid' => "Langue invalide.",
+    
     'creation.visibility.unallowed.official' => "Vous n'avez pas la permission de faire des jeux en visibilité 'officielle'.",
     'creation.visibility.subtitle.admin' => "Les jeux officiels sont des jeux par défaut proposés par le site.",
     'creation.visibility.subtitle.text1' => "La visibilité 'privée' cache votre jeu aux autres utilisateurs.",
@@ -77,4 +80,9 @@ return [
     'show.visibility.message.valid.official_on' => "Visibilité changée en officiel!",
     'show.visibility.message.valid.official_off' => "Visibilité changée en pas officiel!",
     'show.visibility.message.invalid' => "Impossible de changer la visibilité.",
+
+    'show.language.edit' => "Changer la langue",
+    'show.language.edit.submit' => "Enregistrer",
+    'show.language.edit.invalid' => "Langue invalide. Choisis soit 'fr', soit 'en'.",
+    'show.language.edit.valid' => "Langage changé en :lang",
 ];

@@ -16,6 +16,23 @@ class GamesController extends Controller
         return view('games.new');
     }
 
+    public function set_language(Game $game) {
+        $new_language = request()->input('lang');
+
+        if(!in_array($new_language, array_keys(Game::$available_languages))) {
+            session()->flash('error', __('game.show.language.edit.invalid'));
+
+            return redirect()->back();
+        }
+
+        $game->lang = $new_language;
+        $game->save();
+
+        session()->flash('message', __('game.show.language.edit.valid', ['lang' => Game::$available_languages[$new_language]]));
+
+        return redirect()->back();
+    }
+
     public function set_visibility(Game $game) {
         $new_visibility = request()->input('visibility');
 
@@ -55,8 +72,17 @@ class GamesController extends Controller
             'preview_image' => ['image', 'mimes:png,jpg,jpeg,gif', 'max:2048' ],
             'public_objectives' => [],
             'private_objectives' => [],
-            'visibility' => []
+            'visibility' => ['required'],
+            'lang' => ['required'],
         ]);
+
+        $lang = $valid['lang'];
+
+        if(!in_array($lang, array_keys(Game::$available_languages))) {
+            session()->flash('error', __('game.creation.form.language.invalid'));
+
+            return redirect()->back();
+        }
         
         $visibility = $valid['visibility'];
 
@@ -95,7 +121,8 @@ class GamesController extends Controller
             'image_url' => $imageUrl,
             'creator_id' => auth()->user()->id,
             'is_official' => $is_official,
-            'is_public' => $is_public
+            'is_public' => $is_public,
+            'lang' => $lang
         ]);
 
         if($valid['public_objectives']) {

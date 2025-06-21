@@ -30,13 +30,14 @@
         </div>
         
         @if (auth()->user()->isAdmin() || auth()->user()->id == $game->creator_id)
-            <div class="justify-center flex mt-2">
-                <form method="post" action="{{ route('game.set_visibility', ['game' => $game->id]) }}">
+        <div>
+            <div class="justify-center flex mt-2 gap-x-4">
+                <form method="post" action="{{ route('game.set_visibility', ['game' => $game->id]) }}" class="flex flex-col w-56">
                     @csrf
                     <div>
-                        <h2 class="text-green-600 font-bold">
+                        <x-form.label>
                             {{ __('game.show.visibility.title') }}
-                        </h2>
+                        </x-form.label>
                     </div>
 
                     <div class="flex gap-2">
@@ -63,7 +64,25 @@
                         @endif
                     </div>
                 </form>
+                <form method="post" class="flex flex-col w-56" action="{{ route('game.set_language', ['game' => $game->id]) }}">
+                    @csrf
+                    <div>
+                        <x-form.label for="lang">
+                            {{ __('game.creation.form.language.label') }}
+                        </x-form.label>
+                    </div>
+                    <div class="w-56">
+                        <x-form.select-input name="lang" class="w-28">
+                            @foreach (\App\Models\Game::$available_languages as $lang_slug => $lang_name)
+                                <option value="{{ $lang_slug }}" @selected($lang_slug == $game->lang)>{{ $lang_name }}</option>
+                            @endforeach
+                        </x-form.select-input>
+                        <button type="submit" class="bg-green-300 p-2 rounded-full w-fit">
+                            {{ __('game.show.language.edit.submit') }}
+                        </button>
+                </form>
             </div>
+        </div>
         @endif
 
         <div class="justify-center flex mt-2 lg:hidden">

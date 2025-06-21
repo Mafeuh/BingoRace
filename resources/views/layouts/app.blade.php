@@ -90,7 +90,7 @@
             @yield('content')
         </div>
 
-        <div class="fixed bottom-0 w-full">
+        <div class="fixed bottom-0 left-0 w-full">
             <hr>
             <x-footer></x-footer>
         </div>

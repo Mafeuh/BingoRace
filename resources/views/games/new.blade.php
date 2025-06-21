@@ -31,6 +31,17 @@
         </div>
 
         <div class="flex flex-col">
+            <x-form.label for="lang">
+                {{ __('game.creation.form.language.label') }}
+            </x-form.label>
+            <x-form.select-input name="lang">
+                @foreach (\App\Models\Game::$available_languages as $lang_slug => $lang_name)
+                    <option value="{{ $lang_slug }}" @selected($lang_slug == (app()->getLocale() ? app()->getLocale() : 'en'))>{{ $lang_name }}</option>
+                @endforeach
+            </x-form.select-input>
+        </div>
+
+        <div class="flex flex-col">
             <x-form.label for="visibility">
                 {{ __('game.creation.form.visibility.label') }}
             </x-form.label>

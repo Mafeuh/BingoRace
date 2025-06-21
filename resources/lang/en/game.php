@@ -24,6 +24,9 @@ return [
     'creation.form.visibility.value.official' => "Official",
     'creation.form.visibility.placeholder' => "Visibility",
 
+    'creation.form.language.label' => "Language",
+    'creation.form.language.invalid' => "Invalid language value.",
+
     'creation.visibility.unallowed.official' => "You cannot create 'official' games.",
     'creation.visibility.subtitle.admin' => "Official games are games approved by BingoRace's staff.",
     'creation.visibility.subtitle.text1' => "The 'private' option hides your game from other users.",
@@ -78,4 +81,9 @@ return [
     'show.visibility.message.valid.official_on' => "Visibility set to official!",
     'show.visibility.message.valid.official_off' => "Visibility set to non-official!",
     'show.visibility.message.invalid' => "Couldn't change visibility value.",
+
+    'show.language.edit.label' => "Edit language",
+    'show.language.edit.submit' => "Save",
+    'show.language.edit.invalid' => "Language invalid. Please select either 'fr' or 'en'.",
+    'show.language.edit.valid' => "Language set to :lang",
 ];

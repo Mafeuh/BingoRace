@@ -13,11 +13,17 @@ return [
     'start.game_selection.filters.public' => "Public games", 
     'start.game_selection.filters.private' => "Private games",
 
+    'start.game_selection.filters.lang.title' => "Language",
+
+    'start.game_selection.filters.name.title' => "Name",
+
     'start.game_selection.selected.title' => ":amount selected games",
 
     'start.game_selection.submit' => "Validate!", 
 
     'start.game_selection.no_result' => "The filters didn't give any result.",
+
+    'start.game_selection.error.not_enough_games' => "Please select at least one game.",
     
     'setup.title' => "Game setup",
     'setup.games' => "Reminder of selected games",

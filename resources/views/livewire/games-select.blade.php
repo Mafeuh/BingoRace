@@ -4,9 +4,21 @@
             <h2 class="text-center text-xl">
                 {{ __('room.start.game_selection.filters.title') }}
             </h2>
-            <input type="text" placeholder=""
+            <x-form.label for="name">
+                {{ __('game.creation.form.name.label') }}
+            </x-form.label>
+            <input id="name" type="text" placeholder=""
                wire:model.live.debounce.500ms="search"
-               class="border border-gray-300 rounded-full text-center py-2 px-4"/>
+               class="border border-gray-300 rounded-full text-center py-2 px-4 w-full"/>
+            
+            <x-form.label for="lang">
+                {{ __('game.creation.form.language.label') }}
+            </x-form.label>
+            <select id="lang" wire:model.live.debounce="lang" class="border-1 border-gray-200 rounded-full text-center py-2 w-full">
+                @foreach (\App\Models\Game::$available_languages as $lang_slug => $lang_name)
+                    <option value="{{ $lang_slug }}" @selected(app()->getLocale() == $lang_slug)>{{ $lang_name }}</option>
+                @endforeach
+            </select>
             
             <div class="flex justify-center">
                 <table>
@@ -58,7 +70,7 @@
         </div>
 
         <div class="text-center">
-            <button @class([
+            <button type="button" @class([
                 "bg-green-400 text-white p-2 rounded-full",
                 "disabled:bg-gray-300 animate-pulse"
             ]) wire:click="start" @disabled(sizeof($selected_games) == 0)>

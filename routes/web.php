@@ -11,6 +11,9 @@ use App\Http\Middleware\CheckUserPermission;
 use App\Http\Middleware\SetLocale;
 use App\View\Components\redirect;
 
+Route::get('cgu', function() {
+    return view('cgu');
+});
 
 Route::middleware(SetLocale::class)->group(function() {
     Route::get('/lang', function() {

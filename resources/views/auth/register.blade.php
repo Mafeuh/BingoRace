@@ -47,6 +47,10 @@
                     <x-form.password-input name="password_confirmation" required="" placeholder="{{ __('register.password.confirm.placeholder') }}"/>
                     <x-form.error name="password_confirmation"/>
                 </div>
+
+                <div class="text-center w-56">
+                    {!! __('auth.cgu') !!}
+                </div>
                 
                 <div class="text-center">
                     <x-form-validation>

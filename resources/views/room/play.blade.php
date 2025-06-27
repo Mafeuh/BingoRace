@@ -55,28 +55,37 @@
     @endphp
 
     @if ($room->duration_seconds != null)
-    <div class="-mt-8 flex justify-center mb-1">
-        <div id="timer" class="text-center justify-center">
-            <x-room-timer :room="$room"/>
-    
-            <script>
-                window.addEventListener('timer_ended', function() {
-                    document.getElementById('victory_cache').classList.remove('hidden');
-                });
-            </script>
+        <div class="-mt-8 flex justify-center mb-1">
+            <div id="timer" class="text-center justify-center">
+                <x-room-timer :room="$room"/>
+        
+                <script>
+                    window.addEventListener('timer_ended', function() {
+                        document.getElementById('victory_cache').classList.remove('hidden');
+                    });
+                </script>
+            </div>
         </div>
-    </div>
+    @else
+        <div class="text-center -mt-5 mb-5">
+            <a href="{{ route('room.results') }}" class="bg-emerald-500 p-4 inline-block mt-5">
+                {{ __('room.play.ending_cache.redirect_to_results') }}
+            </a>
+        </div>
     @endif
 
     <div id="grid" @class(["relative justify-center flex-0 flex", 'opacity-0' => $cache_hide_time - $server_time > 0]) >
         <x-bingo-grid :grid="$room->grid" :team="$team" :editable="isset($team)"></x-bingo-grid>
 
         @if ($room->duration_seconds != null)
-            <div id="victory_cache" class="bg-green-300/70 hidden absolute w-full h-full z-10 transition-all duration-100 flex flex-col place-content-center items-center rounded-3xl">
+            <div id="victory_cache" class="bg-green-300/80 hidden absolute w-full h-full z-10 transition-all duration-100 flex flex-col place-content-center items-center rounded-3xl">
                 <div class="text-center space-y-5">
                     <h1 class="text-8xl text-white font-bold">
                         {{ __('room.play.ending_cache.description') }}
                     </h1>
+                    <a href="{{ route('room.results') }}" class="bg-emerald-500 p-4 inline-block mt-5">
+                        {{ __('room.play.ending_cache.redirect_to_results') }}
+                    </a>
                 </div>
         
                 <div id="countdown" class="text-2xl font-bold text-red-600"></div>

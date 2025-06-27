@@ -86,7 +86,7 @@
             @endauth
         </div>
 
-        <div class="bg-emerald-100 px-4 lg:px-10 pb-32 pt-8 flex-grow" style="">
+        <div class="bg-emerald-100 px-4 lg:px-10 pb-32 pt-8 flex-grow relative" style="">
             @yield('content')
         </div>
 

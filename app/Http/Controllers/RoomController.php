@@ -15,6 +15,39 @@ use Illuminate\Http\Request;
 
 class RoomController extends Controller
 {
+    public function results() {
+        $room = Room::find(auth()->user()->last_joined_room_id);
+
+        $teams = $room->teams->map(function ($team) {
+            $team->objectives_count = count($team->checked_objectives);
+            return $team;
+        });
+
+        $sorted = $teams->sortByDesc('objectives_count')->values();
+
+        $ranked = collect();
+        $rank = 1;
+        $previousCount = null;
+        $position = 1;
+
+        foreach ($sorted as $team) {
+            if ($previousCount !== null && $team->objectives_count < $previousCount) {
+                $rank = $position;
+            }
+        
+            $team->rank = $rank;
+            $ranked->push($team);
+        
+            $previousCount = $team->objectives_count;
+            $position++;
+        }
+
+        return view('room.results', [
+            'room' => $room,
+            'ordered_teams' => $ranked
+        ]);
+    }
+
     public function start() {
         return view('room.start');
     }

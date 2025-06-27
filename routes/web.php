@@ -94,6 +94,8 @@ Route::middleware(SetLocale::class)->group(function() {
     
             Route::post('begin', [RoomController::class,'begin'])->name('room-start');
             Route::get('play', [RoomController::class, 'play']);
+
+            Route::get('/results', [RoomController::class, 'results'])->name('room.results');
         });
     });
 

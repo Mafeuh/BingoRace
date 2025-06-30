@@ -6,8 +6,9 @@
 
 <div wire:poll.1s x-data="{ mobile_preview: false }">
     {{-- Computer version --}}
-    <div wire:click="try_check" title="{{ $square->objective->description }}" @class([
-            'relative hidden lg:flex size-28 text-clip flex rounded-lg border lg:border-4', 
+    <div wire:click="try_check" title="{{ $square->objective->description }}"         
+        @class([
+            'relative hidden lg:flex text-clip size-28 flex rounded-lg border lg:border-4', 
             'hover:shadow-2xl transform hover:scale-110 duration-150',
             'font-bold' => $square->checked_at != null,
             "border-gray-500" => $square->checked_by,
@@ -17,7 +18,7 @@
             <div class="block lg:text-sm font-bold">
                 {{ $square->objective->game->name }}
             </div>
-            <div class="text-xs lg:text-sm w-full max-h-full text-ellipsis overflow-hidden">
+            <div class="text-xs w-full max-h-full text-ellipsis overflow-scroll">
                 {{$square->objective->description}}
             </div>
         </div>

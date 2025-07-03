@@ -68,4 +68,8 @@ class User extends Authenticatable
     public function isAdmin() {
         return $this->hasPermission('admin');
     }
+
+    public function hasFavorite(Game $game) {
+        return $this->favorite_games->contains($game);
+    }
 }

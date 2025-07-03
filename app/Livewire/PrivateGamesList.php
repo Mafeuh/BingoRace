@@ -8,16 +8,25 @@ use Livewire\Component;
 class PrivateGamesList extends Component
 {
     public $name = "";
-    public $private_games = [];
 
-    public function mount() {
-        $this->private_games = Game::getAuthPrivateGames()->get();
-    }
-    public function updatedName() {
-        $this->private_games = Game::getAuthPrivateGames()->where('name', 'like', "%".$this->name."%")->get();
-    }
     public function render()
     {
-        return view('livewire.private-games-list');
+        $favoriteIds = auth()->user()->favorite_games->pluck('id');
+
+        $favorite = Game::getAuthPrivateGames()
+            ->whereIn('id', $favoriteIds)
+            ->get();
+
+        $nonFavorite = Game::getAuthPrivateGames()
+            ->whereNotIn('id', $favoriteIds)
+            ->when($this->name, fn($query) =>
+                $query->where('name', 'like', '%' . $this->name . '%')
+            )
+            ->get();
+
+        return view('livewire.private-games-list', [
+            'favorite' => $favorite,
+            'non_favorite' => $nonFavorite,
+        ]);
     }
 }

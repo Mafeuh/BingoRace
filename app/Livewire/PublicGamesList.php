@@ -8,16 +8,25 @@ use Livewire\Component;
 class PublicGamesList extends Component
 {
     public $name = "";
-    public $public_games = [];
 
-    public function mount() {
-        $this->public_games = Game::getPublicGames()->get();
-    }
-    public function updatedName() {
-        $this->public_games = Game::getPublicGames()->where('name', 'like', "%".$this->name."%")->get();
-    }
     public function render()
     {
-        return view('livewire.public-games-list');
+        $favoriteIds = auth()->user()->favorite_games->pluck('id');
+
+        $favorite = Game::getPublicGames()
+            ->whereIn('id', $favoriteIds)
+            ->get();
+
+        $nonFavorite = Game::getPublicGames()
+            ->whereNotIn('id', $favoriteIds)
+            ->when($this->name, fn($query) =>
+                $query->where('name', 'like', '%' . $this->name . '%')
+            )
+            ->get();
+
+        return view('livewire.public-games-list', [
+            'favorite' => $favorite,
+            'non_favorite' => $nonFavorite,
+        ]);
     }
 }

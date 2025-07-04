@@ -205,7 +205,9 @@
                     {{ __('game.show.danger.delete') }}
                 </button>
             </form>
+
             <hr class="border-red-200 border-2">
+
             <form class="mt-5" action="{{ route('games.rename')}}" method="POST">
                 @csrf
                 <input type="hidden" name="game_id" value="{{$game->id}}">
@@ -217,6 +219,21 @@
                 <x-form.text-input :value="$game->name" name="new_name"/>
                 <button type="submit" class="bg-red-500 p-3 text-white font-bold rounded-full">
                     {{ __('game.show.danger.rename.submit') }}
+                </button>
+            </form>
+
+            <hr class="border-red-200 border-2">
+
+            <form enctype="multipart/form-data" class="mt-5" action="{{ route('games.change_image', ['game' => $game->id]) }}" method="POST">
+                @csrf
+                <div class="sm:w-96">
+                    <label class="text-red-500 font-bold" for="new_name">
+                        {{ __('game.show.danger.change_image.label') }}
+                    </label>
+                    <x-form.filedrop-input name="image" required="true"/>
+                </div>
+                <button type="submit" class="bg-red-500 p-3 text-white font-bold rounded-full">
+                    {{ __('game.show.danger.change_image.submit') }}
                 </button>
             </form>
         </div>

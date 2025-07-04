@@ -16,6 +16,24 @@ class GamesController extends Controller
         return view('games.new');
     }
 
+    public function change_image(Game $game) {
+        $valid = request()->validate([
+            'image' => ['image', 'mimes:png,jpg,jpeg,gif', 'max:2048' ]
+        ]);
+
+        $imageUrl = '';
+
+        $path = request()->file('image')->store('public/images');
+        $imageUrl = str_replace('public', 'storage', $path);
+        
+        $game->image_url = $imageUrl;
+        $game->save();
+
+        session()->flash('message', __('game.show.danger.change_image.valid'));
+
+        return redirect()->back();
+    }
+
     public function set_language(Game $game) {
         $new_language = request()->input('lang');
 

@@ -74,6 +74,7 @@ Route::middleware(SetLocale::class)->group(function() {
 
                 Route::post('set_visibility', [GamesController::class, 'set_visibility'])->name('game.set_visibility');
                 Route::post('set_language', [GamesController::class, 'set_language'])->name('game.set_language');
+                Route::post('change_image', [GamesController::class, 'change_image'])->name('games.change_image');
             });
         });
     

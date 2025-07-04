@@ -57,7 +57,7 @@ class ObjectivesController extends Controller
     }
 
     public function edit_post(Objective $objective) {
-        if(auth()->user()->id != $objective->game->creator_id) {
+        if(auth()->user()->id != $objective->game->creator_id && !auth()->user()->isAdmin()) {
             session()->flash('error', __('auth.invalid_access'));
 
             return redirect()->back();

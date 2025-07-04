@@ -13,6 +13,7 @@
         @if($wire_model != null)
 		wire:model="{{$wire_model}}"
 		@endif
+        onchange="checkFileSize(this)"
         type="file" 
         accept="image/*"
         name="{{ $name }}" 
@@ -71,4 +72,13 @@
         }
       }
     }
+
+    function checkFileSize(input) {
+      const maxSize = 2 * 1024 * 1024; // 2 MB
+      if (input.files[0].size > maxSize) {
+        alert("Le fichier est trop lourd (max 2 Mo).");
+        input.value = ""; // réinitialise
+      }
+    }
+
   </script>

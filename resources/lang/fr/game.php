@@ -62,7 +62,10 @@ return [
     'show.danger.delete' => "Supprimer le jeu",
     'show.danger.rename.label' => "Renommer le jeu",
     'show.danger.rename.submit' => "Valider",
-    
+    'show.danger.change_image.label' => "Changer l'image",
+    'show.danger.change_image.submit' => "Valider",
+    'show.danger.change_image.valid' => "L'image a été changée.",
+
     'show.flag.title' => "Signaler",
     'show.flag.reason.label' => "Raison",
     'show.flag.reason.validate' => "Signaler",

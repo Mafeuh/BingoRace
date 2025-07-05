@@ -8,6 +8,9 @@ return [
     'play.team.your_team' => "You are with the team ",
     'play.team.no_team' => "You are in spectator mode!",
 
+    'play.events.square_checked' => ":player_name checked the objective :description!",
+    'play.events.square_unchecked' => ":player_name unchecked the objective :description!",
+
     'results.title' => "Results!",
     'results.empty_teams' => "Well you didn't create any team so of course the leaderboard is empty...",
     'results.first_place' => "First place",

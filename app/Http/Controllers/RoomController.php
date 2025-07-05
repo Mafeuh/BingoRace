@@ -133,9 +133,15 @@ class RoomController extends Controller
     public function wait() {
         $r = Room::find(auth()->user()->last_joined_room_id);
 
-        return view('room.waiting_room', [
-            'room' => $r
-        ]);
+        if($r->started_at) {
+
+            return redirect("/room/play");
+        } else {
+            return view('room.waiting_room', [
+                'room' => $r
+            ]);
+        }
+
     }
 
     public function begin() {
@@ -172,10 +178,13 @@ class RoomController extends Controller
         $room = Room::all()->where('code', mb_strtoupper($valid['code']))->first();
 
         if ($room) {
+            dd($room->is_started);
+
             auth()->user()->last_joined_room_id = $room->id;
             auth()->user()->save();
-    
+
             return redirect('/room/wait');
+
         }
 
         session()->flash('error', 'Ce salon n\'existe pas !');

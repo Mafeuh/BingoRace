@@ -8,6 +8,9 @@ return [
     'play.team.your_team' => "Tu es dans l'équipe ",
     'play.team.no_team' => "Tu es spectateur !",
 
+    'play.events.square_checked' => ":player_name a complété l'objectif :description !",
+    'play.events.square_unchecked' => ":player_name a annulé l'objectif :description !",
+
     'results.title' => "Resultats!",
     'results.empty_teams' => "Oui bon bah y'a pas d'équipe donc forcément le classement est vide...",
     'results.first_place' => "1ere place",

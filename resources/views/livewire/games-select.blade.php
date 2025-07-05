@@ -84,7 +84,7 @@
             @forelse ($shown_games as $game)
             <div class="relative" for="{{ $game->id }}">
                 <label for="{{ $game->id }}">
-                    <x-game-card :game="$game" :show_objectives="true"/>
+                    <x-game-card :game="$game" :show_objectives="true" :redirect="false"/>
                     <input 
                         class="absolute top-2 right-2" 
                         type="checkbox" name="{{ $game->id }}" id="{{ $game->id }}"

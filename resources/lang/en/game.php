@@ -72,7 +72,7 @@ return [
 
     
     'show.visibility.title' => "Change visibility",
-    'show.visibility.is_public' => "This game is public.",
+    'show.visibility.is_public' => "This game is public, created by :name.",
     'show.visibility.is_private' => "This game is private.",
     'show.visibility.is_official' => "This game is official.",
     'show.visibility.to_public' => "Make it public!",

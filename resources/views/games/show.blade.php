@@ -13,7 +13,7 @@
             @if ($game->is_official)
                 {{ __('game.show.visibility.is_official') }}
             @elseif ($game->is_public)
-                {{ __('game.show.visibility.is_public') }}
+                {{ __('game.show.visibility.is_public', ['name' => $game->creator->name]) }}
             @else
                 {{ __('game.show.visibility.is_private') }}
             @endif

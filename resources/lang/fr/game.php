@@ -71,7 +71,7 @@ return [
     'show.flag.reason.validate' => "Signaler",
     
     'show.visibility.title' => "Changer la visibilité",
-    'show.visibility.is_public' => "Ce jeu est public.",
+    'show.visibility.is_public' => "Ce jeu est public, créé par :name",
     'show.visibility.is_private' => "Ce jeu est privé.",
     'show.visibility.is_official' => "Ce jeu est officiel.",
     'show.visibility.to_public' => "Mets le public!",

@@ -18,7 +18,6 @@ class BingoGridSquare extends Component
     private Room $room;
     public BingoGridSquareModel $square;
 
-    #[On('echo:bingo-room,SquareChecked')]
     public function refreshSquare($event) {
         $this->updateSquare($event['squareId']);
     }

@@ -9,7 +9,7 @@ import Pusher from 'pusher-js';
 window.Pusher = Pusher;
 
 const reverbHost = import.meta.env.VITE_REVERB_HOST || window.location.hostname;
-const reverbPort = import.meta.env.VITE_REVERB_PORT || 80;
+const reverbPort = Number(import.meta.env.VITE_REVERB_PORT || 8090);
 const reverbTLS = import.meta.env.VITE_REVERB_TLS === 'true';
 
 window.Echo = new Echo({
@@ -19,5 +19,13 @@ window.Echo = new Echo({
     wsPort: reverbPort,
     wssPort: reverbPort,
     forceTLS: reverbTLS,
-    enabledTransports: ['ws', 'wss'],
+    encrypted: reverbTLS,
+    enabledTransports: reverbTLS ? ['wss'] : ['ws'],
 });
+
+const socket = new WebSocket("ws://localhost:8080/app/laravel-herd?protocol=7&client=js&version=8.4.0&flash=false");
+
+socket.onopen = () => console.log("✅ Connected");
+socket.onerror = (e) => console.error("❌ WebSocket error", e);
+
+window.socket = socket;

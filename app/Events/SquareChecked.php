@@ -2,6 +2,7 @@
 
 namespace App\Events;
 
+use App\Models\Room;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;
@@ -15,14 +16,14 @@ class SquareChecked implements ShouldBroadcastNow
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $squareId;
+    public int $roomId;
 
     /**
      * Create a new event instance.
      */
-    public function __construct($squareId)
+    public function __construct(int $roomId)
     {
-        $this->squareId = $squareId;
+        $this->roomId = $roomId;
     }
 
     /**
@@ -32,6 +33,8 @@ class SquareChecked implements ShouldBroadcastNow
      */
     public function broadcastOn()
     {
-        return new Channel('bingo-room');
+        return [
+            new Channel('square-checked.'.$this->roomId)
+        ];
     }
 }

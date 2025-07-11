@@ -15,6 +15,10 @@ class Team extends Model
         return $this->hasMany(Participant::class, 'team_id', 'id');
     }
 
+    public function checked_objectives() {
+        return $this->hasMany(BingoGridSquare::class, 'checked_by_team_id', 'id');
+    }
+
     public function checkedSquares() {
         return $this->belongsToMany(BingoGridSquare::class, 'checked_by', 'team_id', 'square_id');
     }

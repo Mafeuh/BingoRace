@@ -178,8 +178,6 @@ class RoomController extends Controller
         $room = Room::all()->where('code', mb_strtoupper($valid['code']))->first();
 
         if ($room) {
-            dd($room->is_started);
-
             auth()->user()->last_joined_room_id = $room->id;
             auth()->user()->save();
 

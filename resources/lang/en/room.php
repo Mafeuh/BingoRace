@@ -11,6 +11,9 @@ return [
     'play.events.square_checked' => ":player_name checked the objective :description!",
     'play.events.square_unchecked' => ":player_name unchecked the objective :description!",
 
+    'play.square.check' => "Check!",
+    'play.square.uncheck' => "Uncheck!",
+
     'results.title' => "Results!",
     'results.empty_teams' => "Well you didn't create any team so of course the leaderboard is empty...",
     'results.first_place' => "First place",

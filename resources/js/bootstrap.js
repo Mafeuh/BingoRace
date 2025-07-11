@@ -9,23 +9,20 @@ import Pusher from 'pusher-js';
 window.Pusher = Pusher;
 
 const reverbHost = import.meta.env.VITE_REVERB_HOST || window.location.hostname;
-const reverbPort = Number(import.meta.env.VITE_REVERB_PORT || 8090);
-const reverbTLS = import.meta.env.VITE_REVERB_TLS === 'true';
+const reverbPort = parseInt(import.meta.env.VITE_REVERB_PORT || 6001);
+const reverbTLS = import.meta.env.VITE_REVERB_SCHEME === 'https';
+
+Pusher.logToConsole = true;
 
 window.Echo = new Echo({
-    broadcaster: 'reverb',
+    broadcaster: 'pusher',
     key: import.meta.env.VITE_REVERB_APP_KEY,
+    cluster: import.meta.env.VITE_PUSHER_APP_CLUSTER,
     wsHost: reverbHost,
     wsPort: reverbPort,
     wssPort: reverbPort,
     forceTLS: reverbTLS,
     encrypted: reverbTLS,
     enabledTransports: reverbTLS ? ['wss'] : ['ws'],
+    disableStats: true,
 });
-
-const socket = new WebSocket("ws://localhost:8080/app/laravel-herd?protocol=7&client=js&version=8.4.0&flash=false");
-
-socket.onopen = () => console.log("✅ Connected");
-socket.onerror = (e) => console.error("❌ WebSocket error", e);
-
-window.socket = socket;

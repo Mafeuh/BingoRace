@@ -33,8 +33,14 @@ class SquareChecked implements ShouldBroadcastNow
      */
     public function broadcastOn()
     {
+        logger('broadcastOn() called for SquareChecked');
+        
         return [
             new Channel('square-checked.'.$this->roomId)
         ];
+    }
+
+    public function broadcastAs() {
+        return 'square-checked';
     }
 }

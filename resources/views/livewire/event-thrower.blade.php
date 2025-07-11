@@ -1,0 +1,1 @@
+<div wire:click="throw_event" class="bg-green-500 p-3">THROW</div>

@@ -57,7 +57,9 @@
     @endphp
 
     <div id="grid" @class(["relative justify-center flex-0 flex my-2", 'opacity-0' => $cache_hide_time - $server_time > 0]) >
-        <x-bingo-grid :grid="$room->grid" :team="$team" :editable="isset($team)"></x-bingo-grid>
+        {{-- <x-bingo-grid :grid="$room->grid" :team="$team" :editable="isset($team)"></x-bingo-grid> --}}
+
+        <livewire:bingo-grid :player_team_id="$team->id ?? -1" :room_id="$room->id"/>
 
         @if ($room->duration_seconds != null)
             <div id="victory_cache" class="bg-green-300/80 hidden absolute w-full h-full z-10 transition-all duration-100 flex flex-col place-content-center items-center rounded-3xl">
@@ -94,4 +96,13 @@
             </a>
         </div>
     @endif
+
+    {{-- <livewire:event-thrower :room_id="$room->id"/> --}}
+
+    <script>
+        window.Echo.channel('square-checked.{{$room->id}}')
+            .listen('.square-checked', (e) => {
+                console.log(e);
+            });
+    </script>
 @endsection

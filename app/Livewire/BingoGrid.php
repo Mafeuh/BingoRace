@@ -45,6 +45,8 @@ class BingoGrid extends Component
 
         $square = BingoGridSquare::find($square_id);
 
+        $checked_by = $square->checked_by;
+
         if(!$square->checked_at) {
             $square->checked_at = now();
 

@@ -20,6 +20,10 @@ class BingoGridSquare extends Model
     }
 
     public function checked_by() {
-        return $this->belongsToMany(Team::class, 'checked_bies', 'square_id', 'team_id');
+        return $this->hasOne(Team::class, 'id', 'checked_by_team_id');
     }
+
+    // public function checked_by() {
+    //     return $this->belongsToMany(Team::class, 'checked_bies', 'square_id', 'team_id');
+    // }
 }

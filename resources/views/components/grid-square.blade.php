@@ -15,9 +15,10 @@
         <div class="block lg:text-sm font-bold">
             {{ $square->objective->game->name }}
         </div>
-        <div class="text-xs w-full max-h-full text-ellipsis overflow-scroll">
-            {{$square->objective->description}}
+        <div class="text-xs w-full max-h-16 overflow-hidden line-clamp-3 hover:overflow-y-scroll hover:line-clamp-none scrollbar-hidden">
+            {{ $square->objective->description }}
         </div>
+        
     </div>
     <div class="absolute w-full h-full -z-10 bg-white">
         <div class="w-full h-full grid grid-cols-{{ min(sizeof($square->checked_by), 5) }}">

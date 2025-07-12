@@ -38,14 +38,4 @@
         @endforeach
         </div>
     </div>
-    {{-- @if ($square->checked_by?->image_url)
-    <div 
-        class="absolute w-full h-full -z-20 -p-2" 
-        style="
-            background-image: url({{ asset($square->checked_by->image_url) }});
-            background-size: cover;
-            background-position: center;
-        ">
-    </div>
-    @endif --}}
 </div>

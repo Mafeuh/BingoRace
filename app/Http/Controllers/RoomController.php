@@ -67,7 +67,8 @@ class RoomController extends Controller
             'grid_width' => ['required', 'min:1', 'max:10'],
             'objective_type' => ['array'],
             'objective_type.*' => [],
-            'room_id' => []
+            'room_id' => [],
+            'max_teams_per_square' => []
         ]);
 
         if(!array_key_exists('objective_type', $valid)) {
@@ -98,6 +99,11 @@ class RoomController extends Controller
             session()->flash('error', 'Pas assez d\'objectifs pour remplir les conditions.');
 
             return redirect('/room/setup');
+        }
+
+        if($valid['max_teams_per_square'] || $valid['max_teams_per_square'] > 0) {
+            $room->max_teams_check = $valid['max_teams_per_square'];
+            $room->save();
         }
 
         $objectives = Objective::whereIn('game_id', $games->pluck('id')

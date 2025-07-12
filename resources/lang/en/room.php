@@ -55,6 +55,10 @@ return [
     'setup.settings.objectives.public' => "Public objectives?",
     'setup.settings.objectives.private' => "Private objectives?",
 
+    'setup.settings.max_teams.title' => "Highest number of teams per square",
+    'setup.settings.max_teams.description1' => "Corresponds to the highest number of teams that can check the same square", 
+    'setup.settings.max_teams.description2' => "Set to 0 or an empty value to disable (no limit)", 
+
     'setup.objectives_pool.title' => "Possible objectives",
     'setup.objectives_pool.public' => "Public objectives",
     'setup.objectives_pool.' => "Private objectives",

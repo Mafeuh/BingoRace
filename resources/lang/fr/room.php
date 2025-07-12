@@ -55,6 +55,10 @@ return [
     'setup.settings.objectives.public' => "Objectifs publics ?",
     'setup.settings.objectives.private' => "Objectifs privés ?",
 
+    'setup.settings.max_teams.title' => "Maximum d'équipes par case",
+    'setup.settings.max_teams.description1' => "Correspond au nombre maximale d'équipes différentes qui pourront cocher la même case", 
+    'setup.settings.max_teams.description2' => "Mets à 0 ou à une valeur vide pour désactiver (aucune limite)", 
+
     'setup.objectives_pool.title' => "Rappel des objectifs",
     'setup.objectives_pool.public' => "Objectifs publics",
     'setup.objectives_pool.private' => "Objectifs privés",

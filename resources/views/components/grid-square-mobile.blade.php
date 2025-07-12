@@ -2,7 +2,7 @@
     'square',
 ])
 
-@php $color_class = 'bg-['.$square->checked_by?->color.']/50'; @endphp
+{{-- @php $color_class = 'bg-['.$square->checked_by?->color.']/50'; @endphp
 <div>
     <div @class([
         'lg:hidden size-20', 
@@ -22,4 +22,6 @@
             </div>
         @endif
     </div>
-</div>
+</div> --}}
+
+<div></div>

@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use App\Models\BingoGrid as ModelsBingoGrid;
 use App\Models\BingoGridSquare;
+use App\Models\CheckedBy;
 use App\Models\Room;
 use App\Models\Team;
 use Carbon\Carbon;
@@ -47,19 +48,20 @@ class BingoGrid extends Component
 
         $checked_by = $square->checked_by;
 
-        if(!$square->checked_at) {
-            $square->checked_at = now();
+        $can_check = $this->room->max_teams_check ? sizeof($checked_by) < $this->room->max_teams_check : true;
 
-            $square->checked_by_team_id = $this->player_team->id;
-            $square->save();
-
+        if(in_array($this->player_team_id, $checked_by->pluck('id')->toArray())) {
+            CheckedBy::where('team_id', $this->player_team_id)->where('square_id', $square_id)->first()->delete();
         } else {
-            if($square->checked_by_team_id == $this->player_team->id) {
-                $square->checked_at = null;
-                $square->checked_by_team_id = null;
-                $square->save();
+            if($can_check) {
+                CheckedBy::create([
+                    'team_id' => $this->player_team_id,
+                    'square_id' => $square_id,
+                    'user_id' => auth()->user()->id
+                ]);
             }
         }
+
         $this->dispatch('$refresh');
     }
 

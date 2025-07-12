@@ -19,16 +19,26 @@
             {{$square->objective->description}}
         </div>
     </div>
-    <div class="absolute w-full h-full -z-10">
-        <div 
-            @class([
-                "bg-[{$square->checked_by?->color}]/70" => $square->checked_by?->image_url,
-                "bg-[{$square->checked_by?->color}]" => $square->checked_by && !$square->checked_by?->image_url,
-                "w-full h-full"
-                ])>
+    <div class="absolute w-full h-full -z-10 bg-white">
+        <div class="w-full h-full grid grid-cols-{{ min(sizeof($square->checked_by), 5) }}">
+        @foreach ($square->checked_by as $team_it)
+            @if ($team_it->image_url)
+                <div style="
+                    background-image: url({{ asset($team_it->image_url) }});
+                    background-size: cover;
+                    background-position: center;
+                ">
+                    <div class="bg-[{{$team_it->color}}]/70 w-full h-full"></div>
+                </div>
+            @else
+                <div>
+                    <div class="bg-[{{$team_it->color}}] w-full h-full"></div>
+                </div>
+            @endif
+        @endforeach
         </div>
     </div>
-    @if ($square->checked_by?->image_url)
+    {{-- @if ($square->checked_by?->image_url)
     <div 
         class="absolute w-full h-full -z-20 -p-2" 
         style="
@@ -37,5 +47,5 @@
             background-position: center;
         ">
     </div>
-    @endif
+    @endif --}}
 </div>

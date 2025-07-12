@@ -75,6 +75,10 @@ class ParticipantsList extends Component
     public function delete_team(int $team_id) {
         $team = Team::find($team_id);
 
+        if($this->player_team_id == $team_id) {
+            $this->leave_team();
+        }
+
         foreach ($team->participants as $participant) {
             $participant->delete();
         }

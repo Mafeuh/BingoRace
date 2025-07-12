@@ -23,29 +23,40 @@ class ObjectivesController extends Controller
 
         $objectives = mb_split('\r\n', $valid['objectives']);
 
+        $too_long_error = 0;
+        
         if($valid['objectives']) {
             if($valid['visibility'] == 'public') {
                 foreach($objectives as $obj) {
-                    $pub = PublicObjective::create([]);
-                    $pub->objective()->create([
-                        'game_id' => $game->id,
-                        'description' => $obj
-                    ]);
+                    if(strlen($obj) <= 255) {
+                        $pub = PublicObjective::create([]);
+                        $pub->objective()->create([
+                            'game_id' => $game->id,
+                            'description' => $obj
+                        ]);
+                    } else $too_long_error += 1;
                 }
             } elseif($valid['visibility'] == 'private') {
                 foreach($objectives as $obj) {
-                    $pub = PrivateObjective::create([
-                        'user_id' => auth()->user()->id
-                    ]);
-                    $pub->objective()->create([
-                        'game_id' => $game->id,
-                        'description' => $obj
-                    ]);
+                    if(strlen($obj) <= 255) {
+                        $pub = PrivateObjective::create([
+                            'user_id' => auth()->user()->id
+                        ]);
+                        $pub->objective()->create([
+                            'game_id' => $game->id,
+                            'description' => $obj
+                        ]);
+                    } else $too_long_error += 1;
                 }
             }
         }
 
-        session()->flash('message', sizeof($objectives) . ' ajouté(s) à ' . $game->name);
+        if($too_long_error > 0) {
+            session()->flash('message', (sizeof($objectives) - $too_long_error) . ' ajouté(s) à ' . $game->name . " (" . $too_long_error . " étaient trop longs.)");
+        } else {
+            session()->flash('message', sizeof($objectives) . ' ajouté(s) à ' . $game->name);
+        }
+
 
         return redirect()->back();
     }

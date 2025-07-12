@@ -201,12 +201,10 @@ class GamesController extends Controller
         $game = Game::find($game_id);
 
         if(auth()->user()->isAdmin() || auth()->user()->id == $game->creator_id) {
-            $game->public_objectives()->delete();
-            $game->private_objectives()->delete();
-    
             session()->flash('message', 'Le jeu '.$game->name.' a été supprimé.');
     
-            $game->delete();
+            $game->visible = false;
+            $game->save();
             
             return to_route('games.list');
         }

@@ -22,7 +22,7 @@
             let seconds = remaining % 60;
     
             document.getElementById('hours').innerText = hours.toString().padStart(2, '0');
-            document.getElementById('minutes').innerText = minutes.toString().padStart(2, '0');
+            document.getElementById('minutes').innerText = (minutes % 60).toString().padStart(2, '0');
             document.getElementById('seconds').innerText = seconds.toString().padStart(2, '0');
             document.getElementById('ends_at').innerText = new Date({{ $ends_at }} * 1000).toLocaleString(navigator.language || 'fr-FR', {hour: '2-digit', minute: '2-digit'});
 

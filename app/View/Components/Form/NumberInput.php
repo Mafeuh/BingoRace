@@ -1,12 +1,12 @@
 <?php
 
-namespace App\View\Components;
+namespace App\View\Components\Form;
 
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class FormValidation extends Component
+class NumberInput extends Component
 {
     /**
      * Create a new component instance.
@@ -21,6 +21,6 @@ class FormValidation extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.form-validation');
+        return view('components.form.number-input');
     }
 }

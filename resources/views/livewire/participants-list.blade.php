@@ -82,23 +82,7 @@
 
         <div class="flex flex-col">
             <x-form.label for="new_team_color">{{ __('room.wait.teams.new_team.color.label') }}</x-form.label>
-            <select
-                required=""
-                name="new_team_color"
-                wire:model='new_team_color'
-                style="background-color: {{$new_team_color}}"
-                onchange="changeBackgroundColor(this)"
-                class="border-1 border-gray-200 rounded-full text-center py-3">
-                <option value="" disabled selected>{{ __('room.wait.teams.new_team.color.placeholder') }}</option>
-                <option value="#ef4444" class="bg-red-500"></option>
-                <option value="#f97316" class="bg-orange-500"></option>
-                <option value="#eab308" class="bg-yellow-500"></option>
-                <option value="#84cc16" class="bg-lime-500"></option>
-                <option value="#10b981" class="bg-emerald-500"></option>
-                <option value="#06b6d4" class="bg-cyan-500"></option>
-                <option value="#6366f1" class="bg-indigo-500"></option>
-                <option value="#d946ef" class="bg-fuchsia-500"></option>
-            </select>
+            <x-x-form.team-color-selector/>
         </div>
 
         <div class="flex flex-col">

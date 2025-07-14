@@ -1,12 +1,12 @@
 <?php
 
-namespace App\View\Components;
+namespace App\View\Components\Form;
 
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class input-textbox extends Component
+class TextboxInput extends Component
 {
     /**
      * Create a new component instance.
@@ -21,6 +21,6 @@ class input-textbox extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.input-textbox');
+        return view('components.form.textbox-input');
     }
 }

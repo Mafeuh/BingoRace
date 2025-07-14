@@ -1,13 +1,16 @@
 <?php
 
-namespace App\View\Components;
+namespace App\View\Components\Form;
 
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class form.checkbox-input extends Component
+class TeamColorSelector extends Component
 {
+    public $colors = [
+        
+    ]
     /**
      * Create a new component instance.
      */
@@ -21,6 +24,6 @@ class form.checkbox-input extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.form.checkbox-input');
+        return view('components.form.team-color-selector');
     }
 }

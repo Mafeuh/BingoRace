@@ -3,8 +3,14 @@
 @section('content')
 <div class="h-fit">
     <div class="grid lg:grid-cols-3 h-fit gap-5">
-        <div class="bg-white p-3 shadow-inner shadow-green-100 rounded-3xl h-fit">
-            <livewire:participants-list :room="$room" />
+        <div class="gap-y-5 flex flex-col">
+            <div class="bg-white p-3 shadow-inner shadow-green-100 rounded-3xl h-fit">
+                <livewire:teams-list :room="$room" />
+            </div>
+    
+            <div class="bg-white p-3 shadow-inner shadow-green-100 rounded-3xl h-fit">
+                <livewire:team-creation-form :room="$room" />
+            </div>
         </div>
         <div class="lg:col-span-2 2xl:col-span-1">
             <div>

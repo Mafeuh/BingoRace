@@ -53,9 +53,9 @@
                 </div>
                 
                 <div class="text-center">
-                    <x-form-validation>
+                    <x-form.submit-input>
                         {{ __('register.submit') }}
-                    </x-form-validation>
+                    </x-form.submit-input>
                 </div>
                 <div class="text-center">
                     {{ __('register.login.label') }}

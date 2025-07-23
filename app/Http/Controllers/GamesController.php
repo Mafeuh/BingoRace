@@ -153,7 +153,7 @@ class GamesController extends Controller
             }
         }
         if($valid['private_objectives']) {
-            foreach($public_objectives as $obj) {
+            foreach($private_objectives as $obj) {
                 $priv = PrivateObjective::create([
                     'user_id' => auth()->user()->id
                 ]);

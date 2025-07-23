@@ -21,7 +21,22 @@
         @livewireStyles
     </head>
     <body class="h-screen flex flex-col">
-        <div class="bg-emerald-700 grid grid-cols-2 sm:grid-cols-3 ">
+        @php
+            $is_maintenance = config('app.maintenance_mode');
+        @endphp
+
+        @if ($is_maintenance && auth()->user() && !auth()->user()->isAdmin())
+            <div class="absolute w-full h-full bg-red-500/80 z-50 flex flex-col place-content-center items-center">
+                <h1 class="text-5xl text-white font-bold">
+                    {{ __('maintenance.title') }}
+                </h1>
+                <h2 class="text-2xl text-white">
+                    {{ __('maintenance.come_back_later')}}
+                </h2>
+            </div>
+        @endif
+
+        <div class="bg-emerald-700 grid grid-cols-2 sm:grid-cols-3">
             <div class="hidden sm:inline">
                 @auth
                     <form class="ml-5 absolute hidden sm:inline" method="POST" action="/join">

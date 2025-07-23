@@ -41,5 +41,7 @@
                 @endif
             </span>
         @endauth
+        <span class="text-red-900 font-bold ml-5">Maintenance active</span>
     </form>
+
 </div>

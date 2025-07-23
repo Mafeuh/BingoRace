@@ -125,5 +125,7 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
     'admin_email' => env('ADMIN_EMAIL'),
-    'admin_pass' => env('ADMIN_PASS')
+    'admin_pass' => env('ADMIN_PASS'),
+
+    'maintenance_mode' => true
 ];

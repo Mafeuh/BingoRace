@@ -5,6 +5,7 @@ use App\Http\Controllers\BingoGameController;
 use App\Http\Controllers\ObjectivesController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoomController;
+use App\Http\Middleware\CheckMaintenanceState;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\GamesController;
 use App\Http\Middleware\CheckUserPermission;
@@ -41,7 +42,7 @@ Route::middleware(SetLocale::class)->group(function() {
     
     
     
-    Route::middleware(['auth', 'verified'])->group(function () {
+    Route::middleware(['auth', 'verified', CheckMaintenanceState::class])->group(function () {
         Route::post('/join', [RoomController::class,'join']);
         
         Route::group([

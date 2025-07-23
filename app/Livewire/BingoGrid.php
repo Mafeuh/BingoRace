@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Events\SquareChecked;
 use App\Models\BingoGrid as ModelsBingoGrid;
 use App\Models\BingoGridSquare;
 use App\Models\CheckedBy;
@@ -23,7 +24,11 @@ class BingoGrid extends Component
 
     public \App\Models\BingoGrid $grid;
 
-    protected $listeners = ['$refresh', 'tryCheckEvent' => 'try_check'];
+    protected $listeners = [
+        '$refresh', 
+        'tryCheckEvent' => 'try_check',
+        'square-checked' => 'refresh',
+    ];
 
     public function mount() {
         $this->player_team = Team::find($this->player_team_id);
@@ -52,6 +57,7 @@ class BingoGrid extends Component
 
         if(in_array($this->player_team_id, $checked_by->pluck('id')->toArray())) {
             CheckedBy::where('team_id', $this->player_team_id)->where('square_id', $square_id)->first()->delete();
+            broadcast(new SquareChecked($this->room_id));
         } else {
             if($can_check) {
                 CheckedBy::create([
@@ -59,6 +65,7 @@ class BingoGrid extends Component
                     'square_id' => $square_id,
                     'user_id' => auth()->user()->id
                 ]);
+                broadcast(new SquareChecked($this->room_id));
             }
         }
 
@@ -78,12 +85,12 @@ class BingoGrid extends Component
         $this->dispatch('$refresh');
     }
 
+    public function refresh() {
+        $this->dispatch('$refresh');
+    }
+
     public function render()
     {
         return view('livewire.bingo-grid');
-    }
-
-    public function test() {
-        dd('test');
     }
 }

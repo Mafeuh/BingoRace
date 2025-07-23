@@ -97,12 +97,15 @@
         </div>
     @endif
 
-    {{-- <livewire:event-thrower :room_id="$room->id"/> --}}
-
     <script>
-        window.Echo.channel('square-checked.{{$room->id}}')
-            .listen('.square-checked', (e) => {
-                console.log(e);
-            });
+        document.addEventListener('DOMContentLoaded', function() {
+            const roomId = {{ $room->id }};
+            const channelName = `room.${roomId}`;
+
+            window.Echo.channel(channelName)
+                .listen('.square-checked', (event) => {
+                    Livewire.dispatch('square-checked', event);
+                });
+        });
     </script>
 @endsection

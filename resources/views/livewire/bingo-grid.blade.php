@@ -1,4 +1,4 @@
-<div wire:poll.5s>
+<div>
     <div class="grid-cols-{{$grid->width}} w-fit gap-1 static hidden lg:grid">
         @foreach ($grid->squares as $square)
             <div wire:click="try_check({{$square->id}})">

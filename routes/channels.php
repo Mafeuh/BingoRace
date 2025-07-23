@@ -2,6 +2,6 @@
 
 use Illuminate\Support\Facades\Broadcast;
 
-Broadcast::channel('bingo-room', function($user) {
+Broadcast::channel('room.{roomId}', function($user, $roomId) {
     return true;
 });

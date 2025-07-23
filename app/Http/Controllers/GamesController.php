@@ -87,7 +87,7 @@ class GamesController extends Controller
     public function store() {
         $valid = request()->validate([
             'name' => ['required', 'max:255'],
-            'preview_image' => ['image', 'mimes:png,jpg,jpeg,gif', 'max:2048' ],
+            'preview_image' => ['image', 'mimes:png,jpg,jpeg,gif,webp', 'max:2048' ],
             'public_objectives' => [],
             'private_objectives' => [],
             'visibility' => ['required'],

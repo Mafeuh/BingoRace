@@ -1,5 +1,7 @@
 <?php
 
+use App\Providers\BroadcastServiceProvider;
+
 return [
 
     /*
@@ -127,5 +129,9 @@ return [
     'admin_email' => env('ADMIN_EMAIL'),
     'admin_pass' => env('ADMIN_PASS'),
 
-    'maintenance_mode' => true
+    'maintenance_mode' => true,
+
+    'providers' => [
+        BroadcastServiceProvider::class,
+    ]
 ];

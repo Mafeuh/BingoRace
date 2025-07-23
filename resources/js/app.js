@@ -1,3 +1,5 @@
+console.log('App.js chargé');
+
 import './bootstrap';
 
 import Alpine from 'alpinejs';

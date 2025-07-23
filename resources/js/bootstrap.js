@@ -1,3 +1,5 @@
+console.log('Bootstrap.js chargé');
+
 import axios from 'axios';
 
 window.axios = axios;

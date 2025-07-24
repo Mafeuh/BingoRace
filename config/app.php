@@ -130,8 +130,4 @@ return [
     'admin_pass' => env('ADMIN_PASS'),
 
     'maintenance_mode' => true,
-
-    'providers' => [
-        BroadcastServiceProvider::class,
-    ]
 ];

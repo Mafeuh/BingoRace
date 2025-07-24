@@ -37,6 +37,8 @@ return [
             'options' => [
                 'cluster' => env('PUSHER_CLUSTER'),
                 'useTLS' => true,
+                'encrypted' => true, // Optionnel, mais recommandé
+                'timeout' => 30,     // Timeout en secondes
             ],
         ],
 

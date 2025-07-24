@@ -27,6 +27,8 @@ class TeamsList extends Component
 
     public function render()
     {
+        $this->user_team = $this->user_in_team(auth()->user());
+        
         return view('livewire.teams-list', [
             'room' => $this->room,
         ]);

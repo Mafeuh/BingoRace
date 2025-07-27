@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Setting extends Model
 {
-    protected $fillable = ['key', 'value'];
+    protected $fillable = ['key', 'value', 'description'];
 
     public static function get($key, $default = null) {
         return static::where('key', $key)->first()->value ?? $default;

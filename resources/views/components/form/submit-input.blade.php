@@ -9,6 +9,5 @@
         id="{{$name}}"
     @endisset
     class="
-        px-5 py-2 text-xl animate-pulse bg-green-400 text-white rounded-3xl transition-all
-        hover:bg-green-600 hover:font-bold hover:scale-105"
+        px-3 py-1 text-xl bg-green-300 hover:bg-green-400 border-green-400 border-2 text-white rounded-3xl transition-all"
     type="submit">{{ $slot }}</button>

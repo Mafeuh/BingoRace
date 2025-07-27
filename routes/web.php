@@ -42,7 +42,7 @@ Route::middleware(SetLocale::class)->group(function() {
     
     
     
-    Route::middleware(['auth', 'verified', CheckMaintenanceState::class])->group(function () {
+    Route::middleware(['auth', 'verified'])->group(function () {
         Route::post('/join', [RoomController::class,'join']);
         
         Route::group([

@@ -1,13 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="bg-green-50 h-full p-2 rounded-xl shadow-lg">
+    <div class="bg-white h-full p-2 rounded-xl shadow-lg">
         <h1 class="text-center text-2xl font-bold text-red-900">Zone administrateur</h1>
 
-        <div class="grid xl:grid-cols-3 h-fit space-x-5">
+        <div class="grid xl:grid-cols-3 h-fit gap-2">
             <form action="{{ route('admin.join_room') }}" method="POST">
                 @csrf
-                <div class="bg-white p-4">
+                <div class="bg-gray-100 p-4">
                     <h1 class="text-center text-xl">Historique des parties lancées</h1>
     
                     <div class="grid grid-cols-5 gap-x-2 select-none" x-data="{ hide_codes: true }">
@@ -43,10 +43,16 @@
                 </div>
             </form>
 
-            <div class="bg-white p-4 col-span-2">
+            <div class="bg-gray-100 p-4 col-span-2">
                 <h1 class="text-xl text-center mb-10">Gérer les permissions</h1>
 
                 <livewire:user-permission-editor/>
+            </div>
+
+            <div class="bg-gray-100 p-4">
+                <h1 class="text-xl text-center mb-10">Paramètres de l'application</h1>
+    
+                <livewire:app-settings-form/>
             </div>
         </div>
     </div>

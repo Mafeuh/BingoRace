@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\Setting;
 use App\View\Components\redirect;
 use Closure;
 use Illuminate\Http\Request;
@@ -16,7 +17,7 @@ class CheckMaintenanceState
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(config('app.maintenance_mode') && auth()->user() && !auth()->user()->isAdmin()) {
+        if(Setting::get('maintenance') == "true" && auth()->user() && !auth()->user()->isAdmin()) {
             return redirect('/');
         }
         return $next($request);

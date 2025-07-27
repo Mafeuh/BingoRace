@@ -41,7 +41,9 @@
                 @endif
             </span>
         @endauth
-        <span class="text-red-900 font-bold ml-5">Maintenance active</span>
+        @if (App\Models\Setting::get('maintenance') === "true")
+            <span class="text-red-900 font-bold ml-5">Maintenance active</span>
+        @endif
     </form>
 
 </div>

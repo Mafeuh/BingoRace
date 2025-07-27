@@ -22,7 +22,7 @@
     </head>
     <body class="h-screen flex flex-col">
         @php
-            $is_maintenance = config('app.maintenance_mode');
+            $is_maintenance = App\Models\Setting::get('maintenance') === "true";
         @endphp
 
         @if ($is_maintenance && auth()->user() && !auth()->user()->isAdmin())

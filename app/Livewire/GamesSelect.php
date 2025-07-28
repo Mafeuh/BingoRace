@@ -11,9 +11,9 @@ use Livewire\Component;
 
 class GamesSelect extends Component
 {
-    public $shown_games = [];
-    public $selected_game_ids = [];
+    static int $MINIMUM_OBJECTIVES = 9;
 
+    public $shown_games = [];
     public $selected_games = [];
 
     public $show_official_games = true;
@@ -23,6 +23,8 @@ class GamesSelect extends Component
     public $search = "";
 
     public $lang = "";
+
+    public $can_start = false;
 
     public function updatedLang() {
         $this->queryUpdated();
@@ -38,13 +40,6 @@ class GamesSelect extends Component
     }
     public function updatedShowPrivateGames() {
         $this->queryUpdated();
-    }
-    public function updatedSelectedGameIds() {
-        $this->selected_games = Game::findMany(
-            array_keys(
-                array_filter($this->selected_game_ids)
-            )
-        );
     }
 
     public function queryUpdated() {
@@ -93,6 +88,22 @@ class GamesSelect extends Component
         }        
         
         return redirect('/room/setup');
+    }
+
+    public function select_game(int $game_id) {
+        $game = Game::find($game_id);
+        
+        if(in_array($game, $this->selected_games)) {
+            $this->selected_games = array_diff($this->selected_games, array($game));
+        } else {
+            array_push($this->selected_games, $game);
+        }
+
+        $this->can_start = collect(value: $this->selected_games)
+            ->map(fn($g) => count($g['public_objectives'] ?? []) + count($g['private_objectives']))
+            ->sum() >= static::$MINIMUM_OBJECTIVES;
+
+        $this->dispatch('$refresh');
     }
 
     public function render()

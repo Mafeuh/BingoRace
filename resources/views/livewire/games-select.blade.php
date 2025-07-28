@@ -73,7 +73,7 @@
             <button type="button" @class([
                 "bg-green-400 text-white p-2 rounded-full",
                 "disabled:bg-gray-300 animate-pulse"
-            ]) wire:click="start" @disabled(sizeof($selected_games) == 0)>
+            ]) wire:click="start" @disabled(!$this->can_start)>
                 Valider !
             </button>
         </div>
@@ -82,14 +82,14 @@
     <div class="w-full p-5 border-t-2 border-r-2 border-b-2 rounded-r-lg overflow-y-auto max-h-[80vh]">
         <div class="gap-5 grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 2xl:grid-cols-7">
             @forelse ($shown_games as $game)
-            <div class="relative" for="{{ $game->id }}">
+            <div class="relative" for="{{ $game->id }}" wire:key="game-card-{{ $game->id }}">
                 <label for="{{ $game->id }}">
                     <x-game-card :game="$game" :show_objectives="true" :redirect="false"/>
                     <input 
-                        class="absolute top-2 right-2" 
+                        class="absolute top-4 left-4 size-8" 
                         type="checkbox" name="{{ $game->id }}" id="{{ $game->id }}"
-                        wire:key="game-{{$game->id}}"
-                        wire:model.live="selected_game_ids.{{ $game->id }}"/>
+                        wire:click="select_game({{ $game->id }})"
+                        @checked(in_array($game, $selected_games))/>
                 </label>
             </div>
             @empty

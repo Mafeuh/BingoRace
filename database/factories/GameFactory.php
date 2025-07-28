@@ -17,13 +17,13 @@ class GameFactory extends Factory
      */
     public function definition(): array
     {
-        $is_official = random_int(0, 1) == 0;
+        $is_official = random_int(0, 2) == 0;
         $is_public = random_int(0, 1) == 0;
 
         return [
             'name' => $this->faker->word." ".($is_official ? 'o' : '')." ".($is_public ? 'p' : ''),
             'is_official' => $is_official,
-            'is_public' => $is_public,
+            'is_public' => $is_public && !$is_official,
             'image_url' => ''
         ];
     }

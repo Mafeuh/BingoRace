@@ -12,7 +12,7 @@
                 <span class="text-xl font-bold">
                     {{ __('room.setup.games') }}
                 </span>
-                <div class="grid grid-cols-2 sm:grid-cols-3 space-x-2 pt-5">
+                <div class="grid grid-cols-2 sm:grid-cols-3 gap-1 pt-5">
                     @foreach ($games as $game_it)
                     <div class="bg-gray-200 py-2 rounded-xl relative" style="padding-top: 100%; background-position:center; background-size:cover; background-repeat: no-repeat; background-image: url({{ asset($game_it->image_url) }});">
                         <div class="absolute transition-all inset-0 w-full h-full bg-white/50 hover:bg-white/80 rounded-xl flex justify-center items-center">

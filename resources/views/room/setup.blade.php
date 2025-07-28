@@ -44,31 +44,7 @@
                         {{ __('room.setup.objectives_pool.title') }}
                     </h2>
 
-                    @foreach ($games as $game)
-                        <div class="text-left border rounded-xl p-2">
-                            <span>{{ $game->name }}</span>
-
-                            <div x-data="{ show_public: false, show_private: false }">
-                                @if (sizeof($game->public_objectives) > 0)
-                                    <h3 x-on:click="show_public = !show_public">▪️ {{ __('room.setup.objectives_pool.public') }} 🔻</h3>
-                                    <div x-show="show_public">
-                                        @foreach ($game->public_objectives as $objective)
-                                            <p class="text-sm">{{ $objective->description }}</p>
-                                        @endforeach                                
-                                    </div>
-                                @endif
-
-                                @if (sizeof($game->private_objectives) > 0)
-                                    <h3 x-on:click="show_private = !show_private">▪️ {{ __('room.setup.objectives_pool.private') }} 🔻</h3>
-                                    <div x-show="show_private">
-                                        @foreach ($game->private_objectives as $objective)
-                                            <p>{{ $objective->description }}</p>
-                                        @endforeach
-                                    </div>
-                                @endif
-                            </div>
-                        </div>
-                    @endforeach
+                    
                 </div>
             </div>
         </div>

@@ -11,19 +11,17 @@ use App\Http\Controllers\GamesController;
 use App\Http\Middleware\CheckUserPermission;
 use App\Http\Middleware\SetLocale;
 use App\View\Components\redirect;
+use Illuminate\Support\Facades\Broadcast;
 
 Route::get('cgu', function() {
     return view('cgu');
 });
 
+Route::get('test', function() {
+    return view('debug.test-echo');
+});
+
 Route::middleware(SetLocale::class)->group(function() {
-    Route::get('/lang', function() {
-        dd([
-            app()->getLocale(),
-            session()->get('locale')
-        ]);
-    });
-    
     Route::get('/lang/{locale}', function($locale) {
         if (in_array($locale, ['en', 'fr'])) {
             session()->put('locale', $locale);
@@ -43,6 +41,8 @@ Route::middleware(SetLocale::class)->group(function() {
     
     
     Route::middleware(['auth', 'verified'])->group(function () {
+        Broadcast::routes();
+
         Route::post('/join', [RoomController::class,'join']);
         
         Route::group([

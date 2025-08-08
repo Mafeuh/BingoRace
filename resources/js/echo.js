@@ -1,5 +1,3 @@
-console.log('Echo.js chargé !');
-
 import Echo from 'laravel-echo';
 
 import Pusher from 'pusher-js';
@@ -7,24 +5,31 @@ window.Pusher = Pusher;
 
 Pusher.logToConsole = true;
 
+
+
+(function () {
+    const origSubscribe = Pusher.prototype.subscribe;
+    Pusher.prototype.subscribe = function (channelName) {
+        console.log('[DEBUG] Tentative abonnement ->', channelName);
+        return origSubscribe.apply(this, arguments);
+    };
+})();
+
 window.Echo = new Echo({
-    broadcaster: 'pusher',
+    broadcaster: "pusher",
     key: import.meta.env.VITE_PUSHER_APP_KEY,
     cluster: import.meta.env.VITE_PUSHER_APP_CLUSTER,
     forceTLS: true,
-    authEndpoint: '/broadcasting/auth',
-    auth: {
-        headers: {
-            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
-        }
-    }
+    wsHost: import.meta.env.VITE_PUSHER_HOST,
+    wsPort: import.meta.env.VITE_PUSHER_PORT,
+    wssPort: import.meta.env.VITE_PUSHER_PORT,
+    enabledTransports: ["ws", "wss"],
 });
 
-// Debug pour voir les connexions
-window.Echo.connector.pusher.connection.bind('connected', () => {
-    console.log('✅ Echo connecté');
+window.Echo.channel('test').listen('test_event', function() {
+    console.log('Test event reçu !');
 });
 
-window.Echo.connector.pusher.connection.bind('error', (error) => {
-    console.error('❌ Erreur Echo:', error);
+window.Echo.connector.pusher.connection.bind('state_change', states => {
+    console.log('Pusher state change:', states);
 });

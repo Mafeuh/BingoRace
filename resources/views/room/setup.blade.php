@@ -32,19 +32,31 @@
             </div>
 
             <div class="lg:col-span-2 bg-white rounded-lg p-5 text-center">
-                <span class="text-xl font-bold">
-                    {{ __('room.setup.settings.title') }}
-                </span>
+                <div>
+                    <span class="text-xl font-bold">
+                        {{ __('room.setup.settings.title') }}
+                    </span>
+                </div>
                 <x-room-creation-settings></x-room-creation-settings>
 
                 <hr class="my-5"/>
 
-                <div class="space-y-2">
-                    <h2 class="text-xl font-bold">
-                        {{ __('room.setup.objectives_pool.title') }}
-                    </h2>
+                <div>
+                    <div>
+                        <h2 class="text-xl font-bold">
+                            {{ __('room.setup.objectives_pool.title') }}
+                        </h2>
+                    </div>
 
-                    
+                    <div>
+                        Cliquez sur un objectif pour le désactiver
+                    </div>
+
+                    <div class="grid grid-cols-3 gap-x-1 gap-y-5">
+                        @foreach ($games as $game)
+                            <livewire:game-objective-selection :game="$game"/>
+                        @endforeach
+                    </div>
                 </div>
             </div>
         </div>

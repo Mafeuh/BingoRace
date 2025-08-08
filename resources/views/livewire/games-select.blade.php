@@ -1,4 +1,13 @@
-<form class="h-full bg-white rounded-lg shadow-xl p-5 md:flex">
+<form class="h-full bg-white rounded-lg shadow-xl p-5 md:flex" x-data="{ 
+    selected: {},
+    toggle_game(id, name) {
+        if(this.selected[id]) {
+            delete this.selected[id];
+        } else {
+            this.selected[id] = name;
+        }
+    }
+}">
     <div class="bg-gray-100 border-2 rounded-l-lg" wire:key="{{ now() }}">
         <div class="p-2 border-b-2 text-center">
             <h2 class="text-center text-xl">
@@ -61,19 +70,20 @@
                 {{ __('room.start.game_selection.selected.title', ['amount' => sizeof($selected_games)])}}
             </h2>
 
-            @foreach ($selected_games as $game)
-                <div class="my-2 static">
-                    <span>👾</span>
-                    {{ $game->name }}
-                </div>
-            @endforeach
+            <div>
+                <ul>
+                    <template x-for="[id, name] in Object.entries(selected)">
+                        <li x-text="name"></li>
+                    </template>
+                </ul>
+            </div>
         </div>
 
         <div class="text-center">
             <button type="button" @class([
                 "bg-green-400 text-white p-2 rounded-full",
                 "disabled:bg-gray-300 animate-pulse"
-            ]) wire:click="start" @disabled(!$this->can_start)>
+            ]) wire:click="start"  {{ !$can_start ? 'disabled' : '' }}>
                 Valider !
             </button>
         </div>
@@ -82,7 +92,7 @@
     <div class="w-full p-5 border-t-2 border-r-2 border-b-2 rounded-r-lg overflow-y-auto max-h-[80vh]">
         <div class="gap-5 grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 2xl:grid-cols-7">
             @forelse ($shown_games as $game)
-            <div class="relative" for="{{ $game->id }}" wire:key="game-card-{{ $game->id }}">
+            <div x-on.click="toggle_game('{{ $game->id }}', '{{ $game->name }}')" class="relative" for="{{ $game->id }}" wire:key="game-card-{{ $game->id }}">
                 <label for="{{ $game->id }}">
                     <x-game-card :game="$game" :show_objectives="true" :redirect="false"/>
                     <input 

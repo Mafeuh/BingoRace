@@ -63,8 +63,6 @@ class RoomController extends Controller
 
     public function setup_post() {
         $valid = request()->validate([
-            'grid_height' => ['required', 'min:1', 'max:10'],
-            'grid_width' => ['required', 'min:1', 'max:10'],
             'objective_type' => ['array'],
             'objective_type.*' => [],
             'room_id' => [],

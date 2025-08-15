@@ -1,4 +1,4 @@
-<div>
+<div class="space-y-2">
     <div class="flex justify-center">
         <div class="w-96 bg-gray-100 p-2">
             <h1 class="text-center text-xl font-bold">
@@ -10,31 +10,40 @@
                     <x-form.label for="grid_width">
                         {{ __('room.setup.settings.grid.width') }}
                     </x-form.label>
-                    <input type="number" wire:model.live="width" class="w-32 border-1 border-gray-200 rounded-full text-center py-3">
+                    <input type="number" wire:model.live.debounce.250ms="width" name="grid_width" class="w-32 border-1 border-gray-200 rounded-full text-center py-3">
                 </div>
     
                 <div class="text-center">
                     <x-form.label for="grid_height">
                         {{ __('room.setup.settings.grid.height') }}
                     </x-form.label>
-                    <input type="number" wire:model.live="height" class="w-32 border-1 border-gray-200 rounded-full text-center py-3">
+                    <input type="number" wire:model.live.debounce.250ms="height" name="grid_height"  class="w-32 border-1 border-gray-200 rounded-full text-center py-3">
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="text-xl font-bold text-center">
-        {{ __('room.setup.objectives_pool.title') }}
+    <div>
+        <div class="text-xl font-bold text-center">
+            {{ __('room.setup.objectives_pool.repartition') }}
+        </div>
+        <x-games-repartition-slider :pool_size="$pool_size" :height="$height" :width="$width" :room="$room"/>
     </div>
-    <div class="text-center">
-        Greyed-out objectives will be ignored in the final selection of objectives
-    </div>
-    
+
+    <div id="data" data-width="{{ $width }}" data-height="{{ $height }}"></div>
     
     <div>
-        <x-games-repartition-slider :pool_size="$pool_size" :height="$height" :width="$width" :room="$room"/>
+        <div class="text-xl font-bold text-center">
+            {{ __('room.setup.objectives_pool.title') }}
+        </div>
+        <div class="text-center">
+            {{ __('room.setup.objectives_pool.greyed') }}
+        </div>
 
-        <div class="text-center">Objectifs possibles : <span id="count" wire:ignore></span> / <span>{{ $width * $height }}</span></div>
+        <div class="text-center">
+            <span id="count" wire:ignore x-text="count"></span> / <span>{{ $width * $height }}</span>
+            <div id="count_error"></div>
+        </div>
         <div class="grid sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-1">
             @foreach ($room->games as $game)
             <div class="relative" style="padding-bottom: 100%">
@@ -93,5 +102,33 @@
             </div>
             @endforeach
         </div>
+
+        <script>
+            let count = {{ $pool_size }};
+            
+            const error_div = document.getElementById('count_error');
+
+            function getMax() {
+                return document.getElementById('data').dataset.width * document.getElementById('data').dataset.height;
+            }
+            
+            function updateCount(is_disabled) {
+                count += is_disabled ? -.5 : .5;
+
+                document.getElementById('count').innerText = count;
+
+                checkValidity();
+            }
+
+            function checkValidity() {
+                if(getMax() > count) {
+                    error_div.innerText = "Erreur";
+                } else {
+                    error_div.innerText = "";
+                }
+            }
+
+            checkValidity();
+        </script>
     </div>
 </div>

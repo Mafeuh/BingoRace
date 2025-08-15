@@ -59,7 +59,11 @@ return [
     'setup.settings.max_teams.description1' => "Corresponds to the highest number of teams that can check the same square", 
     'setup.settings.max_teams.description2' => "Set to 0 or an empty value to disable (no limit)", 
 
-    'setup.objectives_pool.title' => "Possible objectives",
+    'setup.objectives_pool.repartition' => "Objectives distribution",
+
+    'setup.objectives_pool.title' => "Possible objectives selection",
+    'setup.objectives_pool.greyed' => "Greyed-out objectives will be ignored in the random pick",
+
     'setup.objectives_pool.public' => "Public objectives",
     'setup.objectives_pool.' => "Private objectives",
 

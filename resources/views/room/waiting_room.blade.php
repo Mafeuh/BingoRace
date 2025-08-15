@@ -2,8 +2,8 @@
 
 @section('content')
 <div class="h-fit">
-    <div class="grid lg:grid-cols-3 h-fit gap-5">
-        <div class="gap-y-5 flex flex-col">
+    <div class="h-fit gap-5 flex">
+        <div class="space-y-5 w-1/3 text-sm">
             <div class="bg-white p-3 shadow-inner shadow-green-100 rounded-3xl h-fit">
                 <livewire:teams-list :room="$room" />
             </div>
@@ -12,7 +12,8 @@
                 <livewire:team-creation-form :room="$room" />
             </div>
         </div>
-        <div class="lg:col-span-2 2xl:col-span-1">
+
+        <div class="w-1/2">
             <div>
                 <h1 class="text-3xl text-center">
                     {{ __('room.wait.title') }}
@@ -38,7 +39,7 @@
                 </h2>
             </div>
 
-            <div class="bg-green-100 m-5 p-5 rounded-xl">
+            <div class="bg-white m-5 p-5 rounded-xl">
                 <div class="font-bold text-green-700">
                     {{ __('room.wait.rules.title') }}
                 </div>
@@ -53,27 +54,10 @@
                 </div>
             </div>
 
-            <div class="justify-center flex text-center my-4">
-                <livewire:room-timer-setter :room="$room" :disabled="auth()->user()->id !== $room->creator_id"/>
-            </div>
-
             @if (auth()->user()->id == $room->creator_id)
-                <div class="mt-10 text-center text-xl">
-                    {{ __('room.wait.start.label') }}
-                    <span class="font-bold">{{ __('room.wait.start.button') }}</span>
-                </div>
-
-                <form action="{{ route('room-start') }}" method="POST" class="text-center">
-                    @csrf
-                    <button class="text-xl bg-green-500 px-5 py-3 rounded-full font-bold hover:bg-green-700 active:animate-ping" type="submit">
-                        {{ __('room.wait.start.button') }}
-                    </button>
-                </form>
-            @else
-                <livewire:redirect-to-room :room="$room" />
+                <livewire:room-settings-setter :room="$room"/>
             @endif
         </div>
-
     </div>
 </div>
 @endsection

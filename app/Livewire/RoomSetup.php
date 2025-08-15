@@ -21,4 +21,8 @@ class RoomSetup extends Component
     {
         return view('livewire.room-setup');
     }
+
+    public function submit() {
+        $this->dispatch('validate');
+    }
 }

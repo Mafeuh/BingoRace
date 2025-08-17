@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Events\TeamCreated;
 use App\Models\AuthParticipant;
 use App\Models\Room;
 use App\Models\Team;
@@ -70,11 +71,9 @@ class TeamCreationForm extends Component
                 $auth->participant()->create([
                     'team_id' => $new_team->id,
                 ]);
-
-                $this->dispatch('teamJoined');
             }
+            broadcast(new TeamCreated($this->room->id));
         }
-        $this->dispatch('teamCreated');
     }
 
     public function leave_team() {

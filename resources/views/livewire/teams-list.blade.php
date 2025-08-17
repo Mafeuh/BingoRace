@@ -1,4 +1,4 @@
-<div wire:poll.5s>
+<div>
     <div class="text-xl text-center">
         {{ __('room.wait.teams.title', ['amount' => sizeof($room->teams)])}}
     </div>

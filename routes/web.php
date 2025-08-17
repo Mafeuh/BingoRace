@@ -11,6 +11,15 @@ use App\Http\Controllers\GamesController;
 use App\Http\Middleware\CheckUserPermission;
 use App\Http\Middleware\SetLocale;
 use App\View\Components\redirect;
+use Illuminate\Support\Facades\Broadcast;
+
+// Laravel 9+
+Broadcast::routes(['middleware' => ['web']]);
+
+// Ou pour les versions antérieures
+Route::post('/broadcasting/auth', function () {
+    return Broadcast::auth(request());
+})->middleware('web');
 
 Route::get('cgu', function() {
     return view('cgu');

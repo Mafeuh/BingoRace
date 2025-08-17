@@ -104,7 +104,7 @@
             @endauth
         </div>
 
-        <div class="bg-emerald-100 px-4 lg:px-10 pb-32 pt-8 flex-grow relative" style="">
+        <div class="bg-emerald-100 px-4 lg:px-10 pb-32 pt-4 flex-grow relative bg-[linear-gradient(to_right,rgba(0,0,0,0.05)_1px,transparent_1px),linear-gradient(to_bottom,rgba(0,0,0,0.05)_1px,transparent_1px)] bg-[size:40px_40px]" style="">
             @yield('content')
         </div>
 
@@ -114,7 +114,8 @@
         </div>
 
         <script src="{{ mix('js/app.js') }}"></script>
-
-        @livewireScripts
+        
+        <script src="//unpkg.com/alpinejs" defer></script>
+        @livewireScripts 
     </body>
 </html>

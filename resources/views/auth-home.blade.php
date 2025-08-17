@@ -24,6 +24,7 @@
                 <p>{{ __('home.presentation.text6') }}</p>
             </div>
         </div>
+
     </div>
     
 @endsection

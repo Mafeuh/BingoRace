@@ -14,6 +14,15 @@ class RoomTimerSetter extends Component
     {
         return view('livewire.room-timer-setter');
     }
+    public function mount() {
+        if($this->room->duration_seconds) {
+            $duration = $this->room->duration_seconds;
+            $hours = (floor($duration / 3600));
+            $minutes = ($duration / 60) % 60;
+
+            $this->timer_value = sprintf('%02d', $hours).":".sprintf('%02d', $minutes);
+        }
+    }
 
     public function updatedTimerValue($value) {
         $split = mb_split(':', $value);

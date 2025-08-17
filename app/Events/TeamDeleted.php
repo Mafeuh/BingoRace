@@ -2,26 +2,28 @@
 
 namespace App\Events;
 
-use App\Models\Room;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
+use Illuminate\Broadcasting\PresenceChannel;
+use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcastNow;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class SquareChecked implements ShouldBroadcastNow
+class TeamDeleted implements ShouldBroadcastNow
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public int $roomId;
-
+    public $room_id;
+    public $team_id;
     /**
      * Create a new event instance.
      */
-    public function __construct(int $roomId)
+    public function __construct($room_id, $team_id)
     {
-        $this->roomId = $roomId;
+        $this->room_id = $room_id;
+        $this->team_id = $team_id;
     }
 
     /**
@@ -29,14 +31,14 @@ class SquareChecked implements ShouldBroadcastNow
      *
      * @return array<int, \Illuminate\Broadcasting\Channel>
      */
-    public function broadcastOn()
-    {        
+    public function broadcastOn(): array
+    {
         return [
-            new Channel('room.'.$this->roomId)
+            new Channel('room.'.$this->room_id),
         ];
     }
 
     public function broadcastAs() {
-        return 'square-checked';
+        return "team-deleted";
     }
 }

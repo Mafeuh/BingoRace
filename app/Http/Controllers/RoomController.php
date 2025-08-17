@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\RoomStarted;
 use App\Models\BingoGrid;
 use App\Models\BingoGridSquare;
 use App\Models\Game;
@@ -80,6 +81,8 @@ class RoomController extends Controller
 
         $room->started_at = now();
         $room->save();
+
+        broadcast(new RoomStarted($room->id));
 
         return redirect("/room/play");
     }

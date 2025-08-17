@@ -59,5 +59,34 @@
             @endif
         </div>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const roomId = {{ $room->id }};
+            const channelName = `room.${roomId}`;
+
+            let channel = window.Echo.channel(channelName);
+
+            channel.listen('.room-started', (event) => {
+                window.location.href = "/room/play";
+            });
+
+            channel.listen('.team-created', (event) => {
+                Livewire.dispatch('refreshTeamList', event);
+            });
+
+            channel.listen('.team-joined', (event) => {
+                Livewire.dispatch('refreshTeamList', event);
+            });
+
+            channel.listen('.team-left', (event) => {
+                Livewire.dispatch('refreshTeamList', event);
+            });
+
+            channel.listen('.team-deleted', (event) => {
+                Livewire.dispatch('refreshTeamList', event);
+            });
+        });
+    </script>
 </div>
 @endsection

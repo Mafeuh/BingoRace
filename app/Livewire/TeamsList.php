@@ -2,6 +2,9 @@
 
 namespace App\Livewire;
 
+use App\Events\TeamDeleted;
+use App\Events\TeamJoined;
+use App\Events\TeamLeft;
 use App\Models\AuthParticipant;
 use App\Models\Room;
 use App\Models\Team;
@@ -12,11 +15,9 @@ class TeamsList extends Component
 {
     public ?Room $room = null;
     public ?Team $user_team = null;
-
+    
     protected $listeners = [
-        'teamCreated' => '$refresh',
-        'teamJoined' => '$refresh',
-        'teamLeft' => '$refresh'
+        'refreshTeamList' => '$refresh',
     ];
     
     public function mount(Room $room)
@@ -57,6 +58,8 @@ class TeamsList extends Component
         }
 
         $team->delete();
+
+        broadcast(new TeamDeleted($this->room->id, $team_id));
     }
 
     public function join_team(int $team_id) {
@@ -72,7 +75,7 @@ class TeamsList extends Component
 
         $this->user_team = Team::find($team_id);
 
-        $this->dispatch('teamJoined');
+        broadcast(new TeamJoined($this->room->id, $team_id, auth()->user()->id));
     }
 
     public function leave_team() {
@@ -88,5 +91,7 @@ class TeamsList extends Component
             }
         }
         $this->user_team = null;
+
+        broadcast(new TeamLeft($this->room->id, auth()->user()->id));
     }
 }

@@ -36,7 +36,7 @@ class GamesSelect extends Component
     }
 
     public function start() {
-        if(sizeof($this->selected_games) == 0) {
+        if(sizeof($this->selected_games_ids) == 0) {
             session()->flash('error', __('room.start.game_selection.error.not_enough_games'));
             return redirect('/room/start');
         }

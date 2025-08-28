@@ -3,8 +3,8 @@
         {{ __('room.setup.title') }}
     </h1>
 
-    <div class="flex justify-center">
-        <div class="space-y-2 xl:w-2/3">
+    <div class="justify-center">
+        <div class="space-y-2">
             <div class="bg-white rounded-lg p-2">
                 <livewire:games-objectives-selection :room_id="$room->id"/>
             </div>

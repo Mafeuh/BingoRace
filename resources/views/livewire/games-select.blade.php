@@ -1,5 +1,5 @@
 <form class="h-full bg-white rounded-lg shadow-xl p-5 md:flex">
-    <div class="bg-gray-100 border-2 rounded-l-lg" wire:key="{{ now() }}">
+    <div class="bg-gray-100 border-2 rounded-l-lg flex flex-col h-full" wire:key="{{ now() }}">
         <div class="p-2 border-b-2 text-center">
             <h2 class="text-center text-xl">
                 {{ __('room.start.game_selection.filters.title') }}
@@ -56,26 +56,38 @@
             </div>
         </div>
 
-        <div class="p-2">
-            <h2 class="text-center text-xl"> 
-                {{ __('room.start.game_selection.selected.title', ['amount' => sizeof($selected_games)])}}
-            </h2>
-
-            @foreach ($selected_games as $game)
-                <div class="my-2 static">
-                    <span>👾</span>
-                    {{ $game->name }}
+        <div class="grow flex flex-col relative">
+            <div class="p-2">
+                <h2 class="text-center text-xl"> 
+                    {{ __('room.start.game_selection.selected.title', ['amount' => sizeof($selected_games_ids)])}}
+                </h2>
+            
+                <div class="absolute w-full left-0 z-10 flex items-center justify-center">
+                    <div wire:loading>
+                        <svg class="animate-spin" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+                            <circle stroke-dasharray="164.93 56.97" r="35" stroke-width="10" stroke="#aaaaaa" fill="none" cy="50" cx="50"/>
+                        </svg>
+                    </div>
                 </div>
-            @endforeach
-        </div>
-
-        <div class="text-center">
-            <button type="button" @class([
-                "bg-green-400 text-white p-2 rounded-full",
-                "disabled:bg-gray-300 animate-pulse"
-            ]) wire:click="start" @disabled(!$this->can_start)>
-                Valider !
-            </button>
+            
+                @foreach ($selected_games_ids as $game_id)
+                    @php $game = App\Models\Game::find($game_id); @endphp
+                    <div class="my-2 static">
+                        <span>👾</span>
+                        {{ $game->name }}
+                    </div>
+                @endforeach
+            </div>
+            
+    
+            <div class="text-center">
+                <button type="button" @class([
+                    "bg-green-400 text-white p-2 rounded-full",
+                    "disabled:bg-gray-300 animate-pulse"
+                ]) wire:click="start" @disabled(!$this->can_start)>
+                    Valider !
+                </button>
+            </div>
         </div>
     </div>
 
@@ -87,9 +99,13 @@
                     <x-game-card :game="$game" :show_objectives="true" :redirect="false"/>
                     <input 
                         class="absolute top-4 left-4 size-8" 
-                        type="checkbox" name="{{ $game->id }}" id="{{ $game->id }}"
+                        type="checkbox" 
+                        name="{{ $game->id }}" 
+                        id="{{ $game->id }}"
                         wire:click="select_game({{ $game->id }})"
-                        @checked(in_array($game, $selected_games))/>
+                        @checked(in_array($game->id, $selected_games_ids))
+                        wire:loading.attr="disabled"
+                    />
                 </label>
             </div>
             @empty

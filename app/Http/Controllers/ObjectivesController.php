@@ -91,7 +91,8 @@ class ObjectivesController extends Controller
         $objective = Objective::find($id);
 
         if($objective->game->creator_id == auth()->user()->id || auth()->user()->isAdmin()) {
-            $objective->delete();
+            $objective->hidden = true;
+            $objective->save();
             session()->flash('message', 'Objectif supprimé !');
         } else {
             session()->flash('error', 'Vous ne pouvez pas supprimer cet objectif !');

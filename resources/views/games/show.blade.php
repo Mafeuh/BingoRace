@@ -1,10 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-    @php
-        $can_manage_public_objectives = auth()->user()->isAdmin() || auth()->user()->id == $game->creator_id;
-    @endphp
-
     <div class="relative">
         <h1 class="text-3xl text-center">
             {{ __('game.show.title', ['name' => $game->name]) }}
@@ -128,7 +124,7 @@
     <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
         <div class="bg-white p-5 rounded-3xl">
             <h2 class="text-2xl text-center mb-5">
-                {{ __('game.show.public_objectives.title', ['amount' => sizeof($game->public_objectives)]) }}
+                {{ __('game.show.public_objectives.title', ['amount' => sizeof($public_objectives)]) }}
                 @if ($can_manage_public_objectives)
                     <span>
                         <a href="/games/{{$game->id}}/objective"
@@ -136,9 +132,9 @@
                     </span>
                 @endif
             </h2>
-            @if(sizeof($game->public_objectives) > 0)
+            @if(sizeof($public_objectives) > 0)
                 <div class="grid grid-cols-1 xl:grid-cols-2 gap-2">
-                    @foreach ($game->public_objectives as $pub_obj)
+                    @foreach ($public_objectives as $pub_obj)
                         <div class="relative bg-gray-200 shadow-lg p-2 text-center rounded-xl">
                             @if ($can_manage_public_objectives)
                                 <a class="absolute right-5" href="/objectives/{{$pub_obj->id}}/delete">❌</a>
@@ -162,7 +158,7 @@
 
         <div class="bg-white p-5 rounded-3xl">
             <h2 class="text-2xl text-center mb-5">
-                {{ __('game.show.private_objectives.title', ['amount' => sizeof($game->private_objectives)]) }}
+                {{ __('game.show.private_objectives.title', ['amount' => sizeof($private_objectives)]) }}
                 
                 <span>
                     <a href="/games/{{$game->id}}/objective"
@@ -171,9 +167,9 @@
                     </a>
                 </span>
             </h2>
-            @if(sizeof($game->private_objectives) > 0)
+            @if(sizeof($private_objectives) > 0)
                 <div class="grid grid-cols-1 xl:grid-cols-2 gap-2">
-                    @foreach ($game->private_objectives as $priv_obj)
+                    @foreach ($private_objectives as $priv_obj)
                         <div class="relative bg-gray-200 p-2 text-center rounded-xl">
                             <a class="absolute right-5" href="/objectives/{{$priv_obj->id}}/delete">❌</a>
                             <a class="absolute right-10" href="/objectives/{{$priv_obj->id}}/edit">✏️</a>

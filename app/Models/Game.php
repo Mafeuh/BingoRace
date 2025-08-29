@@ -44,17 +44,32 @@ class Game extends Model
 
     public function public_objectives()
     {
-        return $this->hasMany(Objective::class, 'game_id')->where('objectiveable_type', 'App\Models\PublicObjective');
+        return $this->hasMany(Objective::class, 'game_id')->where('objectiveable_type', 'App\Models\PublicObjective')->where('hidden', false);
     }
 
     public function private_objectives()
     {
-        return $this->hasMany(Objective::class, 'game_id')->where('objectiveable_type', 'App\Models\PrivateObjective');
+        return $this->hasMany(Objective::class, 'game_id')->where('objectiveable_type', 'App\Models\PrivateObjective')->where('hidden', false);
     }
 
     public function team_objectives()
     {
-        return $this->hasMany(Objective::class, 'game_id')->where('objectiveable_type', 'App\Models\TeamObjective');
+        return $this->hasMany(Objective::class, 'game_id')->where('objectiveable_type', 'App\Models\TeamObjective')->where('hidden', false);
+    }
+
+    public function hidden_public_objectives()
+    {
+        return $this->hasMany(Objective::class, 'game_id')->where('objectiveable_type', 'App\Models\PublicObjective')->where('hidden', true);
+    }
+
+    public function hidden_private_objectives()
+    {
+        return $this->hasMany(Objective::class, 'game_id')->where('objectiveable_type', 'App\Models\PrivateObjective')->where('hidden', true);
+    }
+
+    public function hidden_team_objectives()
+    {
+        return $this->hasMany(Objective::class, 'game_id')->where('objectiveable_type', 'App\Models\TeamObjective')->where('hidden', true);
     }
 
     public function creator() {

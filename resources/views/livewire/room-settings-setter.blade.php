@@ -32,19 +32,7 @@
                 </td>
                 <td></td>
                 <td class="pl-16">
-                    <input id="max_teams" type="text" wire:model.blur="max_teams" class="p-2 border-gray-300 rounded-full w-16 focus:outline-none" onchange="checkValue()"/>
-                    <script>
-                        let max_teams_input = document.getElementById("max_teams");
-
-                        function checkValue() {
-                            if(isNaN(max_teams_input.value)) {
-                                max_teams_input.value = "";
-                            } else {
-                                max_teams_input.value = Math.floor(max_teams_input.value);
-                            }
-                            max_teams_input.dispatchEvent(new Event("reset"));
-                        }
-                    </script>
+                    <input id="max_teams" type="number" wire:model="max_teams" min="0" max="100" class="p-2 border-gray-300 rounded-full w-16 focus:outline-none"/>
                 </td>
             </tr>
 

@@ -16,6 +16,8 @@ class PostCreationForm extends Component
     public $post_description = "";
     public $post_lang = "fr";
 
+    public $previewed_text = "";
+
     public function render()
     {
         return view('livewire.post-creation-form');
@@ -30,5 +32,9 @@ class PostCreationForm extends Component
         ]);
 
         session()->flash('message', __('posts.new.validation_message'));
+    }
+
+    public function preview() {
+        $this->previewed_text = $this->post_description;
     }
 }

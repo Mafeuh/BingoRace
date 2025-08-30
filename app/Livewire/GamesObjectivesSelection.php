@@ -64,7 +64,7 @@ class GamesObjectivesSelection extends Component
                 'room_id' => $this->room->id
             ]);
         }
-        
+
         $objectives = Objective::findMany(array_keys($this->pool, true, true));
 
         $picked = collect([]);
@@ -74,12 +74,6 @@ class GamesObjectivesSelection extends Component
             
             $picked = $picked->concat($sub_objectives->random($count));
         }
-
-        $new_grid = BingoGrid::create([
-            'width' => $this->width,
-            'height' => $this->height,
-            'room_id' => $this->room->id
-        ]);
 
         $picked = $picked->shuffle();
 

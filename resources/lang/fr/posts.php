@@ -6,5 +6,7 @@ return [
     'new.title' => 'Titre du post',
     'new.description' => 'Description du post',
     'new.lang_slug' => 'Langage du post',
-    'new.confirm' => "Confirmer"
+    'new.confirm' => "Confirmer",
+    
+    'new.validation_message' => "Le post a été créé !"
 ];

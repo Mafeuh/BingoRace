@@ -9,7 +9,7 @@ class HomepagePost extends Model
 {
     protected $guarded = [];
 
-    public function translations() {
-        return $this->hasMany(HomepagePostTranslations::class, 'post_id', 'id');
+    public function author() {
+        return $this->belongsTo(User::class);
     }
 }

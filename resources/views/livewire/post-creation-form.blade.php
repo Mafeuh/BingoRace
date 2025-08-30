@@ -8,13 +8,14 @@
     <x-form.label>
         {{ __('posts.new.description') }}
     </x-form.label>
-    <x-form.textbox-input class="w-full h-96"/>
 
-    <x-form.label for="selected_lang">
+    <x-form.textbox-input wire:model="post_description" class="w-full h-96 p-2"/>
+
+    <x-form.label>
         {{ __('posts.new.lang_slug') }}
     </x-form.label>
 
-    <x-form.select-input id="selected_lang" name="selected_lang" wire:model="selected_lang">
+    <x-form.select-input wire:model="post_lang">
         @foreach ($langs as $lang_slug => $lang_name)
             <option value="{{ $lang_slug }}">
                 {{ $lang_name }}
@@ -26,5 +27,10 @@
         <x-form.submit-input wire:click="addLanguage">
             {{ __('posts.new.confirm') }}
         </x-form.submit-input>
+        @if (session()->has('message'))
+            <div class="text-emerald-500">
+                {{ session('message') }}
+            </div>
+        @endif
     </div>
 </div>

@@ -38,9 +38,29 @@
                 @endif
             </div>
 
-            <div>
-                a
-            </div>
+            @forelse ($posts as $post)
+                <div class="w-full p-5 shadow-inner shadow-gray-300 rounded-3xl bg-gray-50">
+                    <div class="text-2xl">
+                        <h1 class="inline text-emerald-700 font-bold">
+                            {{ $post->title }}
+                        </h1>
+                        <span class="text-gray-400 text-xl">
+                            - {{ $post->author->name }}
+                        </span>
+                    </div>
+                    <div class="text-gray-400">
+                        {{ \Carbon\Carbon::parse($post->created_at)->format('M d Y') }}
+                    </div>
+                    <hr class="my-5">
+                    <div>
+                        {!! $post->description !!}
+                    </div>
+                </div>
+            @empty
+                <div class="text-center text-red-500">
+                    {{ __('home.posts.empty') }}
+                </div>
+            @endforelse
         </div>
     </div>
     

@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Models\HomepagePost;
 use Livewire\Component;
 
 class PostCreationForm extends Component
@@ -11,7 +12,9 @@ class PostCreationForm extends Component
         'en' => "English",
     ];
 
-    public $selected_lang = "fr";
+    public $post_title = "";
+    public $post_description = "";
+    public $post_lang = "fr";
 
     public function render()
     {
@@ -19,6 +22,13 @@ class PostCreationForm extends Component
     }
 
     public function addLanguage() {
-        dd($this->selected_lang);
+        HomepagePost::create([
+            'title' => $this->post_title,
+            'description' => $this->post_description,
+            'lang_slug' => $this->post_lang,
+            'author_id' => auth()->user()->id
+        ]);
+
+        session()->flash('message', __('posts.new.validation_message'));
     }
 }

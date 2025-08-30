@@ -11,6 +11,7 @@ use App\Http\Controllers\GamesController;
 use App\Http\Controllers\PostsController;
 use App\Http\Middleware\CheckUserPermission;
 use App\Http\Middleware\SetLocale;
+use App\Models\HomepagePost;
 use App\View\Components\redirect;
 use Illuminate\Support\Facades\Broadcast;
 
@@ -43,7 +44,9 @@ Route::middleware(SetLocale::class)->group(function() {
     
     Route::get('/', function () {
         if(auth()->check()) {
-            return view('auth-home');
+            return view('auth-home', [
+                'posts' => HomepagePost::where('lang_slug', app()->getLocale())->get()
+            ]);
         } else {
             return redirect('/login');
         }

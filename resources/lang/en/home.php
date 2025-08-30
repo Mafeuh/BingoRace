@@ -12,5 +12,6 @@ return [
     'presentation.text6' => "This website is still being developed, so new features are coming!",
     
     'posts.title' => "News",
-    'posts.new' => "New post"
+    'posts.new' => "New post",
+    'posts.empty' => "No posts to show. Maybe only in your language."
 ];

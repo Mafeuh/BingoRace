@@ -13,4 +13,5 @@ return [
 
     'posts.title' => "Actualités",
     'posts.new' => "Nouveau post",
+    'posts.empty' => "Pas de post à afficher. Peut-être que dans ta langue."
 ];

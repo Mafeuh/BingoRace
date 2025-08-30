@@ -51,11 +51,19 @@ class GamesObjectivesSelection extends Component
 
     #[On('validate')]
     public function selectObjectives() {
-        $new_grid = BingoGrid::create([
-            'width' => $this->width,
-            'height' => $this->height,
-            'room_id' => $this->room->id
-        ]);
+        if($this->room->grid) {
+            $grid = $this->room->grid;
+            $grid->squares->delete();
+            $grid->width = $this->width;
+            $grid->height = $this->height;
+            $grid->save();
+        } else {
+            $grid = BingoGrid::create([
+                'width' => $this->width,
+                'height' => $this->height,
+                'room_id' => $this->room->id
+            ]);
+        }
 
         $objectives = Objective::findMany(array_keys($this->pool, true, true));
 
@@ -71,7 +79,7 @@ class GamesObjectivesSelection extends Component
 
         foreach($picked as $picked_objective) {
             BingoGridSquare::create([
-                'grid_id' => $new_grid->id,
+                'grid_id' => $grid->id,
                 'objective_id' => $picked_objective->id
             ]);
         }

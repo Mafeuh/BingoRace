@@ -6,8 +6,8 @@
             {{ __('home.welcome', ['name' => auth()->user()->name]) }}
         </h1>
     </div>
-    <div class="grid grid-cols-3 space-x-5">
-        <div class="text-justify bg-white p-5 rounded-3xl space-y-5">
+    <div class="grid xl:grid-cols-2 2xl:grid-cols-3 gap-4">
+        <div class="text-justify bg-white p-5 rounded-3xl space-y-5 w-full">
             <h1 class="text-center text-emerald-600 text-2xl font-bold">
                 {{ __('home.presentation.title') }}
             </h1>
@@ -23,7 +23,7 @@
             <p>{{ __('home.presentation.text6') }}</p>
         </div>
 
-        <div class="text-justify bg-white p-5 rounded-3xl space-y-5 col-span-2">
+        <div class="text-justify bg-white p-5 rounded-3xl space-y-5 2xl:col-span-2">
             <div class="space-y-2">
                 <h1 class="text-center text-emerald-600 text-2xl font-bold">
                     {{ __('home.posts.title') }}

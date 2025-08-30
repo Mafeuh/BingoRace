@@ -10,4 +10,7 @@ return [
     'presentation.text4' => "Si ils ne t'intéressent pas, tu peux <a href=\"/games/new\" class=\"text-emerald-600 font-bold\">ajouter le jeu que tu veux</a>, et y ajouter tous les objectifs que tu veux !",
     'presentation.text5' => "Il est aussi possible d'ajouter un timer à la partie !",
     'presentation.text6' => "Ce site est toujours en développement, donc de nombreuses fonctionnalités vont arriver.",
+
+    'posts.title' => "Actualités",
+    'posts.new' => "Nouveau post",
 ];

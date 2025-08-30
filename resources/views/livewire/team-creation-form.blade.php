@@ -7,7 +7,7 @@
             <x-form.label for="new_team_name">
                 {{ __('room.wait.teams.new_team.name.label') }}
             </x-form.label>
-            <x-form.text-input wire_model="new_team_name" placeholder="{{ __('room.wait.teams.new_team.name.placeholder') }}" name="new_team_name"/>
+            <x-form.text-input wire:model="new_team_name" placeholder="{{ __('room.wait.teams.new_team.name.placeholder') }}" name="new_team_name"/>
         </div>
         
         <div class="flex flex-col">

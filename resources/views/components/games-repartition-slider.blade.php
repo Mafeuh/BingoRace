@@ -22,7 +22,7 @@
                     </span>
                 </div>
             </div>
-            <input type="hidden" wire:model="games_objectives_count.{{$game->id}}" id="game_obj_{{$loop->index}}">
+            <input type="number" class="hidden" wire:model="games_objectives_count.{{$game->id}}" id="game_obj_{{$loop->index}}">
         @endforeach
     </div>
 
@@ -78,6 +78,11 @@
                 document.getElementById(key).style.width = `${perc}%`;
                 document.getElementById(key).getElementsByClassName('part')[0].innerText = value;
                 document.getElementById(key).getElementsByClassName('percent')[0].innerText = Math.round(perc * 100) / 100;
+                
+                
+                let element = document.getElementById(`game_obj_${i}`);
+                element.value = value;
+                element.dispatchEvent(new Event('input', { bubbles: true }));
             }
         }
 

@@ -8,4 +8,6 @@ return [
     'nav.add_game' => "New game",
     'nav.list_games' => "Games list",
     'nav.create_room' => "Start a room!",
+
+    'weekly.home' => "Weekly Mode"
 ];

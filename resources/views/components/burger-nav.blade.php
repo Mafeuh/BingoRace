@@ -35,6 +35,17 @@
             </div>
         </form>
         <div class="text-center my-4">
+            <a class="
+                bg-emerald-300 px-3 relative py-2 text-lg rounded-full font-bold text-green-900 
+                inline-flex transform duration-150 hover:scale-105" href="/weekly">
+                @if (now()->dayOfWeek == 1)
+                    <div class="absolute size-4 bg-yellow-500 -right-1 -top-1 rounded-full animate-ping"></div>
+                    <div class="absolute size-4 bg-yellow-500 -right-1 -top-1 rounded-full"></div>
+                @endif
+                {{ __('header.weekly.home') }}
+            </a>
+        </div>
+        <div class="text-center my-4">
             <a class="bg-white rounded-full shadow-lg px-5 py-2 font-bold text-green-900" href="/games/new">
                 {{ __('header.nav.add_game') }}
             </a>

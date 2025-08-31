@@ -9,7 +9,7 @@ class RoomTimerSetter extends Component
 {
     public ?Room $room = null;
     public bool $disabled;
-    public $timer_value;
+    public $timer_value = "00:00";
     public function render()
     {
         return view('livewire.room-timer-setter');

@@ -9,6 +9,7 @@ use App\Http\Middleware\CheckMaintenanceState;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\GamesController;
 use App\Http\Controllers\PostsController;
+use App\Http\Controllers\WeeklyController;
 use App\Http\Middleware\CheckUserPermission;
 use App\Http\Middleware\SetLocale;
 use App\Models\HomepagePost;
@@ -68,6 +69,10 @@ Route::middleware(SetLocale::class)->group(function() {
                 Route::post('/join', [AdminController::class, 'join_room'])->name('admin.join_room');
             }
         );
+
+        Route::prefix('weekly')->group(function() {
+            Route::get('/', [WeeklyController::class, 'index'])->name('weekly.home');
+        });
 
         Route::middleware([CheckUserPermission::class . ':'])->group(function () {
             Route::get('/new_post', [PostsController::class, 'new'])->name('posts.new');

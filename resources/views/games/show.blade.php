@@ -2,14 +2,14 @@
 
 @section('content')
     <div class="relative">
-        <h1 class="text-3xl text-center">
+        <h1 class="text-xl text-center font-bold text-emerald-500">
             {{ __('game.show.title', ['name' => $game->name]) }}
         </h1>
         <h2 class="text-center">
             @if ($game->is_official)
                 {{ __('game.show.visibility.is_official') }}
             @elseif ($game->is_public)
-                {{ __('game.show.visibility.is_public', ['name' => $game->creator->name]) }}
+                {{ __('game.show.visibility.is_public', ['name' => $game->creator?->name ?? '???']) }}
             @else
                 {{ __('game.show.visibility.is_private') }}
             @endif
@@ -27,8 +27,8 @@
         
         @if (auth()->user()->isAdmin() || auth()->user()->id == $game->creator_id)
         <div>
-            <div class="justify-center flex mt-2 gap-x-4">
-                <form method="post" action="{{ route('game.set_visibility', ['game' => $game->id]) }}" class="flex flex-col w-56">
+            <div class="justify-center flex gap-x-4">
+                <form method="post" action="{{ route('game.set_visibility', ['game' => $game->id]) }}" class="flex flex-col">
                     @csrf
                     <div>
                         <x-form.label>
@@ -39,11 +39,11 @@
                     <div class="flex gap-2">
                         @if(auth()->user()->isAdmin())
                             @if ($game->is_official)
-                                <button type="submit" name="visibility" value="official_off" class="bg-green-300 hover:bg-green-500 p-2 rounded-full">
+                                <button type="submit" name="visibility" value="official_off" class="bg-green-300 hover:bg-green-500 p-1 rounded-full text-sm">
                                     {{ __('game.show.visibility.to_official_off') }}
                                 </button>
                             @else
-                                <button type="submit" name="visibility" value="official_on" class="bg-green-300 hover:bg-green-500 p-2 rounded-full">
+                                <button type="submit" name="visibility" value="official_on" class="bg-green-300 hover:bg-green-500 p-2 rounded-full text-sm">
                                     {{ __('game.show.visibility.to_official_on') }}
                                 </button>
                             @endif
@@ -105,7 +105,7 @@
                 {{ __('game.show.permissions.admin')}}
             </div>
         @else
-            @if($game->creator_id == null)
+            @if($game->is_public)
                 <div>
                     {{ __('game.show.permissions.public_game') }}
                 </div>
@@ -115,15 +115,15 @@
                 </div>
             @else
                 <div>
-                    {{ __('game.show.permissions.default', ['creator_name' => $game->creator?->name]) }}
+                    {{ __('game.show.permissions.default', ['creator_name' => $game->creator?->name ?? '???']) }}
                 </div>
             @endif
         @endif
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
-        <div class="bg-white p-5 rounded-3xl">
-            <h2 class="text-2xl text-center mb-5">
+        <div class="bg-white p-2 rounded-3xl">
+            <h2 class="text-xl text-center mb-1">
                 {{ __('game.show.public_objectives.title', ['amount' => sizeof($public_objectives)]) }}
                 @if ($can_manage_public_objectives)
                     <span>
@@ -135,7 +135,7 @@
             @if(sizeof($public_objectives) > 0)
                 <div class="grid grid-cols-1 xl:grid-cols-2 gap-2">
                     @foreach ($public_objectives as $pub_obj)
-                        <div class="relative bg-gray-200 shadow-lg p-2 text-center rounded-xl">
+                        <div class="relative bg-gray-100 p-1 text-center rounded-xl">
                             @if ($can_manage_public_objectives)
                                 <a class="absolute right-5" href="/objectives/{{$pub_obj->id}}/delete">❌</a>
                                 <a class="absolute right-10" href="/objectives/{{$pub_obj->id}}/edit">✏️</a>
@@ -156,8 +156,8 @@
 
         </div>
 
-        <div class="bg-white p-5 rounded-3xl">
-            <h2 class="text-2xl text-center mb-5">
+        <div class="bg-white p-2 rounded-3xl">
+            <h2 class="text-lg text-center mb-1">
                 {{ __('game.show.private_objectives.title', ['amount' => sizeof($private_objectives)]) }}
                 
                 <span>
@@ -170,7 +170,7 @@
             @if(sizeof($private_objectives) > 0)
                 <div class="grid grid-cols-1 xl:grid-cols-2 gap-2">
                     @foreach ($private_objectives as $priv_obj)
-                        <div class="relative bg-gray-200 p-2 text-center rounded-xl">
+                        <div class="relative bg-gray-100 p-1 text-center rounded-xl">
                             <a class="absolute right-5" href="/objectives/{{$priv_obj->id}}/delete">❌</a>
                             <a class="absolute right-10" href="/objectives/{{$priv_obj->id}}/edit">✏️</a>
                             <div class="pr-14">
@@ -191,20 +191,20 @@
     </div>
 
     @if (auth()->user()->isAdmin() || $game->creator_id == auth()->user()->id)
-        <div class="bg-red-100 m-5 p-5 border-red-200 border-4">
-            <p class="text-xl text-red-400 font-bold">❗DANGER ZONE❗</p>
+        <div class="bg-red-100 m-5 p-2 border-red-200 border-4 space-y-2">
+            <p class="text-lg text-red-400 font-bold">❗DANGER ZONE❗</p>
 
-            <form class="my-5" action="{{ route('games.delete') }}" method="POST">
+            <form action="{{ route('games.delete') }}" method="POST">
                 @csrf
                 <input type="hidden" name="game_id" value="{{$game->id}}">
-                <button type="submit" class="bg-red-500 p-3 text-white font-bold rounded-full">
+                <button type="submit" class="bg-red-500 p-2 text-white font-bold rounded-full text-sm">
                     {{ __('game.show.danger.delete') }}
                 </button>
             </form>
 
             <hr class="border-red-200 border-2">
 
-            <form class="mt-5" action="{{ route('games.rename')}}" method="POST">
+            <form action="{{ route('games.rename')}}" method="POST">
                 @csrf
                 <input type="hidden" name="game_id" value="{{$game->id}}">
                 <div>
@@ -213,14 +213,14 @@
                     </label>
                 </div>
                 <x-form.text-input :value="$game->name" name="new_name"/>
-                <button type="submit" class="bg-red-500 p-3 text-white font-bold rounded-full">
+                <button type="submit" class="bg-red-500 p-2 text-white font-bold rounded-full text-sm">
                     {{ __('game.show.danger.rename.submit') }}
                 </button>
             </form>
 
             <hr class="border-red-200 border-2">
 
-            <form enctype="multipart/form-data" class="mt-5" action="{{ route('games.change_image', ['game' => $game->id]) }}" method="POST">
+            <form enctype="multipart/form-data" class="space-y-2" action="{{ route('games.change_image', ['game' => $game->id]) }}" method="POST">
                 @csrf
                 <div class="sm:w-96">
                     <label class="text-red-500 font-bold" for="new_name">
@@ -228,7 +228,7 @@
                     </label>
                     <x-form.filedrop-input name="image" required="true"/>
                 </div>
-                <button type="submit" class="bg-red-500 p-3 text-white font-bold rounded-full">
+                <button type="submit" class="bg-red-500 p-2 text-white font-bold rounded-full text-sm">
                     {{ __('game.show.danger.change_image.submit') }}
                 </button>
             </form>

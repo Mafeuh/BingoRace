@@ -2,9 +2,9 @@
 
 @section('content')
 <div class="justify-center flex h-full">
-    <form enctype="multipart/form-data" method="POST" action="{{ route('games.new_post') }}" class="bg-white p-4 rounded-3xl space-y-2" name="blbblbblblb">
+    <form enctype="multipart/form-data" method="POST" action="{{ route('games.new_post') }}" class="bg-white p-2 rounded-3xl space-y-2" name="blbblbblblb">
         @csrf
-        <h1 class="text-3xl text-center font-bold">{{ __('game.creation.title') }}</h1>
+        <h1 class="text-xl text-center font-bold text-emerald-500">{{ __('game.creation.title') }}</h1>
 
         <div class="flex flex-col">
             <x-form.label for="name">

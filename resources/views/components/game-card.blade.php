@@ -1,4 +1,4 @@
-@props(['game', 'show_objectives' => false, 'redirect' => true])
+@props(['game', 'show_objectives' => false, 'redirect' => true, 'show_'])
 
 <div class="relative rounded-2xl transition-all hover:scale-105 bg-gray-200"
     style="padding-top: 150%; background-position:center; background-size:cover; background-repeat: no-repeat; background-image: url({{ asset($game->image_url) }});">

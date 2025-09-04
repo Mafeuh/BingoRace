@@ -1,7 +1,7 @@
 <div class="space-y-2">
     <div class="flex justify-center">
         <div class="w-96 bg-gray-100 p-2">
-            <h1 class="text-center text-xl font-bold">
+            <h1 class="text-center text-lg text-emerald-500">
                 {{ __('room.setup.settings.grid.title') }}
             </h1>
 
@@ -24,7 +24,7 @@
     </div>
 
     <div>
-        <div class="text-xl font-bold text-center">
+        <div class="text-lg text-center text-emerald-500">
             {{ __('room.setup.objectives_pool.repartition') }}
         </div>
         <x-games-repartition-slider :pool_size="$pool_size" :height="$height" :width="$width" :room="$room"/>
@@ -33,10 +33,10 @@
     <div id="data" data-width="{{ $width }}" data-height="{{ $height }}"></div>
     
     <div>
-        <div class="text-xl font-bold text-center">
+        <div class="text-lg text-center text-emerald-500">
             {{ __('room.setup.objectives_pool.title') }}
         </div>
-        <div class="text-center">
+        <div class="text-center italic">
             {{ __('room.setup.objectives_pool.greyed') }}
         </div>
 
@@ -122,7 +122,7 @@
 
             function checkValidity() {
                 if(getMax() > count) {
-                    error_div.innerText = "Erreur";
+                    error_div.innerText = "Erreur: Pas assez d'objectifs pour remplir la grille!";
                 } else {
                     error_div.innerText = "";
                 }

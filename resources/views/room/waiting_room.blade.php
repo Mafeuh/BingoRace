@@ -2,8 +2,33 @@
 
 @section('content')
 <div class="h-fit">
-    <div class="h-fit gap-5 flex">
-        <div class="space-y-5 w-1/3 text-sm">
+    <div>
+        <h1 class="text-2xl text-center text-emerald-800">
+            {{ __('room.wait.title') }}
+        </h1>
+        <h2 class="text-lg text-center">
+            {{ __('room.wait.code.label') }}
+            <span class="text-2xl" x-data="{ show: false }" x-on:click="show = !show">
+                <span x-show="!show" class="bg-gray-700 text-white rounded-md">
+                    {{ __('room.wait.code.reveal') }}
+                </span>
+                <span x-show="show" class="font-bold">{{ $room->code }}</span>
+            </span>
+            <button class="bg-white shadow-xl rounded-full py-2 px-4" onclick="copyText()" id="copy_button">
+                {{ __('room.wait.code.copy') }}
+            </button>
+            <script>
+                function copyText() {
+                    const texte = "{{ $room->code }}";
+                    navigator.clipboard.writeText(texte)
+                        .then(() => document.getElementById('copy_button').innerText = "{{ __('room.wait.code.copied') }}");
+                }
+            </script>
+        </h2>
+    </div>
+    
+    <div class="h-fit gap-5 sm:flex">
+        <div class="space-y-5 sm:w-1/3 text-sm">
             <div class="bg-white p-3 shadow-inner shadow-green-100 rounded-3xl h-fit">
                 <livewire:teams-list :room="$room" />
             </div>
@@ -13,32 +38,7 @@
             </div>
         </div>
 
-        <div class="w-1/2">
-            <div>
-                <h1 class="text-3xl text-center">
-                    {{ __('room.wait.title') }}
-                </h1>
-                <h2 class="text-2xl text-center">
-                    {{ __('room.wait.code.label') }}
-                    <span x-data="{ show: false }" x-on:click="show = !show">
-                        <span x-show="!show" class="bg-gray-700 text-white rounded-md">
-                            {{ __('room.wait.code.reveal') }}
-                        </span>
-                        <span x-show="show" class="font-bold">{{ $room->code }}</span>
-                    </span>
-                    <button class="bg-white shadow-xl rounded-full py-2 px-4" onclick="copyText()" id="copy_button">
-                        {{ __('room.wait.code.copy') }}
-                    </button>
-                    <script>
-                        function copyText() {
-                            const texte = "{{ $room->code }}";
-                            navigator.clipboard.writeText(texte)
-                                .then(() => document.getElementById('copy_button').innerText = "{{ __('room.wait.code.copied') }}");
-                        }
-                    </script>
-                </h2>
-            </div>
-
+        <div class="sm:w-2/3 lg:w-1/2">
             <div class="bg-white m-5 p-5 rounded-xl">
                 <div class="font-bold text-green-700">
                     {{ __('room.wait.rules.title') }}

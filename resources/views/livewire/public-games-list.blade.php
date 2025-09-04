@@ -1,4 +1,4 @@
-<div class="bg-white rounded-3xl p-5 text-center h-[90vh] flex flex-col">
+<div class="bg-white rounded-3xl p-2 text-center h-[90vh] flex flex-col">
     <h2 class="text-xl font-bold">
         {{ __('game.list.public_games.title') }}
     </h2>
@@ -13,7 +13,7 @@
 
     <!-- Zone scrollable -->
     <div class="overflow-y-auto mt-5 flex-1">
-        <div class="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-2 2xl:grid-cols-3 gap-5">
+        <div class="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-2 2xl:grid-cols-3 gap-1">
             @foreach($favorite as $game_it)
             <div wire:key="fav-{{$game_it->id}}">
                 <x-game-card :game="$game_it"/>

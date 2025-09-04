@@ -66,7 +66,7 @@
             </div>
             
             @if(auth()->user()?->isAdmin())
-                <div class="absolute top-0">
+                <div class="absolute top-0 text-emerald-500">
                     <span class="sm:hidden">XS</span>
                     <span class="hidden sm:inline md:hidden">SM</span>
                     <span class="hidden md:inline lg:hidden">MD</span>
@@ -77,7 +77,7 @@
             @endif
                 
                 
-            <div class="text-transparent text-4xl font-bold text-center flex justify-center relative my-5">
+            <div class="text-transparent text-2xl font-bold text-center flex justify-center relative my-3">
                 <div class="w-min hover:scale-110 transform transition-all duration-300 ease-in-out rotate-1">
                     <a href="/" class="select-none bg-clip-text bg-gradient-to-r from-green-500 to-lime-200">
                         BingoRace!
@@ -99,7 +99,7 @@
         </div>
         <div class="bg-gradient-to-b from-emerald-700 to-emerald-800">
             @auth
-            <div class="text-center pb-4 hidden sm:block">
+            <div class="text-center pb-2 hidden sm:block">
                 <x-header-navbar></x-header-navbar>
             </div>
             @endauth

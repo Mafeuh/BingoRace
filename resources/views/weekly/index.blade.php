@@ -2,9 +2,16 @@
 
 @section('content')
     <div class="bg-white w-full p-5">
-        <h1 class="text-center text-2xl mb-3">
-            {{ __('weekly.index.title') }}
-        </h1>
+        <div class="text-center mb-3">
+            <h1 class="inline text-2xl text-emerald-800 font-bold">
+                {{ __('weekly.index.title') }}
+            </h1>
+            @if(auth()->user()->isAdmin())
+                <a class="inline bg-yellow-500 p-2 rounded-full" href="{{ route('weekly.new') }}">
+                    Préparer une nouvelle partie
+                </a>
+            @endif
+            </div>
 
         <div class="flex gap-x-3">
             <div class="w-1/3 h-96 bg-slate-200 p-2">

@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 class AdminController extends Controller
 {
     public function index() {
-        $rooms = Room::orderBy('started_at', 'desc')->paginate();
+        $rooms = Room::orderBy('id', 'desc')->paginate();
 
         return view('admin.index', [
             'rooms' => $rooms,

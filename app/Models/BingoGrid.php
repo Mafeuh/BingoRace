@@ -16,6 +16,6 @@ class BingoGrid extends Model
     }
 
     public function room() {
-        return $this->hasOne(Room::class, 'id', 'room_id');
+        return $this->hasOne(Room::class, 'grid_id', 'id');
     }
 }

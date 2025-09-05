@@ -72,6 +72,7 @@ Route::middleware(SetLocale::class)->group(function() {
 
         Route::prefix('weekly')->group(function() {
             Route::get('/', [WeeklyController::class, 'index'])->name('weekly.home');
+            Route::get('/new', [WeeklyController::class, 'new'])->name('weekly.new');
         });
 
         Route::middleware([CheckUserPermission::class . ':'])->group(function () {

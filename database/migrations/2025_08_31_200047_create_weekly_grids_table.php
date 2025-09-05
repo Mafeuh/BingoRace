@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('grid_id')->references('id')->on('bingo_grids');
             $table->date('starts_on')->nullable();
+            $table->longText('rules')->default('');
+            $table->integer('duration_seconds')->default(0);
             $table->timestamps();
         });
     }

@@ -72,4 +72,8 @@ class User extends Authenticatable
     public function hasFavorite(Game $game) {
         return $this->favorite_games->contains($game);
     }
+
+    public function created_games() {
+        return $this->hasMany(Game::class, 'creator_id');
+    }
 }

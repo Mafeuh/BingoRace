@@ -69,6 +69,11 @@ Route::middleware(SetLocale::class)->group(function() {
             }
         );
 
+        Route::prefix('profile')->group(function() {
+            Route::get('/', [ProfileController::class, 'show_your_profile'])->name('profile.you');
+            Route::get('/{user}', [ProfileController::class, 'show_user_profile'])->name('profile.not_you');
+        });
+
         Route::middleware([CheckUserPermission::class . ':'])->group(function () {
             Route::get('/new_post', [PostsController::class, 'new'])->name('posts.new');
         });

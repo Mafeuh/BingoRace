@@ -30,10 +30,14 @@ class ProfileController extends Controller
             ]);
         }
 
+        $can_see = auth()->user()->isAdmin() || $profile->is_public || auth()->user() == $user;
+
         return view('profile.show', [
             'user' => $user,
             'profile' => $profile,
-            'private_lock' => !$profile->is_public || auth()->user()->isAdmin || auth()->user() == $user,
+            'games' => $user->created_games,
+            'private_lock' => !$can_see,
+            'participations' => $user->participations
         ]);
     }   
 }

@@ -11,7 +11,7 @@
         </div>
     </div>
 
-    <div x-show="openedClick || openedHover" class="absolute bg-green-100 border-8 border-green-500 flex-0 right-0 p-2 mt-2 rounded-xl">
+    <div x-show="openedClick || openedHover" class="text-sm absolute bg-green-100 border-8 border-green-500 flex-0 right-0 p-2 mt-2 rounded-xl">
         <form class="sm:hidden" method="POST" action="/join">
             @csrf
             <div class="flex">

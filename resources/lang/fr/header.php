@@ -7,5 +7,5 @@ return [
 
     'nav.add_game' => "Nouveau jeu",
     'nav.list_games' => "Liste des jeux",
-    'nav.create_room' => "Démarrer une partie !",
+    'nav.create_room' => "Démarrer une partie!",
 ];

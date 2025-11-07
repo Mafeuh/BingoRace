@@ -2,13 +2,6 @@
     <div class="text-xl text-center">
         {{ __('room.wait.teams.title', ['amount' => sizeof($room->teams)])}}
     </div>
-    @if (auth()->user()->id == $room->creator_id)
-        <div class="text-center">
-            <i class="text-sm">
-                {{ __('room.wait.teams.reload_message') }}
-            </i>
-        </div>
-    @endif
 
     @if (!$user_team)
         <div class="bg-red-100 border-2 border-red-400 p-2">

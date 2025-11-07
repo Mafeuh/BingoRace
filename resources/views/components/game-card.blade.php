@@ -1,4 +1,4 @@
-@props(['game', 'show_objectives' => false, 'redirect' => true])
+@props(['game', 'show_objectives' => false, 'redirect' => true, 'show_favorite_star' => true])
 
 <div class="relative rounded-2xl transition-all hover:scale-105 bg-gray-200"
     style="padding-top: 150%; background-position:center; background-size:cover; background-repeat: no-repeat; background-image: url({{ asset($game->image_url) }});">
@@ -17,11 +17,13 @@
                 @endif
             </div>
         </a>
-        <div
-            wire:click.stop
-            class="absolute right-2 top-2 transition-all hover:scale-110 hover:bg-yellow-500/50 rounded-full"
-        >
-            @livewire('favorite-check', ['game_id' => $game->id], key('fav-'.$game->id))
-        </div>
+        @if($show_favorite_star)
+            <div
+                wire:click.stop
+                class="absolute right-2 top-2 transition-all hover:scale-110 hover:bg-yellow-500/50 rounded-full"
+            >
+                @livewire('favorite-check', ['game_id' => $game->id], key('fav-'.$game->id))
+            </div>
+        @endif
     </div>
 </div>

@@ -91,8 +91,8 @@
         </div>
     </div>
 
-    <div class="w-full p-5 border-t-2 border-r-2 border-b-2 rounded-r-lg overflow-y-auto max-h-[80vh]">
-        <div class="gap-5 grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 2xl:grid-cols-7">
+    <div class="w-full p-2 border-t-2 border-r-2 border-b-2 rounded-r-lg overflow-y-auto max-h-[80vh]">
+        <div class="gap-1 grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 2xl:grid-cols-7">
             @forelse ($shown_games as $game)
             <div class="relative" for="{{ $game->id }}" wire:key="game-card-{{ $game->id }}">
                 <label for="{{ $game->id }}">

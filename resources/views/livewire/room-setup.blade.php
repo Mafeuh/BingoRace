@@ -1,11 +1,11 @@
 <div>
-    <h1 class="text-3xl text-center font-bold mb-3">
-        {{ __('room.setup.title') }}
-    </h1>
-
+    
     <div class="justify-center">
         <div class="space-y-2">
             <div class="bg-white rounded-lg p-2">
+                <h1 class="text-xl text-center font-bold text-emerald-600">
+                    {{ __('room.setup.title') }}
+                </h1>
                 <livewire:games-objectives-selection :room_id="$room->id"/>
             </div>
             

@@ -13,7 +13,8 @@
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
         <script src="https://cdn.tailwindcss.com"></script>
-        <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+        
+        @livewireScripts 
         @vite([
             'resources/css/app.css',
             'resources/js/app.js'
@@ -116,7 +117,5 @@
 
         <script src="{{ mix('js/app.js') }}"></script>
         
-        <script src="//unpkg.com/alpinejs" defer></script>
-        @livewireScripts 
     </body>
 </html>

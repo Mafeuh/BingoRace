@@ -57,7 +57,8 @@ return [
 
     'show.public_objectives.title' => ":amount public objectives",
     'show.public_objectives.empty' => "This game does not have any public objective!",
-    'show.private_objectives.title' => "Your :amount private objectives",
+    'show.private_objectives.title.you' => "Your :amount private objectives",
+    'show.private_objectives.title.not_you' => ":name's :amount private objectives",
     'show.private_objectives.empty' => "You did not create private objectives for this game!",
     'show.danger.delete' => "Delete the game",
     'show.danger.rename.label' => "Rename the game",

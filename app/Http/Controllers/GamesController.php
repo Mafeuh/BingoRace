@@ -187,12 +187,13 @@ class GamesController extends Controller
     }
 
     public function show(Game $game) {
+        $public_objectives = $game->public_objectives();
+        $private_objectives = $game->private_objectives();
+
+
         if(($game->is_official || $game->is_public || $game->creator_id == auth()->user()->id) || auth()->user()->isAdmin) {
             return view('games.show', [
-                'game'=> $game,
-                'private_objectives' => $game->private_objectives()->where('hidden', false)->get(),
-                'public_objectives' => $game->public_objectives()->where('hidden', false)->get(),
-                'can_manage_public_objectives' => auth()->user()->isAdmin() || auth()->user()->id == $game->creator_id
+                'game'=> $game
             ]);
         }
         return redirect()->back();

@@ -15,6 +15,20 @@ class ObjectivesController extends Controller
         return view("objectives.new", ["game"=> $game]);
     }
 
+    public function switch_visibility(Objective $objective) {
+        $objective->objectiveable()->delete();
+        $new = null;
+        if($objective->objectiveable_type == "App\Models\PublicObjective") {
+            $new = PrivateObjective::create([
+                'user_id' => $objective->creator_id ?? -1
+            ]);
+        } elseif($objective->objectiveable_type == "App\Models\PrivateObjective") {
+            $new = PublicObjective::create([]);
+        }
+        $objective->objectiveable()->associate($new);
+        $objective->save();
+    }
+
     public static function post(Game $game){
         $valid = request()->validate([
             'objectives' => ['string', 'required'],
@@ -32,7 +46,8 @@ class ObjectivesController extends Controller
                         $pub = PublicObjective::create([]);
                         $pub->objective()->create([
                             'game_id' => $game->id,
-                            'description' => $obj
+                            'description' => $obj,
+                            "creator_id" => auth()->user()->id
                         ]);
                     } else $too_long_error += 1;
                 }
@@ -44,7 +59,8 @@ class ObjectivesController extends Controller
                         ]);
                         $pub->objective()->create([
                             'game_id' => $game->id,
-                            'description' => $obj
+                            'description' => $obj,
+                            "creator_id" => auth()->user()->id
                         ]);
                     } else $too_long_error += 1;
                 }

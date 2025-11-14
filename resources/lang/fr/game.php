@@ -57,7 +57,8 @@ return [
 
     'show.public_objectives.title' => ":amount objectifs publics",
     'show.public_objectives.empty' => "Ce jeu n'a pas d'objectif public",
-    'show.private_objectives.title' => "Tes :amount objectifs privés",
+    'show.private_objectives.title.you' => "Tes :amount objectifs privés",
+    'show.private_objectives.title.not_you' => "Les :amount objectifs privés de :name",
     'show.private_objectives.empty' => "Tu n'as pas encore créé d'objectif !",
     'show.danger.delete' => "Supprimer le jeu",
     'show.danger.rename.label' => "Renommer le jeu",

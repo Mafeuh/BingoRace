@@ -18,10 +18,11 @@
             <div id="countdown" class="text-2xl font-bold text-red-600"></div>
             <script>
                 const ends_at_unix_s = {{ $ends_at }};
+                const room_duration = {{ $room->duration_seconds }};
 
                 function updateCountdown() {
-                    const now = Date.now().getTime() / 1000;
-                    const remaining = ends_at_unix_s - now;
+                    const now = new Date().getTime() / 1000;
+                    const remaining = Math.floor(ends_at_unix_s - now - room_duration + 10);
 
                     if (remaining <= 0) {
                         clearInterval(interval);
@@ -30,13 +31,9 @@
                         document.getElementById("grid").classList.remove('opacity-0');
                         return;
                     }
-
-                    const seconds = Math.floor((remaining / 1000) % 60);
-                    const minutes = Math.floor((remaining / 1000 / 60) % 60);
-                    const hours = Math.floor((remaining / 1000 / 60 / 60));
-
+                    
                     document.getElementById("cache_timer").textContent = 
-                        `${String(seconds).padStart(2, '0')}`;
+                        `${String(remaining).padStart(2, '0')}`;
                 }
 
                 updateCountdown();

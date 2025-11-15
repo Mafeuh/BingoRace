@@ -1,4 +1,4 @@
-@props(['room', 'ends_at'])
+@props(['room', 'ends_at', 'server_time'])
 
 <div id="timer" class="">
     <p class="text-center"><span id="hours"></span>:<span id="minutes"></span>:<span id="seconds"></span></p>
@@ -9,11 +9,16 @@
     document.addEventListener('DOMContentLoaded', function() {
         const ends_at_unix_s = {{ $ends_at }};
 
+        const serverTime = {{ $server_time }} * 1000; // en ms
+        const clientTime = Date.now();
+        const offset = serverTime - clientTime; // décalage horloge client/serveur
+
         let remaining = null;
         const timerEndedEvent = new Event('timer_ended');
 
         function updateTimer() {
-            remaining = Math.floor(ends_at_unix_s - (new Date().getTime() / 1000));
+
+            remaining = Math.floor(ends_at_unix_s - ((Date.now() + offset) / 1000));
 
             console.log(remaining);
     

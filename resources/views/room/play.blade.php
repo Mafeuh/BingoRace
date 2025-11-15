@@ -17,12 +17,14 @@
 
             <div id="countdown" class="text-2xl font-bold text-red-600"></div>
             <script>
-                const ends_at_unix_s = {{ $ends_at }};
-                const room_duration = {{ $room->duration_seconds }};
+                const deadline = {{ $cache_hide_time }} * 1000; // en ms
+                const serverTime = {{ $server_time }} * 1000; // en ms
+                const clientTime = Date.now();
+                const offset = serverTime - clientTime; // décalage horloge client/serveur
 
                 function updateCountdown() {
-                    const now = new Date().getTime() / 1000;
-                    const remaining = Math.floor(ends_at_unix_s - now - room_duration + 10);
+                    const now = Date.now() + offset;
+                    const remaining = deadline - now;
 
                     if (remaining <= 0) {
                         clearInterval(interval);
@@ -31,9 +33,13 @@
                         document.getElementById("grid").classList.remove('opacity-0');
                         return;
                     }
-                    
+
+                    const seconds = Math.floor((remaining / 1000) % 60);
+                    const minutes = Math.floor((remaining / 1000 / 60) % 60);
+                    const hours = Math.floor((remaining / 1000 / 60 / 60));
+
                     document.getElementById("cache_timer").textContent = 
-                        `${String(remaining).padStart(2, '0')}`;
+                        `${String(seconds).padStart(2, '0')}`;
                 }
 
                 updateCountdown();
@@ -51,6 +57,8 @@
     @endphp
 
     <div id="grid" @class(["relative justify-center flex-0 flex my-2", 'opacity-0' => $cache_hide_time - $server_time > 0]) >
+        {{-- <x-bingo-grid :grid="$room->grid" :team="$team" :editable="isset($team)"></x-bingo-grid> --}}
+
         <livewire:bingo-grid :player_team_id="$team->id ?? -1" :room_id="$room->id"/>
 
         @if ($room->duration_seconds != null)
@@ -72,7 +80,7 @@
     @if ($room->duration_seconds != null)
         <div class=" flex justify-center mb-1">
             <div id="timer" class="text-center justify-center">
-                <x-room-timer :room="$room" :ends_at="$ends_at"/>
+                <x-room-timer :room="$room" :ends_at="$ends_at" :server_time="$server_time"/>
         
                 <script>
                     window.addEventListener('timer_ended', function() {

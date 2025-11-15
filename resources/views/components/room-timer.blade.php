@@ -8,15 +8,14 @@
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const ends_at_unix_s = {{ $ends_at }};
-        console.log(ends_at_unix_s);
-
-
 
         let remaining = null;
         const timerEndedEvent = new Event('timer_ended');
 
         function updateTimer() {
             remaining = Math.floor(ends_at_unix_s - (new Date().getTime() / 1000));
+
+            console.log(remaining);
     
             let minutes = Math.floor(remaining / 60);
             let hours = Math.floor(minutes / 60);

@@ -24,62 +24,6 @@
             </form>
             <div class="bg-red-100 text-xl p-2 rounded-full border-2 border-red-400" x-on:click="show = !show">🚩</div>
         </div>
-        
-        @if (auth()->user()->isAdmin() || auth()->user()->id == $game->creator_id)
-        <div>
-            <div class="justify-center flex gap-x-4">
-                <form method="post" action="{{ route('game.set_visibility', ['game' => $game->id]) }}" class="flex flex-col">
-                    @csrf
-                    <div>
-                        <x-form.label>
-                            {{ __('game.show.visibility.title') }}
-                        </x-form.label>
-                    </div>
-
-                    <div class="flex gap-2">
-                        @if(auth()->user()->isAdmin())
-                            @if ($game->is_official)
-                                <button type="submit" name="visibility" value="official_off" class="bg-green-300 hover:bg-green-500 p-1 rounded-full text-sm">
-                                    {{ __('game.show.visibility.to_official_off') }}
-                                </button>
-                            @else
-                                <button type="submit" name="visibility" value="official_on" class="bg-green-300 hover:bg-green-500 p-2 rounded-full text-sm">
-                                    {{ __('game.show.visibility.to_official_on') }}
-                                </button>
-                            @endif
-                        @endif
-
-                        @if ($game->is_public)
-                            <button type="submit" name="visibility" value="private" class="bg-green-300 hover:bg-green-500 p-2 rounded-full">
-                                {{ __('game.show.visibility.to_private') }}
-                            </button>
-                        @else
-                            <button type="submit" name="visibility" value="public" class="bg-green-300 hover:bg-green-500 p-2 rounded-full">
-                                {{ __('game.show.visibility.to_public') }}
-                            </button>
-                        @endif
-                    </div>
-                </form>
-                <form method="post" class="flex flex-col w-56" action="{{ route('game.set_language', ['game' => $game->id]) }}">
-                    @csrf
-                    <div>
-                        <x-form.label for="lang">
-                            {{ __('game.creation.form.language.label') }}
-                        </x-form.label>
-                    </div>
-                    <div class="w-56">
-                        <x-form.select-input name="lang" class="w-28">
-                            @foreach (\App\Models\Game::$available_languages as $lang_slug => $lang_name)
-                                <option value="{{ $lang_slug }}" @selected($lang_slug == $game->lang)>{{ $lang_name }}</option>
-                            @endforeach
-                        </x-form.select-input>
-                        <button type="submit" class="bg-green-300 p-2 rounded-full w-fit">
-                            {{ __('game.show.language.edit.submit') }}
-                        </button>
-                </form>
-            </div>
-        </div>
-        @endif
 
         <div class="justify-center flex mt-2 lg:hidden">
             <form method="post" action="{{ route('game.flag', ['game' => $game->id]) }}" class="bg-red-100 p-2 rounded-lg">
@@ -126,6 +70,62 @@
 
         <livewire:user-private-objectives-list :game="$game"/>
     </div>
+
+    @if (auth()->user()->isAdmin() || auth()->user()->id == $game->creator_id)
+    <div>
+        <div class="justify-center flex gap-x-4">
+            <form method="post" action="{{ route('game.set_visibility', ['game' => $game->id]) }}" class="flex flex-col">
+                @csrf
+                <div>
+                    <x-form.label>
+                        {{ __('game.show.visibility.title') }}
+                    </x-form.label>
+                </div>
+
+                <div class="flex gap-2">
+                    @if(auth()->user()->isAdmin())
+                        @if ($game->is_official)
+                            <button type="submit" name="visibility" value="official_off" class="bg-green-300 hover:bg-green-500 p-1 rounded-full text-sm">
+                                {{ __('game.show.visibility.to_official_off') }}
+                            </button>
+                        @else
+                            <button type="submit" name="visibility" value="official_on" class="bg-green-300 hover:bg-green-500 p-2 rounded-full text-sm">
+                                {{ __('game.show.visibility.to_official_on') }}
+                            </button>
+                        @endif
+                    @endif
+
+                    @if ($game->is_public)
+                        <button type="submit" name="visibility" value="private" class="bg-green-300 hover:bg-green-500 p-2 rounded-full">
+                            {{ __('game.show.visibility.to_private') }}
+                        </button>
+                    @else
+                        <button type="submit" name="visibility" value="public" class="bg-green-300 hover:bg-green-500 p-2 rounded-full">
+                            {{ __('game.show.visibility.to_public') }}
+                        </button>
+                    @endif
+                </div>
+            </form>
+            <form method="post" class="flex flex-col w-56" action="{{ route('game.set_language', ['game' => $game->id]) }}">
+                @csrf
+                <div>
+                    <x-form.label for="lang">
+                        {{ __('game.creation.form.language.label') }}
+                    </x-form.label>
+                </div>
+                <div class="w-56">
+                    <x-form.select-input name="lang" class="w-28">
+                        @foreach (\App\Models\Game::$available_languages as $lang_slug => $lang_name)
+                            <option value="{{ $lang_slug }}" @selected($lang_slug == $game->lang)>{{ $lang_name }}</option>
+                        @endforeach
+                    </x-form.select-input>
+                    <button type="submit" class="bg-green-300 p-2 rounded-full w-fit">
+                        {{ __('game.show.language.edit.submit') }}
+                    </button>
+            </form>
+        </div>
+    </div>
+    @endif
 
     @if (auth()->user()->isAdmin() || $game->creator_id == auth()->user()->id)
         <div class="bg-red-100 m-5 p-2 border-red-200 border-4 space-y-2">

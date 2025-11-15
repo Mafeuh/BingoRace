@@ -17,14 +17,11 @@
 
             <div id="countdown" class="text-2xl font-bold text-red-600"></div>
             <script>
-                const deadline = {{ $cache_hide_time }} * 1000; // en ms
-                const serverTime = {{ $server_time }} * 1000; // en ms
-                const clientTime = Date.now();
-                const offset = serverTime - clientTime; // décalage horloge client/serveur
+                const ends_at_unix_s = {{ $ends_at }};
 
                 function updateCountdown() {
-                    const now = Date.now() + offset;
-                    const remaining = deadline - now;
+                    const now = Date.now().getTime() / 1000;
+                    const remaining = ends_at_unix_s - now;
 
                     if (remaining <= 0) {
                         clearInterval(interval);
@@ -57,8 +54,6 @@
     @endphp
 
     <div id="grid" @class(["relative justify-center flex-0 flex my-2", 'opacity-0' => $cache_hide_time - $server_time > 0]) >
-        {{-- <x-bingo-grid :grid="$room->grid" :team="$team" :editable="isset($team)"></x-bingo-grid> --}}
-
         <livewire:bingo-grid :player_team_id="$team->id ?? -1" :room_id="$room->id"/>
 
         @if ($room->duration_seconds != null)
@@ -80,7 +75,7 @@
     @if ($room->duration_seconds != null)
         <div class=" flex justify-center mb-1">
             <div id="timer" class="text-center justify-center">
-                <x-room-timer :room="$room"/>
+                <x-room-timer :room="$room" :ends_at="$ends_at"/>
         
                 <script>
                     window.addEventListener('timer_ended', function() {

@@ -1,8 +1,4 @@
-@props(['room'])
-
-@php
-    $ends_at = \Carbon\Carbon::parse($room->started_at)->timestamp + $room->duration_seconds;
-@endphp
+@props(['room', 'ends_at'])
 
 <div id="timer" class="">
     <p class="text-center"><span id="hours"></span>:<span id="minutes"></span>:<span id="seconds"></span></p>
@@ -11,11 +7,16 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
+        const ends_at_unix_s = {{ $ends_at }};
+        console.log(ends_at_unix_s);
+
+
+
         let remaining = null;
         const timerEndedEvent = new Event('timer_ended');
 
         function updateTimer() {
-            remaining = Math.floor({{ $ends_at }} - Date.now() / 1000);
+            remaining = Math.floor(ends_at_unix_s - (new Date().getTime() / 1000));
     
             let minutes = Math.floor(remaining / 60);
             let hours = Math.floor(minutes / 60);
@@ -26,7 +27,7 @@
             document.getElementById('seconds').innerText = seconds.toString().padStart(2, '0');
             document.getElementById('ends_at').innerText = new Date({{ $ends_at }} * 1000).toLocaleString(navigator.language || 'fr-FR', {hour: '2-digit', minute: '2-digit'});
 
-            document.title = "Bingorace ! " + hours.toString().padStart(2, '0') + ":" + minutes.toString().padStart(2, '0') + ":" + seconds.toString().padStart(2, '0');
+            document.title = "Bingorace ! " + hours.toString().padStart(2, '0') + ":" + (minutes % 60).toString().padStart(2, '0') + ":" + seconds.toString().padStart(2, '0');
 
             if(remaining <= 0) {
                 dispatchEvent(timerEndedEvent);

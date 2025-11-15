@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('rooms', function (Blueprint $table) {
-            $table->timestamp("started_at_unix")->nullable();
+            $table->unsignedBigInteger("started_at_unix")->nullable();
         });
     }
 

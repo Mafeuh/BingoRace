@@ -80,6 +80,7 @@ class RoomController extends Controller
         $room = Room::find(auth()->user()->last_joined_room_id);
 
         $room->started_at = now();
+        $room->started_at_unix = now()->timestamp;
         $room->save();
 
         broadcast(new RoomStarted($room->id));
@@ -95,6 +96,7 @@ class RoomController extends Controller
         if($room->started_at != null) {
             return view('room.play', [
                 'room' => $room,
+                'ends_at' => $room->started_at_unix + $room->duration_seconds,
                 'cache_hide_time' => $cache_hide_time->timestamp,
                 'server_time' => now()->timestamp
             ]);

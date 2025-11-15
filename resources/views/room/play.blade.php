@@ -80,7 +80,7 @@
     @if ($room->duration_seconds != null)
         <div class=" flex justify-center mb-1">
             <div id="timer" class="text-center justify-center">
-                <x-room-timer :room="$room"/>
+                <x-room-timer :room="$room" :ends_at="$ends_at" :server_time="$server_time"/>
         
                 <script>
                     window.addEventListener('timer_ended', function() {

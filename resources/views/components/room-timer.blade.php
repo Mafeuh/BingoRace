@@ -19,8 +19,6 @@
         function updateTimer() {
 
             remaining = Math.floor(ends_at_unix_s - ((Date.now() + offset) / 1000));
-
-            console.log(remaining);
     
             let minutes = Math.floor(remaining / 60);
             let hours = Math.floor(minutes / 60);

@@ -71,7 +71,7 @@ class UserPrivateObjectivesList extends Component
     }
 
     private function get_user_private_objectives() {
-        return $this->game->private_objectives()->whereHas('objectiveable', fn($q) => $q->where('user_id', $this->user->id))->get();
+        return $this->game->private_objectives()->whereRelation('objectiveable', 'user_id', $this->user->id)->get();
     }
     
     public function set_public() {

@@ -24,12 +24,28 @@ class GamesSelect extends Component
 
     public $can_start = false;
 
-    public function queryBuilder()
-    {
-        $query = Game::query()->where('lang', $this->lang);
+    public function queryBuilder() {
+        $lang = $this->lang;
+        $search = trim($this->search);
 
-        return $query;
+        $games = Game::where("lang", $lang)->where("name", "like", "%".$search."%");
+
+        if(!$this->show_official_games) {
+            $games = $games->whereNotIn("id", Game::getOfficialGames()->pluck("id"));
+        }
+
+        if(!$this->show_public_games) {
+            $games = $games->whereNotIn("id", Game::getPublicGames()->pluck("id"));
+        }
+
+        if(!$this->show_private_games) {
+            $games = $games->whereNotIn("id", Game::getAuthPrivateGames()->pluck("id"));
+        }
+        
+        return $games;
     }
+
+
 
     public function mount() {
         $this->lang = app()->getLocale();

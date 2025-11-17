@@ -20,16 +20,21 @@
                 @endforeach
             </select>
             
-            <div class="flex justify-center">
+            <div class="flex justify-center text-left">
                 <table>
                     <tr>
-                        <td>
+                        <td class="pr-2">
                             <input type="checkbox" id="official" wire:model.live.debounce.500ms="show_official_games"/>
                         </td>
                         <td>
-                            <label for="official">
-                                {{ __('room.start.game_selection.filters.official') }}
-                            </label>
+                            <span>
+                                <label for="official">
+                                    {{ __('room.start.game_selection.filters.official') }}
+                                </label>
+                            </span>
+                        </td>
+                        <td class="pl-2">
+                            <x-tooltip_icon :text="__('game.list.official_games.info')"/>
                         </td>
                     </tr>
                     <tr>
@@ -41,6 +46,9 @@
                                 {{ __('room.start.game_selection.filters.public') }}
                             </label>
                         </td>
+                        <td class="pl-2">
+                            <x-tooltip_icon :text="__('game.list.public_games.info')"/>
+                        </td>
                     </tr>
                     <tr>
                         <td>
@@ -50,6 +58,9 @@
                             <label for="private">
                                 {{ __('room.start.game_selection.filters.private') }}
                             </label>
+                        </td>
+                        <td class="pl-2">
+                            <x-tooltip_icon :text="__('game.list.private_games.info')"/>
                         </td>
                     </tr>
                 </table>

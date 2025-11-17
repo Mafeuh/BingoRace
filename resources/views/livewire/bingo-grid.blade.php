@@ -4,7 +4,7 @@
             <div wire:click="try_check({{$square->id}})">
                 <x-grid-square :square="$square" :player_team="$player_team"
                     :round_tl="$loop->first" :round_tr="$loop->iteration == $grid->width" 
-                    :round_bl="$loop->index == $grid->width * $grid->height - $grid->width" :round_br="$loop->last"/>
+                    :round_bl="$loop->remaining == $grid->width - 1" :round_br="$loop->last"/>
             </div>
         @endforeach
     </div>

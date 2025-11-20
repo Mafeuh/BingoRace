@@ -22,6 +22,8 @@ class BingoGrid extends Component
 
     public BingoGridSquare $previewed_square;
 
+    public array $highlighted = [];
+
     public \App\Models\BingoGrid $grid;
 
     protected $listeners = [
@@ -29,6 +31,16 @@ class BingoGrid extends Component
         'tryCheckEvent' => 'try_check',
         'square-checked' => 'refresh',
     ];
+
+    #[On('rightClickCell')]
+    public function toggleHighlight($cellId)
+    {
+        if (in_array($cellId, $this->highlighted)) {
+            $this->highlighted = array_diff($this->highlighted, [$cellId]);
+        } else {
+            $this->highlighted[] = $cellId;
+        }
+    }
 
     public function mount() {
         $this->player_team = Team::find($this->player_team_id);

@@ -1,8 +1,12 @@
 <div wire:poll.5s>
     <div class="grid-cols-{{$grid->width}} w-fit static grid shadow-2xl gap-0.5">
         @foreach ($grid->squares as $square)
-            <div wire:click="try_check({{$square->id}})">
-                <x-grid-square :square="$square" :player_team="$player_team"
+            <div 
+                wire:click="try_check({{$square->id}})"     
+                x-data
+                {{-- @contextmenu.prevent="Livewire.dispatch('rightClickCell', { cellId: {{ $square->id }} })"> --}}
+                @contextmenu.prevent="$wire.toggleHighlight({{ $square->id }})">
+                <x-grid-square :square="$square" :player_team="$player_team" :highlighted="in_array($square->id, $highlighted)"
                     :round_tl="$loop->first" :round_tr="$loop->iteration == $grid->width" 
                     :round_bl="$loop->remaining == $grid->width - 1" :round_br="$loop->last"/>
             </div>

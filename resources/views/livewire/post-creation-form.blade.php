@@ -32,7 +32,7 @@
     </x-form.select-input>
 
     <div>
-        <x-form.submit-input wire:click="addLanguage">
+        <x-form.submit-input wire:click="confirm">
             {{ __('posts.new.confirm') }}
         </x-form.submit-input>
         @if (session()->has('message'))

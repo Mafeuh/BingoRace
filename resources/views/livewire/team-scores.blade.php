@@ -1,4 +1,4 @@
-<div class="flex gap-x-2 justify-center" wire:poll>
+<div class="flex gap-x-2 justify-center">
     @foreach ($room->teams as $team)
         <div class="border-[{{$team->color}}] border-2 shadow-[{{$team->color}}] shadow-lg rounded-xl bg-white">
             <div class="bg-[{{$team->color}}]/20 p-2">

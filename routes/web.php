@@ -44,9 +44,7 @@ Route::middleware(SetLocale::class)->group(function() {
     
     Route::get('/', function () {
         if(auth()->check()) {
-            return view('auth-home', [
-                'posts' => HomepagePost::where('lang_slug', app()->getLocale())->orderBy('created_at', 'desc')->get()
-            ]);
+            return view('auth-home');
         } else {
             return redirect('/login');
         }
@@ -75,7 +73,10 @@ Route::middleware(SetLocale::class)->group(function() {
         });
 
         Route::middleware([CheckUserPermission::class . ':'])->group(function () {
-            Route::get('/new_post', [PostsController::class, 'new'])->name('posts.new');
+            Route::prefix('post')->group(function() {
+                Route::get('/new', [PostsController::class, 'new'])->name('posts.new');
+                Route::get('/edit/{post}', [PostsController::class, 'edit'])->name('posts.edit');
+            });
         });
     
         Route::prefix('games')->group(function() {

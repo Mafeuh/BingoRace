@@ -11,5 +11,7 @@ return [
     'new.validation_message' => "Le post a été créé !",
 
     'edit.page_title' => "Edition d'un post",
-    'edit.validation_message' => "Modifications sauvegardées !"
+    'edit.validation_message' => "Modifications sauvegardées !",
+
+    'is_hidden' => "Caché - "
 ];

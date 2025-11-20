@@ -1,10 +1,10 @@
 @props([
     'square',
     'player_team',
-    'round_tl' => false,
-    'round_tr' => false,
-    'round_bl' => false,
-    'round_br' => false,
+    'round_tl' => true,
+    'round_tr' => true,
+    'round_bl' => true,
+    'round_br' => true,
 ])
 
 <div

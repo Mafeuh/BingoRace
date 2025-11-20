@@ -8,5 +8,8 @@ return [
     'new.lang_slug' => 'Post language',
     'new.confirm' => "Confirm",
 
-    'new.validation_message' => "The post was created!"
+    'new.validation_message' => "The post was created!",
+
+    'edit.page_title' => "Post edition",
+    'edit.validation_message' => "Saved changes!"
 ];

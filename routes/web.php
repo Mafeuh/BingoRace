@@ -45,7 +45,7 @@ Route::middleware(SetLocale::class)->group(function() {
     Route::get('/', function () {
         if(auth()->check()) {
             return view('auth-home', [
-                'posts' => HomepagePost::where('lang_slug', app()->getLocale())->get()
+                'posts' => HomepagePost::where('lang_slug', app()->getLocale())->orderBy('created_at', 'desc')->get()
             ]);
         } else {
             return redirect('/login');

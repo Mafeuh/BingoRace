@@ -41,20 +41,20 @@
                 {{-- Conteneur scrollable --}}
                 <div class="max-h-[70vh] overflow-y-auto pr-2 space-y-4">
                     @forelse ($posts as $post)
-                        <div class="w-full p-3 shadow-inner shadow-gray-300 rounded-3xl bg-gray-50">
-                            <div class="text-xl">
+                        <div class="w-full p-2 shadow-inner shadow-gray-300 bg-gray-50">
+                            <div>
                                 <h1 class="inline text-emerald-700 font-bold">
                                     {{ $post->title }}
                                 </h1>
-                                <span class="text-gray-400 text-lg">
+                                <span class="text-gray-400 text-sm">
                                     - {{ $post->author->name }}
                                 </span>
                             </div>
-                            <div class="text-gray-400">
+                            <div class="text-gray-400 text-xs">
                                 {{ \Carbon\Carbon::parse($post->created_at)->format('M d Y') }}
                             </div>
                             <hr class="my-2">
-                            <div>
+                            <div class="text-sm">
                                 {!! $post->description !!}
                             </div>
                         </div>

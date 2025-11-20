@@ -5,11 +5,13 @@
     'round_tr' => true,
     'round_bl' => true,
     'round_br' => true,
+    'highlighted' => false
 ])
 
 <div
     @class([
-        'relative flex text-clip size-28 flex border border-2 overflow-hidden', 
+        'relative flex text-clip size-28 flex border border-2 overflow-hidden',
+        'border-red-600 border-4' => $highlighted, 
         'hover:shadow-2xl border-gray-500 transform hover:scale-110 hover:z-10 duration-150',
         'font-bold' => $square->checked_at != null,
         "rounded-bl-lg" => $round_bl,

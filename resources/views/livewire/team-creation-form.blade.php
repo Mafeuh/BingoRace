@@ -19,7 +19,7 @@
             <x-form.label for="new_team_image">
                 {{ __('room.wait.teams.new_team.image.label') }}
             </x-form.label>
-            <x-form.filedrop-input wire_model="new_team_image" name="new_team_image" message="{{ __('room.wait.teams.new_team.image.message') }}"/>
+            <x-form.filedrop-input wire:model="new_team_image" name="new_team_image" message="{{ __('room.wait.teams.new_team.image.message') }}"/>
             
             @if ($new_team_image != null)
             <div class="flex flex-0 justify-center m-5">

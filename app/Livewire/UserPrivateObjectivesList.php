@@ -8,10 +8,11 @@ use App\Models\User;
 use App\Models\Objective;
 use App\Models\PrivateObjective;
 use App\Models\PublicObjective;
+use Livewire\Attributes\On;
 
 class UserPrivateObjectivesList extends Component
 {
-    public $selected_objectives;
+    public $selected_objectives = [];
     
     public $possible_users_ids;
     public $user;
@@ -22,6 +23,11 @@ class UserPrivateObjectivesList extends Component
     public $search_name = "";
     public $search_results;
 
+    #[On('refreshPrivate')]
+    public function refresh() {
+        $this->private_objectives = $this->get_user_private_objectives();
+    }
+    
     public function mount() {
         if ($this->user == null) {
             $this->user = auth()->user();
@@ -30,8 +36,6 @@ class UserPrivateObjectivesList extends Component
         $this->possible_users_ids = $this->game->private_objectives()->with("objectiveable")->get()->pluck("objectiveable")->pluck("user_id");
 
         $this->private_objectives = $this->get_user_private_objectives();
-
-        $this->selected_objectives = array_fill_keys($this->private_objectives->pluck("id")->toArray(), false);
 
         $this->search_results = User::findMany($this->possible_users_ids);
     }
@@ -88,7 +92,9 @@ class UserPrivateObjectivesList extends Component
         }
 
         $this->private_objectives = $this->get_user_private_objectives();
-        $this->selected_objectives = array_fill_keys($this->private_objectives->pluck("id")->toArray(), false);
+        $this->selected_objectives = [];
+
+        $this->dispatch('refreshPublic');
     }
 
     public function render()

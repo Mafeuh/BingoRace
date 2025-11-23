@@ -1,4 +1,4 @@
-<div class="bg-white p-2 rounded-3xl" x-data="{ selected: [] }">
+<div class="bg-white p-2 rounded-3xl" x-data="{ selected: [] }" x-on:private-refreshed.window="selected = []">
     @admin()
         <div class="text-center">
             <x-form.text-input placeholder="Nom de l'utilisateur" wire:model.live="search_name"/>

@@ -69,7 +69,7 @@ class BingoGrid extends Component
 
         if(in_array($this->player_team_id, $checked_by->pluck('id')->toArray())) {
             CheckedBy::where('team_id', $this->player_team_id)->where('square_id', $square_id)->first()->delete();
-            broadcast(new SquareChecked($this->room_id))->toOthers();
+            broadcast(new SquareChecked($this->room_id));
         } else {
             if($can_check) {
                 CheckedBy::create([
@@ -77,7 +77,7 @@ class BingoGrid extends Component
                     'square_id' => $square_id,
                     'user_id' => auth()->user()->id
                 ]);
-                broadcast(new SquareChecked($this->room_id))->toOthers();
+                broadcast(new SquareChecked($this->room_id));
             }
         }
 

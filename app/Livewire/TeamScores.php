@@ -7,6 +7,11 @@ use Livewire\Component;
 
 class TeamScores extends Component
 {
+    protected $listeners = [
+        '$refresh', 
+        'square-checked' => 'refresh',
+    ];
+
     public ?Room $room;
     public function render()
     {

@@ -1,5 +1,6 @@
 <?php
 
 return [
-    'input.image.text' => "Drag & Drop an image here or click to select one."
+    'input.image.text' => "Click here to select an image.",
+    'input.image.error' => "You cannot drag & drop files!",
 ];

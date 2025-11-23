@@ -55,6 +55,9 @@ return [
     'show.permissions.creator_auth' => "C'est ton jeu, c'est tes règles ! Importe tes propres objectifs, privés ou publics !",
     'show.permissions.default' => "Ce jeu a été ajouté par :creator_name. C'est le/la seul.e personne à pouvoir ajouter des objectifs.",
 
+    'show.description.title' => "Description",
+    'show.description.empty' => "Ce jeu n'a pas de description",
+
     'show.public_objectives.title' => ":amount objectifs publics",
     'show.public_objectives.empty' => "Ce jeu n'a pas d'objectif public",
     'show.private_objectives.title.you' => "Tes :amount objectifs privés",

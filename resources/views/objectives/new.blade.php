@@ -60,12 +60,14 @@
             // On supprime l'écouteur sur tous
             allInputs.forEach(input => {
                 input.removeEventListener('click', addRow);
+                input.removeEventListener('focus', addRow);
             });
 
             // On met l'écouteur sur le dernier SEULEMENT
             const last = allInputs[allInputs.length - 1];
             if (last) {
                 last.addEventListener('click', addRow);
+                last.addEventListener('focus', addRow);
             }
         }
 

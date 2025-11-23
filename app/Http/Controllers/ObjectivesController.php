@@ -37,21 +37,22 @@ class ObjectivesController extends Controller
             $obj = $objectives[$i];
             $vis = $visibilities[$i];
 
-            $o = Objective::create([
-                'description' => $obj,
-                'game_id' => $game->id,
-                'creator_id' => auth()->user()->id,
-            ]);
-
-            $n = null;
-            if($vis == "public") {
-                $n = PublicObjective::create([]);
-            } elseif($vis == "private") {
-                $n = PrivateObjective::create([
-                    'user_id' => auth()->user()->id
+            if($obj) {
+                $n = null;
+                if($vis == "public") {
+                    $n = PublicObjective::create([]);
+                } elseif($vis == "private") {
+                    $n = PrivateObjective::create([
+                        'user_id' => auth()->user()->id
+                    ]);
+                }
+                $n->objective()->create([
+                    'description' => $obj,
+                    'game_id' => $game->id,
+                    'creator_id' => auth()->user()->id,
                 ]);
             }
-            $o->objectiveable()->associate($n);
+            
         }
 
         return redirect("/games/".$game->id);

@@ -10,7 +10,9 @@
 
         <div class="flex flex-col">
             <x-form.label for="description">Description</x-form.label>
-            <x-form.textbox-input name="description" :value="$objective->description"/>
+            <x-form.textbox-input name="description">
+                {{ $objective->description }}
+            </x-form.textbox-input>
         </div>
 
 

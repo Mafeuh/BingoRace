@@ -29,52 +29,32 @@ class ObjectivesController extends Controller
         $objective->save();
     }
 
-    public static function post(Game $game){
-        $valid = request()->validate([
-            'objectives' => ['string', 'required'],
-            'visibility' => ['string', 'required']
-        ]);
+    public function post(Game $game){
+        $objectives = request()->objectives;
+        $visibilities = request()->visibilities;
 
-        $objectives = mb_split('\r\n', $valid['objectives']);
+        for($i = 0; $i < count($objectives); $i++) {
+            $obj = $objectives[$i];
+            $vis = $visibilities[$i];
 
-        $too_long_error = 0;
-        
-        if($valid['objectives']) {
-            if($valid['visibility'] == 'public') {
-                foreach($objectives as $obj) {
-                    if(strlen($obj) <= 255) {
-                        $pub = PublicObjective::create([]);
-                        $pub->objective()->create([
-                            'game_id' => $game->id,
-                            'description' => $obj,
-                            "creator_id" => auth()->user()->id
-                        ]);
-                    } else $too_long_error += 1;
-                }
-            } elseif($valid['visibility'] == 'private') {
-                foreach($objectives as $obj) {
-                    if(strlen($obj) <= 255) {
-                        $pub = PrivateObjective::create([
-                            'user_id' => auth()->user()->id
-                        ]);
-                        $pub->objective()->create([
-                            'game_id' => $game->id,
-                            'description' => $obj,
-                            "creator_id" => auth()->user()->id
-                        ]);
-                    } else $too_long_error += 1;
-                }
+            $o = Objective::create([
+                'description' => $obj,
+                'game_id' => $game->id,
+                'creator_id' => auth()->user()->id,
+            ]);
+
+            $n = null;
+            if($vis == "public") {
+                $n = PublicObjective::create([]);
+            } elseif($vis == "private") {
+                $n = PrivateObjective::create([
+                    'user_id' => auth()->user()->id
+                ]);
             }
+            $o->objectiveable()->associate($n);
         }
 
-        if($too_long_error > 0) {
-            session()->flash('message', (sizeof($objectives) - $too_long_error) . ' ajouté(s) à ' . $game->name . " (" . $too_long_error . " étaient trop longs.)");
-        } else {
-            session()->flash('message', sizeof($objectives) . ' ajouté(s) à ' . $game->name);
-        }
-
-
-        return redirect()->back();
+        return redirect("/games/".$game->id);
     }
 
     public function edit(Objective $objective) {

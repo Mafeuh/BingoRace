@@ -8,5 +8,10 @@ return [
     'new.lang_slug' => 'Langage du post',
     'new.confirm' => "Confirmer",
     
-    'new.validation_message' => "Le post a été créé !"
+    'new.validation_message' => "Le post a été créé !",
+
+    'edit.page_title' => "Edition d'un post",
+    'edit.validation_message' => "Modifications sauvegardées !",
+
+    'is_hidden' => "Caché - "
 ];

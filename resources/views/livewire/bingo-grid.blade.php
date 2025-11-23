@@ -1,18 +1,24 @@
 <div wire:poll.5s>
-    <div class="grid-cols-{{$grid->width}} w-fit gap-1 static hidden lg:grid">
+    <div class="grid-cols-{{$grid->width}} w-fit static grid shadow-2xl gap-0.5">
         @foreach ($grid->squares as $square)
-            <div wire:click="try_check({{$square->id}})">
-                <x-grid-square :square="$square" :player_team="$player_team"/>
+            <div 
+                wire:click="try_check({{$square->id}})"     
+                x-data
+                {{-- @contextmenu.prevent="Livewire.dispatch('rightClickCell', { cellId: {{ $square->id }} })"> --}}
+                @contextmenu.prevent="$wire.toggleHighlight({{ $square->id }})">
+                <x-grid-square :square="$square" :player_team="$player_team" :highlighted="in_array($square->id, $highlighted)"
+                    :round_tl="$loop->first" :round_tr="$loop->iteration == $grid->width" 
+                    :round_bl="$loop->index == $grid->width * $grid->height - $grid->width" :round_br="$loop->last"/>
             </div>
         @endforeach
     </div>
-    <div class="grid grid-cols-{{$grid->width}} w-fit gap-1 static lg:hidden">
+    {{-- <div class="grid grid-cols-{{$grid->width}} w-fit gap-1 static lg:hidden">
         @foreach ($grid->squares as $square)
             <div wire:click="mobile_preview({{$square->id}})">
                 <x-grid-square-mobile :square="$square"/>
             </div>
         @endforeach
-    </div>
+    </div> --}}
 
     @if ($previewed_square)
         <div class="text-center lg:hidden bg-emerald-50 mt-5 p-2 rounded-lg">

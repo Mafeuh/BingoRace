@@ -1,20 +1,34 @@
 <div class="text-center bg-white min-h-12">
     <div class="relative">
         @if (session('error'))
-            <div class="left-1/2 bottom-5 bg-red-200 absolute text-left px-5 py-3 -translate-x-1/2">
+            <div id="error" class="left-1/2 bottom-5 bg-red-200 absolute text-left px-5 py-3 -translate-x-1/2">
                 <div class="font-bold text-red-600">
                     Erreur !
                 </div>
                 {{ session('error') }}
+                <script>
+                    const error_div = document.getElementById('error');
+
+                    setTimeout(() => {
+                        error_div.classList.toggle('hidden');    
+                    }, 5000);
+                </script>
             </div>
         @endif
 
         @if (session('message'))
-            <div class="left-1/2 bottom-5 bg-white border-2 border-green-600 absolute text-left px-5 py-3 -translate-x-1/2">
+            <div id="message" class="left-1/2 bottom-5 bg-white border-2 border-green-600 absolute text-left px-5 py-3 -translate-x-1/2">
                 <div class="font-bold text-green-600">
                     🗒️ Information
                 </div>
                 {{ session('message') }}
+                <script>
+                    const message_div = document.getElementById('message');
+
+                    setTimeout(() => {
+                        message_div.classList.toggle('hidden');    
+                    }, 5000);
+                </script>
             </div>
         @endif
     </div>

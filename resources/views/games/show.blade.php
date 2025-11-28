@@ -43,7 +43,7 @@
         </div>
     </div>
 
-    <div class="m-5 text-center">
+    <div class="text-center">
         @if (auth()->user()->isAdmin())
             <div>
                 {{ __('game.show.permissions.admin')}}
@@ -64,7 +64,11 @@
             @endif
         @endif
     </div>
-
+        
+    <div class="justify-center flex">
+        <livewire:game-description :game="$game"/>
+    </div>    
+    
     <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
         <livewire:public-objectives-list :game="$game"/>
 

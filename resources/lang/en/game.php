@@ -55,6 +55,9 @@ return [
     'show.permissions.creator_auth' => "Your game, your rules! Create either public or private objectives!",
     'show.permissions.default' => "This game was added by :creator_name. You can only add private objectives.",
 
+    'show.description.title' => "Description",
+    'show.description.empty' => "This game does not have a description",
+
     'show.public_objectives.title' => ":amount public objectives",
     'show.public_objectives.empty' => "This game does not have any public objective!",
     'show.private_objectives.title.you' => "Your :amount private objectives",

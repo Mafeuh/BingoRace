@@ -1,4 +1,4 @@
-<div class="bg-white p-2 rounded-3xl" x-data="{ selected: [] }">
+<div class="bg-white p-2 rounded-3xl" x-data="{ selected: [] }" x-on:public-refreshed.window="selected = []">
     <h2 class="text-xl text-center mb-1">
         {{ __('game.show.public_objectives.title', ['amount' => sizeof($public_objectives)]) }}
         @if ($can_manage_public_objectives)

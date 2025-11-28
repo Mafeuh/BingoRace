@@ -7,6 +7,7 @@ use \App\Models\Game;
 use \App\Models\Objective;
 use \App\Models\PublicObjective;
 use \App\Models\PrivateObjective;
+use Livewire\Attributes\On;
 
 class PublicObjectivesList extends Component
 {
@@ -15,6 +16,11 @@ class PublicObjectivesList extends Component
     public Game $game;
     public $public_objectives;
     public bool $can_manage_public_objectives;
+
+    #[On('refreshPublic')]
+    public function refresh() {
+        $this->public_objectives = $this->game->public_objectives;
+    }
 
     public function mount() {
         $this->public_objectives = $this->game->public_objectives;
@@ -38,6 +44,9 @@ class PublicObjectivesList extends Component
         }
 
         $this->public_objectives = $this->game->public_objectives;
+
+        $this->dispatch('refreshPrivate');
+
     }
 
     public function delete() {

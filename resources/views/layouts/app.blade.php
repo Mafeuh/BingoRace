@@ -28,7 +28,7 @@
         @endphp
 
         @if ($is_maintenance && auth()->user() && !auth()->user()->isAdmin())
-            <div class="absolute w-full h-full bg-red-500/80 z-50 flex flex-col place-content-center items-center">
+            <div class="fixed left-0 top-0 w-full h-full bg-red-500/80 z-50 flex flex-col place-content-center items-center">
                 <h1 class="text-5xl text-white font-bold">
                     {{ __('maintenance.title') }}
                 </h1>

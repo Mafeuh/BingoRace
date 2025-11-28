@@ -191,7 +191,7 @@ class GamesController extends Controller
         $private_objectives = $game->private_objectives();
 
 
-        if(($game->is_official || $game->is_public || $game->creator_id == auth()->user()->id) || auth()->user()->isAdmin) {
+        if(($game->is_official || $game->is_public || $game->creator_id == auth()->user()->id) || auth()->user()->isAdmin()) {
             return view('games.show', [
                 'game'=> $game
             ]);

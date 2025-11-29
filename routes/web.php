@@ -54,6 +54,10 @@ Route::middleware(SetLocale::class)->group(function() {
     
     
     Route::middleware(['auth', 'verified'])->group(function () {
+        Route::get('/test', function() {
+            return view('layouts.app');
+        });
+
         Route::post('/join', [RoomController::class,'join']);
         
         Route::group([

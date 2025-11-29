@@ -18,5 +18,7 @@ return [
     'submit' => "S'inscrire !",
 
     'login.label' => "Déjà un compte ?",
-    'login.link' => "Connecte-toi !"
+    'login.link' => "Connecte-toi !",
+
+    'cgu' => "En vous inscrivant, vous confirmez avoir lu les <a href='/cgu' class='text-blue-400 font-bold'>Conditions Générales d'Utilisation</a>"
 ];

@@ -2,16 +2,20 @@
 
 @section('content')
 <div class="h-full flex items-center justify-center">
-    <div class="bg-white p-10 rounded-3xl shadow-lg shadow-white">
-        <h1 class="text-3xl font-bold text-center">
+    <div class="p-10 rounded-3xl shadow-lg
+        bg-white shadow-white
+        dark:bg-slate-700 dark:shadow-blue-500">
+        <h1 class="text-3xl font-bold text-center dark:text-gray-200">
             {{ __('login.title') }}
         </h1>
         <!-- Session Status -->
         <x-auth-session-status class="mb-4" :status="session('status')" />
+
+        <div class="w-full h-1 bg-gradient-to-r from-red-600 to-blue-600 my-2"></div>
     
         <form method="POST" action="/login" class="flex justify-center items-center">
             @csrf
-            <div class="flex-col space-y-2 border-t-2 pt-5 mt-3 border-green-600">
+            <div class="flex-col space-y-2">
                 <!-- Email Address -->
                 <div class="flex flex-col">
                     <x-form.label for="email">
@@ -38,7 +42,7 @@
     
     
                 <div class="text-center">
-                    <label for="remember_me" class="pr-5 align-middle col-span-2">
+                    <label for="remember_me" class="pr-5 align-middle col-span-2 dark:text-gray-200">
                         {{ __('login.stay_connected') }}
                     </label>
                     <x-form.checkbox-input name="remember_me"/>
@@ -51,7 +55,10 @@
                 </div>
     
                 <div class="text-center">
-                    {{ __('login.register.label') }} <a href="/register" class="text-green-600 font-bold">{{ __('login.register.link') }}</a>
+                    <span class="dark:text-gray-200">
+                        {{ __('login.register.label') }}
+                    </span>
+                    <a href="/register" class="text-blue-500 font-bold">{{ __('login.register.link') }}</a>
                 </div>
             </div>
         </form>

@@ -31,15 +31,15 @@ class Game extends Model
     }
 
     public static function getPublicGames() {
-        return Game::where('is_public',  1)->where('visible', true)->where('is_official', 0)->where('lang', app()->getLocale());
+        return Game::where('is_public',  1)->where('visible', 1)->where('is_official', 0)->where('lang', app()->getLocale());
     }
 
     public static function getOfficialGames() {
-        return Game::where('is_official', 1)->where('visible', true)->where('lang', app()->getLocale());
+        return Game::where('is_official', 1)->where('visible', 1)->where('lang', app()->getLocale());
     }
 
     public static function getAuthPrivateGames() {
-        return auth()->user()->private_games->where('visible', true)->where('is_public',  0)->where('is_official', 0)->where('lang', app()->getLocale());
+        return auth()->user()->private_games->where('visible', 1)->where('is_public',  0)->where('is_official', 0)->where('lang', app()->getLocale());
     }
 
     public function public_objectives()

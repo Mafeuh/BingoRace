@@ -14,7 +14,7 @@ class GamesSelect extends Component
     static int $MINIMUM_OBJECTIVES = 9;
     
     public $selected_games_ids = [];
-    public $show_official_games = false;
+    public $show_official_games = true;
     public $show_public_games = true;
     public $show_private_games = true;
 

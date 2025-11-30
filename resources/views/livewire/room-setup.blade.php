@@ -1,21 +1,13 @@
-<div>
-    
-    <div class="justify-center">
-        <div class="space-y-2">
-            <div class="bg-white rounded-lg p-2">
-                <h1 class="text-xl text-center font-bold text-emerald-600">
-                    {{ __('room.setup.title') }}
-                </h1>
-                <livewire:games-objectives-selection :room_id="$room->id"/>
-            </div>
-            
-            <div class="text-center pt-5">
-                <input type="hidden" name="room_id" value="{{ $room->id }}">
-                <button wire:click="submit()" class="px-5 py-2 text-xl bg-green-600 text-white rounded-3xl transition-all font-bold
-                hover:bg-green-600 hover:font-bold hover:scale-105 disabled:bg-gray-300 disabled:text-gray-500 disabled:scale-100 disabled:cursor" type="submit">
-                    {{ __('room.setup.submit') }}
-                </button>
-            </div>
-        </div>
+<x-main-panel>
+    <div>
+        <livewire:games-objectives-selection :room_id="$room->id"/>
     </div>
-</div>
+    
+    <div class="text-center pt-5">
+        <input type="hidden" name="room_id" value="{{ $room->id }}">
+        
+        <x-form.button wire:click="submit()">
+            {{ __('room.setup.submit') }}
+        </x-form.button>
+    </div>
+</x-main-panel>

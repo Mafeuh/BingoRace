@@ -1,16 +1,15 @@
-<div class="bg-white rounded-3xl p-2 text-center h-[90vh] flex flex-col">
+<x-main-panel class="text-center rounded dark:text-gray-200">
     <h2 class="text-lg font-bold">
         {{ __('game.list.official_games.title') }}
     </h2>
-    <div> 
+    <div>
         <i>
             {{ __('game.list.official_games.info') }}
         </i>
     </div>
-    <input type="text" placeholder="{{ __('game.creation.form.name.label') }}"
-           wire:model.live.debounce.500ms="name"
-           class="border border-gray-300 rounded-full text-center py-2 px-4 w-1/2 mx-auto"/>
-
+    <x-form.text-input placeholder="{{ __('game.creation.form.name.label') }}" 
+        wire:model.live.debounce.500ms="name"/>
+    
     <!-- Zone scrollable -->
     <div class="overflow-y-auto mt-5 flex-1">
         <div class="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-2 2xl:grid-cols-3 gap-1">
@@ -19,7 +18,7 @@
                 <x-game-card :game="$game_it"/>
             </div>
             @endforeach
-
+    
             @forelse ($non_favorite as $game_it)
             <div wire:key="nfav-{{$game_it->id}}">
                 <x-game-card :game="$game_it"/>
@@ -31,4 +30,4 @@
             @endforelse
         </div>
     </div>
-</div>
+</x-main-panel>

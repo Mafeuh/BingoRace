@@ -3,14 +3,18 @@
 @section('content')
 <div class="h-full flex items-center justify-center">
 
-    <div class="bg-white mx-20 px-20 py-10 rounded-3xl shadow-lg shadow-white">
+    <div class="p-10 rounded-3xl shadow-lg
+        bg-white shadow-white
+        dark:bg-slate-700 dark:shadow-blue-500">
         <h1 class="text-3xl font-bold text-center">
             {{ __('register.title') }}
         </h1>
         
+        <div class="w-full h-1 bg-gradient-to-r from-red-600 to-blue-600 my-2"></div>
+
         <form method="POST" action="/register" class="flex justify-center items-center">
             @csrf
-            <div class="flex-col space-y-2 border-t-2 pt-5 mt-3 border-green-600">
+            <div class="flex-col space-y-2">
 
                 <!-- Name -->
                 <div class="flex flex-col">
@@ -38,18 +42,9 @@
                     <x-form.password-input name="password" required="" placeholder="{{ __('register.password.placeholder') }}"/>
                     <x-form.error name="password"/>
                 </div>
-                
-                <!-- Confirm Password -->
-                <div class="flex flex-col">
-                    <x-form.label for="password_confirmation">
-                        {{ __('register.password.confirm.label') }}
-                    </x-form.label>
-                    <x-form.password-input name="password_confirmation" required="" placeholder="{{ __('register.password.confirm.placeholder') }}"/>
-                    <x-form.error name="password_confirmation"/>
-                </div>
 
                 <div class="text-center w-56">
-                    {!! __('auth.cgu') !!}
+                    {!! __('register.cgu') !!}
                 </div>
                 
                 <div class="text-center">
@@ -59,7 +54,7 @@
                 </div>
                 <div class="text-center">
                     {{ __('register.login.label') }}
-                    <a href="/login" class="text-green-600 font-bold">{{ __('register.login.link') }}</a>
+                    <a href="/login" class="text-blue-500 font-bold">{{ __('register.login.link') }}</a>
                 </div>
             </div>
             

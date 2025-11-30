@@ -1,24 +1,25 @@
 @extends('layouts.app')
 
+@section('page_title') {{ __('game.objectives.edit') }} @endsection
+
 @section('content')
-<div class="justify-center flex h-full">
-    <form method="POST" action="/objectives/{{ $objective->id }}/edit_post" class="bg-green-50 px-40 py-10 rounded-3xl" name="blbblbblblb">
-        @csrf
-        <div class="mb-5">
-            <h1 class="text-3xl text-center font-bold mb-5">Modification d'un objectif</h1>
-        </div>
-
-        <div class="flex flex-col">
-            <x-form.label for="description">Description</x-form.label>
-            <x-form.textbox-input name="description">
-                {{ $objective->description }}
-            </x-form.textbox-input>
-        </div>
-
-
-        <div class="mt-5">
-            <x-form.submit-input>Je valide !</x-form.submit-input>
-        </div>
-    </form>
+<div class="justify-center flex">
+    <x-main-panel class="w-96">
+        <form method="POST" action="/objectives/{{ $objective->id }}/edit_post" name="blbblbblblb">
+            @csrf
+    
+            <div class="flex flex-col">
+                <x-form.label for="description">Description</x-form.label>
+                <x-form.textbox-input name="description">
+                    {{ $objective->description }}
+                </x-form.textbox-input>
+            </div>
+    
+    
+            <div class="mt-5 text-center">
+                <x-form.button type="submit">Je valide !</x-form.button>
+            </div>
+        </form>
+    </x-main-panel>
 </div>
 @endsection

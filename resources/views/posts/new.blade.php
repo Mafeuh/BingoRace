@@ -1,12 +1,8 @@
 @extends('layouts.app')
 
-@section('content')
+@section('page_title') {{ __('posts.new.page_title') }} @endsection
 
-<div>
-    <h1 class="text-center text-4xl mb-8 text-emerald-800">
-        {{ __('posts.new.page_title') }}
-    </h1>
-</div>
+@section('content')
 
 <div class="flex justify-center">
     <livewire:post-creation-form/>

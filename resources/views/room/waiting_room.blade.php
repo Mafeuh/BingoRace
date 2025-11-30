@@ -1,12 +1,11 @@
 @extends('layouts.app')
 
+@section('page_title') {{ __('room.wait.title') }} @endsection
+
 @section('content')
 <div class="h-fit">
     <div>
-        <h1 class="text-2xl text-center text-emerald-800">
-            {{ __('room.wait.title') }}
-        </h1>
-        <h2 class="text-lg text-center">
+        <h2 class="text-lg text-center dark:text-gray-200">
             {{ __('room.wait.code.label') }}
             <span class="text-2xl" x-data="{ show: false }" x-on:click="show = !show">
                 <span x-show="!show" class="bg-gray-700 text-white rounded-md">
@@ -14,7 +13,7 @@
                 </span>
                 <span x-show="show" class="font-bold">{{ $room->code }}</span>
             </span>
-            <button class="bg-white shadow-xl rounded-full py-2 px-4" onclick="copyText()" id="copy_button">
+            <button class="bg-white dark:bg-slate-800 shadow-xl rounded-full py-2 px-4" onclick="copyText()" id="copy_button">
                 {{ __('room.wait.code.copy') }}
             </button>
             <script>
@@ -29,18 +28,14 @@
     
     <div class="h-fit gap-5 sm:flex">
         <div class="space-y-5 sm:w-1/3 text-sm">
-            <div class="bg-white p-3 shadow-inner shadow-green-100 rounded-3xl h-fit">
-                <livewire:teams-list :room="$room" />
-            </div>
+            <livewire:teams-list :room="$room" />
     
-            <div class="bg-white p-3 shadow-inner shadow-green-100 rounded-3xl h-fit">
-                <livewire:team-creation-form :room="$room" />
-            </div>
+            <livewire:team-creation-form :room="$room" />
         </div>
-
+        
         <div class="sm:w-2/3 lg:w-1/2">
-            <div class="bg-white m-5 p-5 rounded-xl">
-                <div class="font-bold text-green-700">
+            <x-secondary_panel class="m-5 rounded">
+                <div class="font-bold text-blue-500">
                     {{ __('room.wait.rules.title') }}
                 </div>
                 <div>
@@ -52,7 +47,7 @@
                 <div class="mt-5">
                     {{ __('room.wait.rules.description3') }}
                 </div>
-            </div>
+            </x-secondary_panel>
 
             @if (auth()->user()->id == $room->creator_id)
                 <livewire:room-settings-setter :room="$room"/>

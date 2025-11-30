@@ -18,5 +18,7 @@ return [
     'submit' => "Register!",
 
     'login.label' => "Already have an account?",
-    'login.link' => "Log in!"
+    'login.link' => "Log in!",
+
+    'cgu' => "By registering, you are considered to have read and acknowledged the <a href='/cgu' class='text-blue-400 font-bold'>Terms and Conditions of Use</a>"
 ];

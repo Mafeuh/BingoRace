@@ -1,7 +1,7 @@
 <div>
     <input type="hidden" name="selected_color" id="selected" wire:model="selected_color">
     
-    <div class="bg-gray-200 flex overflow-x-scroll p-2 scrollbar-hidden scroll-smooth transition-all duration-100" id="color-scroll">
+    <div class="bg-gray-200 dark:bg-slate-900 flex overflow-x-scroll p-2 scrollbar-hidden scroll-smooth transition-all duration-100" id="color-scroll">
         @foreach ($colors as $name => $color)
         @php $class_color = 'bg-['.$color.']'; @endphp
             <div id="{{ $color }}" onclick="select_color('{{ $color }}')" @class([

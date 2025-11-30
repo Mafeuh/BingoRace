@@ -1,9 +1,10 @@
-<div class="bg-white w-full rounded-xl p-2 text-center flex flex-col justify-center items-center">
-    <h2 class="text-xl text-green-700 font-bold">
+<x-main-panel class="w-full text-center flex flex-col justify-center items-center">
+
+    <h2 class="text-xl text-blue-500 font-bold">
         {{ __('room.setup.settings.title') }}
     </h2>
-
-    <div class="p-2 border w-fit rounded-lg shadow-inner">
+    
+    <x-secondary_panel>
         <table>
             <tr>
                 <td>
@@ -14,7 +15,7 @@
                     <livewire:room-timer-setter :room="$room"/>
                 </td>
             </tr>
-
+    
             <tr>
                 <td colspan="3" class="italic text-sm">
                     <div>
@@ -25,17 +26,18 @@
                     </div>
                 </td>
             </tr>
-
+    
             <tr>
                 <td>
                     {{ __('room.setup.settings.max_teams.title') }}
                 </td>
                 <td></td>
                 <td class="pl-16">
-                    <input id="max_teams" type="number" wire:model="max_teams" min="0" max="100" class="p-2 border-gray-300 rounded-full w-16 focus:outline-none"/>
+                    <x-form.number-input id="max_teams" wire:model="max_teams" min="0" max="100" >
+                    </x-form.number-input>
                 </td>
             </tr>
-
+    
             <tr>
                 <td colspan="3" class="italic text-sm">
                     <div>
@@ -47,19 +49,22 @@
                 </td>
             </tr>
         </table>
-    </div>
-
-    <div class="mt-4 text-xl">
+    </x-secondary_panel>
+    
+    <div class="mt-4 text-xl dark:text-gray-200">
         {{ __('room.wait.start.label') }}
-        <span class="text-green-800 font-bold">
+        <span class="text-blue-500 font-bold">
             {{ __('room.wait.start.button') }}
         </span>
-
+    
         <form action="{{ route('room-start') }}" method="POST" class="text-center">
             @csrf
-            <button class="text-xl bg-green-500 px-5 py-3 rounded-full font-bold hover:bg-green-700 active:animate-ping" type="submit">
+            <x-form.button type="submit">
                 {{ __('room.wait.start.button') }}
-            </button>
+            </x-form.button>
         </form>
     </div>
-</div>
+</x-main-panel>
+{{-- 
+<div class="bg-white w-full rounded-xl p-2 text-center flex flex-col justify-center items-center">
+</div> --}}

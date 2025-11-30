@@ -1,4 +1,4 @@
-<div class="bg-white rounded-3xl p-2 text-center">
+<x-main-panel class="text-center rounded dark:text-gray-200">
     <h2 class="text-lg font-bold">
         {{ __('game.list.private_games.title')}}
     </h2>
@@ -7,9 +7,8 @@
             {{ __('game.list.private_games.info') }}
         </i>
     </div>
-    <input type="text" placeholder="{{ __('game.creation.form.name.label') }}"
-               wire:model.live.debounce.500ms="name"
-               class="border border-gray-300 rounded-full text-center py-2 px-4 w-1/2"/>
+    <x-form.text-input placeholder="{{ __('game.creation.form.name.label') }}"
+        wire:model.live.debounce.500ms="name"/>
     
 
     <!-- Zone scrollable -->
@@ -32,4 +31,4 @@
             @endforelse
         </div>
     </div>
-</div>
+</x-main-panel>

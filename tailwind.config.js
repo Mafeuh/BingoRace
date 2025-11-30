@@ -19,6 +19,9 @@ export default {
             fontSize: {
                 'xxs': '0.625rem',
             },
+            colors: {
+                ...colors
+            }
         },
     },
 

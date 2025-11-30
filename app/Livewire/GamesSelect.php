@@ -28,7 +28,7 @@ class GamesSelect extends Component
         $lang = $this->lang;
         $search = trim($this->search);
 
-        $games = Game::where("lang", $lang)->where("name", "like", "%".$search."%");
+        $games = Game::where("lang", $lang)->where("name", "like", "%".$search."%")->where('visible', 1);
 
         if(!$this->show_official_games) {
             $games = $games->whereNotIn("id", Game::getOfficialGames()->pluck("id"));

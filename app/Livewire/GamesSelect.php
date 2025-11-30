@@ -14,7 +14,7 @@ class GamesSelect extends Component
     static int $MINIMUM_OBJECTIVES = 9;
     
     public $selected_games_ids = [];
-    public $show_official_games = true;
+    public $show_official_games = false;
     public $show_public_games = true;
     public $show_private_games = true;
 
@@ -28,22 +28,38 @@ class GamesSelect extends Component
         $lang = $this->lang;
         $search = trim($this->search);
 
-        $games = Game::where("lang", $lang)->where("name", "like", "%".$search."%")->where('visible', 1);
+        // On récupère les groupes d'IDs
+        $official = Game::getOfficialGames()->pluck('id');
+        $public = Game::getPublicGames()->pluck('id');
+        $private = Game::getAuthPrivateGames()->pluck('id');
 
-        if(!$this->show_official_games) {
-            $games = $games->whereNotIn("id", Game::getOfficialGames()->pluck("id"));
+        // IDs permis
+        $allowed = collect();
+
+        if ($this->show_official_games) {
+            $allowed = $allowed->merge($official);
         }
 
-        if(!$this->show_public_games) {
-            $games = $games->whereNotIn("id", Game::getPublicGames()->pluck("id"));
+        if ($this->show_public_games) {
+            $allowed = $allowed->merge($public);
         }
 
-        if(!$this->show_private_games) {
-            $games = $games->whereNotIn("id", Game::getAuthPrivateGames()->pluck("id"));
+        if ($this->show_private_games) {
+            $allowed = $allowed->merge($private);
         }
-        
-        return $games;
+
+        // Si aucun type de jeux sélectionné => aucun résultat
+        if ($allowed->isEmpty()) {
+            $allowed = [-1]; // pour ne jamais matcher
+        }
+
+        // Requête finale
+        return Game::whereIn('id', $allowed)
+            ->where('lang', $lang)
+            ->where('visible', 1)
+            ->where('name', 'like', "%{$search}%");
     }
+
 
 
 

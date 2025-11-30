@@ -1,24 +1,23 @@
 <div>
     <div class="text-center mb-4">
-        <input type="text" placeholder="Nom de l'utilisateur"
-               wire:model.live.debounce.500ms="name"
-               class="border border-gray-300 rounded-full text-center py-2 px-4 w-1/2"/>
+        <x-form.text-input placeholder="Nom de l'utilisateur"
+               wire:model.live.debounce.500ms="name"/>
     </div>
 
     @if (sizeof($search_result) > 0)
-        <div class="border shadow mb-6">
-            <div class="font-bold grid grid-cols-3 bg-gray-100 px-4 py-2">
+        <div class="border dark:border-slate-800 shadow mb-6">
+            <div class="font-bold grid grid-cols-3 bg-gray-200 dark:bg-slate-800 px-4 py-2">
                 <div>Pseudo</div>
                 <div>Email</div>
-                <div>Rejoint le</div>
+                <div class="text-right">Rejoint le</div>
             </div>
             @foreach ($search_result as $res)
                 <div wire:key="user-result-{{ $res->id }}"
                      wire:click="load_user({{ $res->id }})"
-                     class="grid grid-cols-3 px-4 py-2 hover:bg-gray-50 cursor-pointer">
+                     class="grid grid-cols-3 px-4 py-2 hover:bg-gray-50 dark:hover:bg-slate-600 cursor-pointer">
                     <div>{{ $res->name }}</div>
-                    <div>{{ $res->email }}</div>
-                    <div>{{ $res->created_at->format('d/m/Y') }}</div>
+                    <div class="text-ellipsis block">{{ $res->email }}</div>
+                    <div class="text-right">{{ $res->created_at->format('d/m/Y') }}</div>
                 </div>
             @endforeach
         </div>
@@ -29,11 +28,11 @@
             Utilisateur choisi : {{ $selected_user->name }}
         </div>
 
-        <div class="border-2 rounded-2xl shadow divide-y-2 p-4 space-y-2">
+        <div class="border border-slate-500 rounded-2xl shadow divide-y divide-slate-500 p-4 space-y-2">
             @foreach ($permissions as $permission)
                 <label wire:key="perm-{{ $permission->id }}"
                        class="grid grid-cols-2 items-center py-2">
-                    <div class="text-right pr-4">
+                    <div class="pr-4">
                         {{ $permission->description }}
                     </div>
                     <div class="text-center">

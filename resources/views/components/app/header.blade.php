@@ -1,4 +1,4 @@
-<div class="relative bg-gray-200 dark:bg-slate-900 border-b-2 dark:border-black border-gray-400 p-2">
+<div class="relative bg-gray-200 dark:bg-slate-900 border-b-2 dark:border-black border-gray-400 p-1">
     <form class="absolute z-10" method="POST" action="/join">
         @csrf
         <div class="p-1 transition-all duration-1000 rounded w-min shadow-violet-500 shadow-sm
@@ -23,7 +23,7 @@
         </div>
     </form>
 
-    <div class="text-transparent text-2xl my-2 font-bold text-center flex justify-center relative">
+    <div class="text-transparent text-xl my-2 font-bold text-center flex justify-center relative">
         <div class="w-min hover:scale-110 transform transition-all duration-300 ease-in-out rotate-1">
             <a href="/" class="select-none bg-clip-text bg-gradient-to-r from-blue-500 to-red-500">
                 BingoRace!

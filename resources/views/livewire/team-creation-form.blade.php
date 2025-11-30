@@ -1,4 +1,4 @@
-<div>
+<x-main-panel>
     <p class="text-center text-xl py-2">
         {{ __('room.wait.teams.new_team.title') }}
     </p>
@@ -32,15 +32,15 @@
             </div>
             @endif
             <div class="flex flex-0 justify-center m-5 gap-x-5">
-                <button wire:click='new_team(false)' class="p-2 bg-green-200 rounded-full hover:bg-green-400">
+                <x-form.button wire:click='new_team(false)'>
                     {{ __('room.wait.teams.new_team.create') }}
-                </button>
+                </x-form.button>
                 @if (!$user_team)
-                    <button wire:click='new_team(true)' class="p-2 bg-green-200 rounded-full hover:bg-green-400">
+                    <x-form.button wire:click='new_team(true)'>
                         {{ __('room.wait.teams.new_team.create_and_join') }}
-                    </button>
+                    </x-form.button>
                 @endif
             </div>
         </div>
     </div>
-</div>
+</x-main-panel>

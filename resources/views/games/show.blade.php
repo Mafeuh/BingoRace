@@ -1,11 +1,10 @@
 @extends('layouts.app')
 
+@section('page_title') {{ __('game.show.title', ['name' => $game->name]) }} @endsection
+
 @section('content')
     <div class="relative">
-        <h1 class="text-xl text-center font-bold text-emerald-500">
-            {{ __('game.show.title', ['name' => $game->name]) }}
-        </h1>
-        <h2 class="text-center">
+        <h2 class="text-center dark:text-gray-200">
             @if ($game->is_official)
                 {{ __('game.show.visibility.is_official') }}
             @elseif ($game->is_public)
@@ -15,18 +14,18 @@
             @endif
         </h2>
         <div class="hidden absolute right-2 top-2 transition-all duration-1000 lg:flex" x-data="{ show: true }">
-            <form method="post" action="{{ route('game.flag', ['game' => $game->id]) }}" class="bg-red-100 p-1 rounded-full mr-2" :class="{ 'hidden': show }">
+            <form method="post" action="{{ route('game.flag', ['game' => $game->id]) }}" class="bg-red-100 dark:bg-red-950 rounded p-1 mr-2" :class="{ 'hidden': show }">
                 @csrf
                 <x-form.text-input placeholder="{{ __('game.show.flag.reason.label') }}" name="reason" />
-                <button type="submit" class="bg-red-200 rounded-full border-red-500 border p-2">
+                <button type="submit" class="bg-red-200 dark:bg-red-800 dark:border-red-900 rounded-full border-red-500 border p-2">
                     {{ __('game.show.flag.reason.validate') }}
                 </button>
             </form>
-            <div class="bg-red-100 text-xl p-2 rounded-full border-2 border-red-400" x-on:click="show = !show">🚩</div>
+            <div class="bg-red-100 dark:bg-red-950 text-xl p-2 rounded-full border-2 border-red-400" x-on:click="show = !show">🚩</div>
         </div>
 
         <div class="justify-center flex mt-2 lg:hidden">
-            <form method="post" action="{{ route('game.flag', ['game' => $game->id]) }}" class="bg-red-100 p-2 rounded-lg">
+            <form method="post" action="{{ route('game.flag', ['game' => $game->id]) }}" class="bg-red-100 dark:bg-red-950 p-2 rounded-lg">
                 @csrf
                 <div>
                     <h2 class="text-red-600 font-bold">
@@ -35,7 +34,7 @@
                 </div>
 
                 <x-form.text-input placeholder="{{ __('game.show.flag.reason.label') }}" name="reason" />
-                <button type="submit" class="bg-red-200 rounded-full border-red-500 border p-2">
+                <button type="submit" class="bg-red-200 dark:bg-red-800 dark:border-red-900 rounded-full border-red-500 border p-2">
                     {{ __('game.show.flag.reason.validate') }}
                 </button>
 
@@ -43,7 +42,7 @@
         </div>
     </div>
 
-    <div class="text-center">
+    <div class="text-center dark:text-gray-200">
         @if (auth()->user()->isAdmin())
             <div>
                 {{ __('game.show.permissions.admin')}}
@@ -87,26 +86,26 @@
                 </div>
 
                 <div class="flex gap-2">
-                    @if(auth()->user()->isAdmin())
+                    @admin()
                         @if ($game->is_official)
-                            <button type="submit" name="visibility" value="official_off" class="bg-green-300 hover:bg-green-500 p-1 rounded-full text-sm">
+                            <x-form.button type="submit" name="visibility" value="official_off">
                                 {{ __('game.show.visibility.to_official_off') }}
-                            </button>
+                            </x-form.button>
                         @else
-                            <button type="submit" name="visibility" value="official_on" class="bg-green-300 hover:bg-green-500 p-2 rounded-full text-sm">
+                            <x-form.button type="submit" name="visibility" value="official_on">
                                 {{ __('game.show.visibility.to_official_on') }}
-                            </button>
+                            </x-form.button>
                         @endif
-                    @endif
+                    @endadmin
 
                     @if ($game->is_public)
-                        <button type="submit" name="visibility" value="private" class="bg-green-300 hover:bg-green-500 p-2 rounded-full">
+                        <x-form.button type="submit" name="visibility" value="private">
                             {{ __('game.show.visibility.to_private') }}
-                        </button>
+                        </x-form.button>
                     @else
-                        <button type="submit" name="visibility" value="public" class="bg-green-300 hover:bg-green-500 p-2 rounded-full">
+                        <x-form.button type="submit" name="visibility" value="public">
                             {{ __('game.show.visibility.to_public') }}
-                        </button>
+                        </x-form.button>
                     @endif
                 </div>
             </form>
@@ -123,16 +122,17 @@
                             <option value="{{ $lang_slug }}" @selected($lang_slug == $game->lang)>{{ $lang_name }}</option>
                         @endforeach
                     </x-form.select-input>
-                    <button type="submit" class="bg-green-300 p-2 rounded-full w-fit">
+
+                    <x-form.button type="submit" name="visibility" value="private">
                         {{ __('game.show.language.edit.submit') }}
-                    </button>
+                    </x-form.button>
             </form>
         </div>
     </div>
     @endif
 
     @if (auth()->user()->isAdmin() || $game->creator_id == auth()->user()->id)
-        <div class="bg-red-100 m-5 p-2 border-red-200 border-4 space-y-2">
+        <div class="bg-red-100 dark:bg-red-950 m-5 p-2 border-red-200 dark:border-red-900 border-4 space-y-2">
             <p class="text-lg text-red-400 font-bold">❗DANGER ZONE❗</p>
 
             <form action="{{ route('games.delete') }}" method="POST">
@@ -143,7 +143,7 @@
                 </button>
             </form>
 
-            <hr class="border-red-200 border-2">
+            <hr class="border-red-200 dark:border-red-800 border-2">
 
             <form action="{{ route('games.rename')}}" method="POST">
                 @csrf
@@ -159,7 +159,7 @@
                 </button>
             </form>
 
-            <hr class="border-red-200 border-2">
+            <hr class="border-red-200 dark:border-red-800 border-2">
 
             <form enctype="multipart/form-data" class="space-y-2" action="{{ route('games.change_image', ['game' => $game->id]) }}" method="POST">
                 @csrf

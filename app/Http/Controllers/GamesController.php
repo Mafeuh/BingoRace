@@ -88,8 +88,6 @@ class GamesController extends Controller
         $valid = request()->validate([
             'name' => ['required', 'max:255'],
             'preview_image' => ['image', 'mimes:png,jpg,jpeg,gif,webp', 'max:2048' ],
-            'public_objectives' => [],
-            'private_objectives' => [],
             'visibility' => ['required'],
             'lang' => ['required'],
         ]);
@@ -124,9 +122,7 @@ class GamesController extends Controller
         }
         
         $name = $valid['name'];
-        $public_objectives = mb_split('\r\n', $valid['public_objectives']);
-        $private_objectives = mb_split('\r\n', $valid['private_objectives']);
-
+       
         $imageUrl = '';
 
         if(key_exists('preview_image', $valid)) {
@@ -143,30 +139,7 @@ class GamesController extends Controller
             'lang' => $lang
         ]);
 
-        if($valid['public_objectives']) {
-            foreach($public_objectives as $obj) {
-                $pub = PublicObjective::create([]);
-                $pub->objective()->create([
-                    'game_id' => $g->id,
-                    'description' => $obj
-                ]);
-            }
-        }
-        if($valid['private_objectives']) {
-            foreach($private_objectives as $obj) {
-                $priv = PrivateObjective::create([
-                    'user_id' => auth()->user()->id
-                ]);
-                $priv->objective()->create([
-                    'game_id' => $g->id,
-                    'description' => $obj
-                ]);
-            }
-        }
-
-        $obj_count = sizeof($public_objectives) + sizeof($private_objectives);
-
-        session()->flash('message', 'Le jeu '.$name.' a bien été créé'.($obj_count > 0 ? ', avec '.$obj_count.' objectifs' : '').'.');
+        session()->flash('message', 'Le jeu '.$name.' a bien été créé !');
 
         return redirect('/games/'.$g->id);
     }

@@ -1,4 +1,4 @@
-<div class="bg-white rounded-3xl p-2 text-center h-[90vh] flex flex-col">
+<x-main-panel class="text-center rounded dark:text-gray-200">
     <h2 class="text-xl font-bold">
         {{ __('game.list.public_games.title') }}
     </h2>
@@ -7,9 +7,8 @@
             {{ __('game.list.public_games.info') }}
         </i>
     </div>
-    <input type="text" placeholder="{{ __('game.creation.form.name.label') }}"
-           wire:model.live.debounce.500ms="name"
-           class="border border-gray-300 rounded-full text-center py-2 px-4 w-1/2 mx-auto"/>
+    <x-form.text-input placeholder="{{ __('game.creation.form.name.label') }}"
+        wire:model.live.debounce.500ms="name"/>
 
     <!-- Zone scrollable -->
     <div class="overflow-y-auto mt-5 flex-1">
@@ -31,4 +30,4 @@
             @endforelse
         </div>
     </div>
-</div>
+</x-main-panel>

@@ -1,4 +1,4 @@
-<div class="bg-gray-200 dark:bg-slate-900 relative">
+<div class="bg-gray-100 dark:bg-slate-900 relative h-12">
     <div class="relative">
         @if (session('error'))
             <div id="error" class="left-1/2 bottom-5 bg-red-200 absolute text-left px-5 py-3 -translate-x-1/2">

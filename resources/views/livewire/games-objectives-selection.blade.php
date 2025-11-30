@@ -1,30 +1,26 @@
 <div class="space-y-2">
     <div class="flex justify-center">
-        <div class="w-96 bg-gray-100 p-2">
-            <h1 class="text-center text-lg text-emerald-500">
-                {{ __('room.setup.settings.grid.title') }}
-            </h1>
-
+        <x-secondary_panel :title="__('room.setup.settings.grid.title')">
             <div class="grid sm:grid-cols-2">
                 <div class="text-center">
                     <x-form.label for="grid_width">
                         {{ __('room.setup.settings.grid.width') }}
                     </x-form.label>
-                    <input type="number" wire:model.live.debounce.250ms="width" name="grid_width" class="w-32 border-1 border-gray-200 rounded-full text-center py-3">
+                    <x-form.number-input class="w-32" wire:model.live.debounce.250ms="width" name="grid_width"/>
                 </div>
     
                 <div class="text-center">
                     <x-form.label for="grid_height">
                         {{ __('room.setup.settings.grid.height') }}
                     </x-form.label>
-                    <input type="number" wire:model.live.debounce.250ms="height" name="grid_height"  class="w-32 border-1 border-gray-200 rounded-full text-center py-3">
+                    <x-form.number-input class="w-32" wire:model.live.debounce.250ms="height" name="grid_height"/>
                 </div>
             </div>
-        </div>
+        </x-secondary_panel>
     </div>
 
     <div>
-        <div class="text-lg text-center text-emerald-500">
+        <div class="text-lg text-center text-blue-500">
             {{ __('room.setup.objectives_pool.repartition') }}
         </div>
         <x-games-repartition-slider :pool_size="$pool_size" :height="$height" :width="$width" :room="$room"/>
@@ -33,14 +29,14 @@
     <div id="data" data-width="{{ $width }}" data-height="{{ $height }}"></div>
     
     <div>
-        <div class="text-lg text-center text-emerald-500">
+        <div class="text-lg text-center text-blue-500">
             {{ __('room.setup.objectives_pool.title') }}
         </div>
-        <div class="text-center italic">
+        <div class="text-center italic dark:text-gray-200">
             {{ __('room.setup.objectives_pool.greyed') }}
         </div>
 
-        <div class="text-center">
+        <div class="text-center dark:text-gray-200">
             <span id="count" wire:ignore x-text="count"></span> / <span>{{ $width * $height }}</span>
             <div id="count_error"></div>
         </div>
@@ -48,18 +44,18 @@
             @foreach ($room->games as $game)
             <div class="relative" style="padding-bottom: 100%">
                 <div @class([
-                    'absolute w-full h-full rounded flex flex-col border-4 border-emerald-200',
-                    'bg-emerald-100' => $loop->odd,
-                    'bg-emerald-50' => $loop->even,
+                    'absolute w-full h-full rounded flex flex-col',
+                    'bg-red-300 dark:bg-red-950' => $loop->odd,
+                    'bg-blue-300 dark:bg-blue-950' => $loop->even,
                     ])>
-                        <div class="p-2 justify-center">
+                        <div class="p-2 justify-center dark:text-gray-200">
                             <h2 class="text-center text-xl">{{ $game->name }}</h2>
                         </div>
                         
                         <div class="bg-emerald-200 text-center text-sm font-bold"></div>
                         
                         <div class="flex-1 overflow-y-auto p-2 space-y-1 text-sm scrollbar-hidden">
-                            <div class="bg-white rounded-lg shadow-inner p-1">
+                            <div class="bg-white dark:bg-slate-900 rounded-lg shadow-inner p-1">
                                 
                                 @foreach ($game->public_objectives as $objective)
                                 <div class="border-b">
@@ -79,7 +75,7 @@
                             @endforeach
                         </div>
                         
-                        <div class="bg-gray-100 rounded-lg shadow-inner p-1">
+                        <div class="bg-white dark:bg-gray-900 rounded-lg shadow-inner p-1">
                             @foreach ($game->private_objectives as $objective)
                             <div class="border-b">
                                 <label for="check_{{$objective->id}}">

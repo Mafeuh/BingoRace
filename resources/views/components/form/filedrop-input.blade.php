@@ -5,14 +5,14 @@
     'message' => ''
 ])
 
-<div class="relative">
+<div class="relative" x-cloak>
 	<div id="error_cache" class="hidden rounded-xl absolute bg-red-500/70 w-full h-full p-5 flex items-center justify-center">
 		<div class="text-white font-bold align-middle text-xl">
 			{{ __('form.input.image.error') }}
 		</div>
 	</div>
 	<div {{ $attributes->except(array_keys($attributes->whereStartsWith('wire:')->getAttributes()))
-			->merge(['class' => 'border-2 border-dashed border-gray-400 rounded-xl bg-white p-6 text-center cursor-pointer transition hover:border-blue-500']) }}
+			->merge(['class' => 'border-2 dark:text-white dark:bg-slate-800 dark:border-slate-900 border-dashed border-gray-400 rounded-xl bg-white p-6 text-center cursor-pointer transition hover:border-blue-500']) }}
 		id="dropZone-{{$name}}">
 		<input 
 			{{ $attributes->whereStartsWith('wire:') }}

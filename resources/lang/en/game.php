@@ -93,4 +93,9 @@ return [
     'show.language.edit.submit' => "Save",
     'show.language.edit.invalid' => "Language invalid. Please select either 'fr' or 'en'.",
     'show.language.edit.valid' => "Language set to :lang",
+
+    'objectives.new.page_title' => "Adding new objectives for :name",
+    'objectives.new.can_create_public' => "You are an admin to this game. You can decide on the visibility of the objectives.",
+    'objectives.new.cannot_create_public' => "You can only create private objectives.",
+    'objectives.edit' => "Editing an objective",
 ];

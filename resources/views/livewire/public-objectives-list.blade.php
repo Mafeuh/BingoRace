@@ -1,10 +1,10 @@
-<div class="bg-white p-2 rounded-3xl" x-data="{ selected: [] }" x-on:public-refreshed.window="selected = []">
-    <h2 class="text-xl text-center mb-1">
+<x-main-panel class="bg-white p-2 rounded-3xl" x-data="{ selected: [] }" x-on:public-refreshed.window="selected = []">
+    <h2 class="text-xl text-center mb-1 dark:text-gray-200">
         {{ __('game.show.public_objectives.title', ['amount' => sizeof($public_objectives)]) }}
         @if ($can_manage_public_objectives)
             <span>
                 <a href="/games/{{$game->id}}/objective"
-                    class="bg-green-500 p-1 rounded-full hover:bg-green-600 text-sm">➕</a>
+                    class="bg-blue-500 p-1 rounded-full hover:bg-blue-600 text-sm">➕</a>
             </span>
         @endif
     </h2>
@@ -23,8 +23,8 @@
                             : selected.push({{ $pub_obj->id }});
                         "
                     @endadmin
-                :class="selected.includes({{ $pub_obj->id }}) ? 'bg-green-300' : 'mx-2 bg-gray-100'"
-                class="relative bg-gray-100 p-1 text-center rounded-xl cursor-pointer transition-all duration-100 select-none">
+                :class="selected.includes({{ $pub_obj->id }}) ? 'bg-blue-300 dark:bg-blue-900' : 'mx-2 dark:bg-slate-800 bg-gray-100'"
+                class="relative dark:text-gray-200 p-1 text-center rounded-xl cursor-pointer transition-all duration-100 select-none">
                     @admin()
                         <a class="absolute right-5" href="/objectives/{{$pub_obj->id}}/edit">✏️</a>
                     @endadmin
@@ -36,19 +36,21 @@
                 </label>
             @endforeach
         </div>
-
+    
         @admin()
         <div class="text-center mt-2">
             <button 
-                class="bg-green-500 p-1.5 text-sm rounded-full
-                disabled:bg-green-200 disabled:text-gray-500"
+                class="bg-blue-500 p-1.5 text-sm rounded-full
+                disabled:bg-blue-200 disabled:text-gray-500
+                dark:disabled:bg-blue-950"
                 wire:click="set_private"
                 x-bind:disabled="selected.length === 0">
                 Rendre privé
             </button>
             <button 
             class="bg-red-500 p-1.5 text-sm rounded-full text-white
-            disabled:bg-red-200 disabled:text-gray-500"
+            disabled:bg-red-200 disabled:text-gray-500
+            dark:disabled:bg-red-950"
             wire:click="delete"
             x-bind:disabled="selected.length === 0">
                 Supprimer la sélection 🗑️
@@ -56,9 +58,8 @@
         </div>
         @endadmin
     @else
-        <div class="text-center">
+        <div class="text-center dark:text-gray-200">
             {{ __('game.show.public_objectives.empty') }}
         </div>
     @endif
-
-</div>
+</x-main-panel>

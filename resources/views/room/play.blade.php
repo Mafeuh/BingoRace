@@ -5,7 +5,7 @@
     <livewire:team-scores :room="$room"/>
 
     @if ($cache_hide_time - $server_time > 0)
-        <div id="cache" class="bg-green-300 absolute w-full h-full z-10 transition-all duration-100 flex flex-col place-content-center items-center rounded-3xl">
+        <div id="cache" class="bg-gradient-to-r from-blue-300 to-red-300 dark:bg-blue-900 absolute w-full h-full z-10 transition-all duration-100 flex flex-col place-content-center items-center rounded-3xl">
             <div class="text-center space-y-5">
                 <h1 class="text-4xl lg:text-8xl text-white font-bold">
                     {{ __('room.play.starting_cache.title') }}
@@ -91,7 +91,7 @@
         </div>
     @else
         <div class="text-center mb-5">
-            <a href="{{ route('room.results') }}" class="bg-emerald-500 p-2 inline-block mt-5">
+            <a href="{{ route('room.results') }}" class="rounded bg-blue-400 text-blue-900 dark:text-blue-300 dark:bg-blue-900 p-2 inline-block mt-5">
                 {{ __('room.play.ending_cache.redirect_to_results') }}
             </a>
         </div>

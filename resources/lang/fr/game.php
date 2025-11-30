@@ -92,4 +92,9 @@ return [
     'show.language.edit.submit' => "Enregistrer",
     'show.language.edit.invalid' => "Langue invalide. Choisis soit 'fr', soit 'en'.",
     'show.language.edit.valid' => "Langage changé en :lang",
+
+    'objectives.new.page_title' => "Ajout d'objectifs pour :name",
+    'objectives.new.can_create_public' => "Tu es administrateur pour la gestion de ce jeu. Tu peux décider de la visibilité de cet objectif.",
+    'objectives.new.cannot_create_public' => "Tu ne peux créer que des objectifs privés.",
+    'objectives.edit' => "Modification d'un objectif",
 ];

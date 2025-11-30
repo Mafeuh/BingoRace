@@ -43,7 +43,13 @@
             <x-app.header/>
         @endauth
 
-        <div class="bg-gradient-to-r dark:from-red-950 dark:to-blue-950 from-blue-300 to-red-300 flex-grow relative p-2">
+        <div class="bg-gradient-to-r dark:from-red-950 dark:to-blue-950 from-blue-300 to-red-300 flex-grow relative p-2 mb-12">
+            <div>
+                <h1 class="text-center text-2xl text-blue-500 mb-2">
+                    @yield('page_title')
+                </h1>
+            </div>
+
             @yield('content')
         </div>
 

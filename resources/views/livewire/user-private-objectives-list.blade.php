@@ -1,13 +1,13 @@
-<div class="bg-white p-2 rounded-3xl" x-data="{ selected: [] }" x-on:private-refreshed.window="selected = []">
+<x-main-panel class="bg-white p-2 rounded-3xl" x-data="{ selected: [] }" x-on:private-refreshed.window="selected = []">
     @admin()
         <div class="text-center">
             <x-form.text-input placeholder="Nom de l'utilisateur" wire:model.live="search_name"/>
-            <span wire:click="clear">Reset</span>
+            <span wire:click="clear" class="dark:text-gray-200">Reset</span>
 
             @if($search_results->count() > 0)
                 <div class="max-h-24 overflow-scroll p-1 space-y-1">
                     @forelse ($search_results as $res)
-                        <div class="p-0.5 text-xs rounded-lg bg-emerald-200" x-on:click="selected = []" wire:click="select_user({{ $res->id }})">
+                        <div class="p-0.5 text-xs rounded-lg bg-blue-200 dark:bg-blue-950 dark:text-white" x-on:click="selected = []" wire:click="select_user({{ $res->id }})">
                             {{ $res->name }}
                         </div>
                     @endforeach
@@ -16,12 +16,12 @@
 
         </div>
     @endadmin
-    <h2 class="text-lg text-center mb-1">
+    <h2 class="text-lg text-center mb-1 dark:text-gray-200">
         @if ($user == auth()->user())
             {{ __('game.show.private_objectives.title.you', ['amount' => sizeof($private_objectives)]) }}
             <span>
                 <a href="/games/{{$game->id}}/objective"
-                class="bg-green-500 p-1 rounded-full hover:bg-green-600 text-sm">
+                class="bg-blue-500 p-1 rounded-full hover:bg-blue-600 text-sm">
                 ➕
                 </a>
             </span>
@@ -43,8 +43,8 @@
                                 ? selected = selected.filter(id => id !== {{ $priv_obj->id }})
                                 : selected.push({{ $priv_obj->id }});
                             " 
-                    :class="selected.includes({{ $priv_obj->id }}) ? 'bg-green-300' : 'mx-2 bg-gray-100'"
-                    class="cursor-pointer relative p-1 text-center rounded-xl transition-all duration-100 select-none">
+                    :class="selected.includes({{ $priv_obj->id }}) ? 'bg-blue-300 dark:bg-blue-900' : 'mx-2 dark:bg-slate-800 bg-gray-100'"
+                    class="cursor-pointer dark:text-gray-200 relative p-1 text-center rounded-xl transition-all duration-100 select-none">
                         <a class="absolute right-5" href="/objectives/{{$priv_obj->id}}/edit">✏️</a>
                         <div class="px-14">
                             <span>
@@ -58,8 +58,9 @@
             <div class="text-center mt-2">
                 @admin()
                     <button 
-                        class="bg-green-500 p-1.5 text-sm rounded-full
-                        disabled:bg-green-200 disabled:text-gray-500"
+                        class="bg-blue-500 p-1.5 text-sm rounded-full
+                        disabled:bg-blue-200 disabled:text-gray-500
+                        dark:disabled:bg-blue-950"
                         wire:click="set_public"
                         x-bind:disabled="selected.length === 0">
                         Rendre public
@@ -67,7 +68,8 @@
                 @endadmin
                 <button 
                     class="bg-red-500 p-1.5 text-sm rounded-full text-white
-                    disabled:bg-red-200 disabled:text-gray-500"
+                    disabled:bg-red-200 disabled:text-gray-500
+                    dark:disabled:bg-red-950"
                     wire:click="delete"
                     x-bind:disabled="selected.length === 0">
                     Supprimer la sélection 🗑️
@@ -75,8 +77,8 @@
             </div>
         </div>
     @else
-        <div class="text-center">
+        <div class="text-center dark:text-gray-200">
             {{ __('game.show.private_objectives.empty') }}
         </div>
     @endif
-</div>
+</x-main-panel>

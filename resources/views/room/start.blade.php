@@ -1,10 +1,8 @@
 @extends('layouts.app')
 
-@section('content')
+@section('page_title') {{ __('room.start.game_selection.title') }} @endsection
 
-<h1 class="text-xl text-center font-bold mb-3 text-emerald-600">
-    {{ __('room.start.game_selection.title') }}
-</h1>
+@section('content')
 
 <livewire:games-select/>
 

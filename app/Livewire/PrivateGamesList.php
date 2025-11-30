@@ -14,15 +14,13 @@ class PrivateGamesList extends Component
         $favoriteIds = auth()->user()->favorite_games->pluck('id');
 
         $favorite = Game::getAuthPrivateGames()
-            ->whereIn('id', $favoriteIds)
-            ->get();
+            ->whereIn('id', $favoriteIds);
 
         $nonFavorite = Game::getAuthPrivateGames()
             ->whereNotIn('id', $favoriteIds)
             ->when($this->name, fn($query) =>
                 $query->where('name', 'like', '%' . $this->name . '%')
-            )
-            ->get();
+            );
 
         return view('livewire.private-games-list', [
             'favorite' => $favorite,

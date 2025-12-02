@@ -18,6 +18,10 @@ use Illuminate\Support\Facades\Broadcast;
 // Laravel 9+
 Broadcast::routes(['middleware' => ['web']]);
 
+Route::get('/test', function() {
+    return view('layouts.app');
+});
+
 // Ou pour les versions antérieures
 Route::post('/broadcasting/auth', function () {
     return Broadcast::auth(request());

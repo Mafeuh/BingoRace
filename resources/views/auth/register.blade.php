@@ -6,7 +6,7 @@
     <div class="p-10 rounded-3xl shadow-lg
         bg-white shadow-white
         dark:bg-slate-700 dark:shadow-blue-500">
-        <h1 class="text-3xl font-bold text-center">
+        <h1 class="text-3xl font-bold text-center dark:text-gray-200">
             {{ __('register.title') }}
         </h1>
         
@@ -43,7 +43,7 @@
                     <x-form.error name="password"/>
                 </div>
 
-                <div class="text-center w-56">
+                <div class="text-center w-56 dark:text-gray-200">
                     {!! __('register.cgu') !!}
                 </div>
                 
@@ -52,7 +52,7 @@
                         {{ __('register.submit') }}
                     </x-form.submit-input>
                 </div>
-                <div class="text-center">
+                <div class="text-center dark:text-gray-200">
                     {{ __('register.login.label') }}
                     <a href="/login" class="text-blue-500 font-bold">{{ __('register.login.link') }}</a>
                 </div>

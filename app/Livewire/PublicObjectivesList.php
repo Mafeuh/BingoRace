@@ -13,6 +13,8 @@ class PublicObjectivesList extends Component
 {
     public $selected_objectives = [];
 
+    public $new_difficulty = 1;
+
     public Game $game;
     public $public_objectives;
     public bool $can_manage_public_objectives;
@@ -23,8 +25,20 @@ class PublicObjectivesList extends Component
     }
 
     public function mount() {
-        $this->public_objectives = $this->game->public_objectives;
         $this->can_manage_public_objectives = auth()->user()->isAdmin() || auth()->user()->id == $this->game->creator_id;
+        $this->refresh();
+    }
+
+    public function update_difficulty() {
+        foreach(Objective::findMany(array_keys(array_filter($this->selected_objectives))) as $objective) {
+            $objective->difficulty = $this->new_difficulty;
+            $objective->save();
+        }
+        $this->refresh();
+    }
+
+    public function clearSelection() {
+        $this->selected_objectives = [];
     }
 
     public function render()
@@ -46,7 +60,6 @@ class PublicObjectivesList extends Component
         $this->public_objectives = $this->game->public_objectives;
 
         $this->dispatch('refreshPrivate');
-
     }
 
     public function delete() {

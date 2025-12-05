@@ -32,10 +32,12 @@ class ObjectivesController extends Controller
     public function post(Game $game){
         $objectives = request()->objectives;
         $visibilities = request()->visibilities;
+        $difficulties = request()->difficulties;
 
         for($i = 0; $i < count($objectives); $i++) {
             $obj = $objectives[$i];
             $vis = $visibilities[$i];
+            $dif = $difficulties[$i];
 
             if($obj) {
                 $n = null;
@@ -50,6 +52,7 @@ class ObjectivesController extends Controller
                     'description' => $obj,
                     'game_id' => $game->id,
                     'creator_id' => auth()->user()->id,
+                    'difficulty' => $dif
                 ]);
             }
             

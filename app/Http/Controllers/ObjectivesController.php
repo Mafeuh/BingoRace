@@ -48,8 +48,12 @@ class ObjectivesController extends Controller
                         'user_id' => auth()->user()->id
                     ]);
                 }
-                if($dif > 3) $dif = 3;
-                if($dif < 1) $dif = 1;
+                if($dif > 3) {
+                    $dif = 3;
+                }
+                if($dif < 1) {
+                    $dif = 1;
+                }
                 $n->objective()->create([
                     'description' => $obj,
                     'game_id' => $game->id,

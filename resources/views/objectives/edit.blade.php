@@ -13,6 +13,9 @@
                 <x-form.textbox-input name="description">
                     {{ $objective->description }}
                 </x-form.textbox-input>
+
+                <x-form.label for="difficulty">Difficulté</x-form.label>
+                <x-form.number-input value="{{ $objective->difficulty }}"></x-form.number-input>
             </div>
     
     

@@ -51,6 +51,9 @@ return [
     'setup.settings.grid.width' => "Largeur de la grille",
     'setup.settings.grid.height' => "Hauteur de la grille",
 
+    'setup.settings.errors.selection' => "Pas assez d'objectifs pour remplir la grille !",
+    'setup.settings.errors.difficulty' => "La somme des valeurs doit être égale à la taille de la grille !",
+
     'setup.settings.objectives.title' => "Objectifs",
     'setup.settings.objectives.public' => "Objectifs publics ?",
     'setup.settings.objectives.private' => "Objectifs privés ?",
@@ -60,6 +63,10 @@ return [
     'setup.settings.max_teams.description2' => "Mets à 0 ou à une valeur vide pour désactiver (aucune limite)", 
 
     'setup.objectives_pool.repartition' => "Répartition des objectifs",
+    'setup.objectives_pool.difficulty.title' => "Répartition de la difficulté",
+    'setup.objectives_pool.difficulty.easy' => "Facile",
+    'setup.objectives_pool.difficulty.medium' => "Moyen",
+    'setup.objectives_pool.difficulty.hard' => "Difficile",
 
     'setup.objectives_pool.title' => "Sélection des objectifs possibles",
     'setup.objectives_pool.greyed' => "Les objectifs grisés seront ignorés dans la sélection aléatoire",

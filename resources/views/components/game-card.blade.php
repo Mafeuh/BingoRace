@@ -6,7 +6,7 @@
         <a @if ($redirect) href="/games/{{$game->id}}" @endif 
             class="absolute transition-all inset-0 w-full h-full bg-white/50 dark:bg-slate-500/30 dark:hover:bg-slate-900/80 hover:bg-white/80 rounded-2xl flex justify-center items-center">
             <div class="text-center">
-                <p class="text-xl bg-white/50 p-1 rounded">{{ $game->name }}</p>
+                <p class="text-xl bg-white/50 p-1 rounded text-black">{{ $game->name }}</p>
                 @if ($show_objectives)
                 <p class="bg-white/50">
                     {{ __('game.card.public_objectives', ['amount' => sizeof($game->public_objectives)]) }}

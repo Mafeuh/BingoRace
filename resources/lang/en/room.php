@@ -51,6 +51,9 @@ return [
     'setup.settings.grid.width' => "Width of the grid",
     'setup.settings.grid.height' => "Height of the grid",
 
+    'setup.settings.errors.selection' => "Not enough objectives to fill the grid!",
+    'setup.settings.errors.difficulty' => "Sum of values must be equal to grid's total size!",
+
     'setup.settings.objectives.title' => "Objectives",
     'setup.settings.objectives.public' => "Public objectives?",
     'setup.settings.objectives.private' => "Private objectives?",
@@ -60,6 +63,10 @@ return [
     'setup.settings.max_teams.description2' => "Set to 0 or an empty value to disable (no limit)", 
 
     'setup.objectives_pool.repartition' => "Objectives distribution",
+    'setup.objectives_pool.difficulty.title' => "Difficulty repartition",
+    'setup.objectives_pool.difficulty.easy' => "Easy",
+    'setup.objectives_pool.difficulty.medium' => "Medium",
+    'setup.objectives_pool.difficulty.hard' => "Hard",
 
     'setup.objectives_pool.title' => "Possible objectives selection",
     'setup.objectives_pool.greyed' => "Greyed-out objectives will be ignored in the random pick",

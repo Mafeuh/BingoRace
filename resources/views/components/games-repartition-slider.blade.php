@@ -1,12 +1,12 @@
 @props(['pool_size', 'width', 'height', 'room'])
 
 <div class="select-none">
-    <div class="h-16 flex relative" id="slide_container" data-max="{{ $width * $height }}">
+    <div class="h-12 flex relative" id="slide_container" data-max="{{ $width * $height }}">
         @for($i = 1; $i < (sizeof($room->games)); $i++)
             <div @class([
                 'from-red-400 to-blue-400 dark:from-red-900 dark:to-blue-900' => $i % 2 == 1,
                 'from-blue-400 to-red-400 dark:from-blue-900 dark:to-red-900' => $i % 2 == 0,
-                'absolute h-16 w-4 bg-gradient-to-r -ml-2 cursor-col-resize slider border border-white/50'
+                'absolute h-12 w-4 bg-gradient-to-r -ml-2 cursor-col-resize slider border border-white/50'
             ]) 
                 id="slider{{$i}}" onmousedown="slide('slider{{$i}}')"
                 data-slider_number="{{ $i }}" style="left: {{ $i * 100 / sizeof($room->games)}}%;"></div>

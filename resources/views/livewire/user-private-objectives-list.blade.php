@@ -70,7 +70,7 @@
                     Changer la difficulté de la sélection
                 </button>
                 <input 
-                    x-bind:disabled="selected.length === 0" min="1" max="5"   
+                    x-bind:disabled="selected.length === 0" min="1" max="3"   
                     type="number" class="w-12 p-0 rounded border-gray-300"
                     wire:model.live="new_difficulty">
                     

@@ -30,6 +30,8 @@ class PublicObjectivesList extends Component
     }
 
     public function update_difficulty() {
+        if($this->new_difficulty < 1) $this->new_difficulty = 1; 
+        if($this->new_difficulty > 3) $this->new_difficulty = 3; 
         foreach(Objective::findMany(array_keys(array_filter($this->selected_objectives))) as $objective) {
             $objective->difficulty = $this->new_difficulty;
             $objective->save();

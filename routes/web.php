@@ -32,13 +32,6 @@ Route::get('cgu', function() {
 });
 
 Route::middleware(SetLocale::class)->group(function() {
-    Route::get('/lang', function() {
-        dd([
-            app()->getLocale(),
-            session()->get('locale')
-        ]);
-    });
-    
     Route::get('/lang/{locale}', function($locale) {
         if (in_array($locale, ['en', 'fr'])) {
             session()->put('locale', $locale);

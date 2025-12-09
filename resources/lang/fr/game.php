@@ -97,7 +97,7 @@ return [
     'objectives.new.can_create_public' => "Tu es administrateur pour la gestion de ce jeu. Tu peux décider de la visibilité de cet objectif.",
     'objectives.new.cannot_create_public' => "Tu ne peux créer que des objectifs privés.",
     'objectives.edit' => "Modification d'un objectif",
-    'objectives.difficulty' => "Tu peux aussi choisir une difficulté pour chaque objectif, entre 1 (très facile) et 5 (très dur)",
+    'objectives.difficulty' => "Tu peux aussi choisir une difficulté pour chaque objectif, entre 1 (facile) et 3 (dur)",
     'objectives.difficulty.default' => "Si non précisé, la difficulté sera de 1.",
     'objectives.difficulty.placeholder' => "Difficulté",
 

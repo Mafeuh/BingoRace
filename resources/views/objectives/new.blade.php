@@ -30,7 +30,7 @@
             <div id="rows" class="space-y-0.5 max-h-96 overflow-auto p-1">
                 <div class="flex">
                     <x-form.text-input name="objectives[]" class="w-96 rounded-r-none" placeholder="Objectif"/>
-                    <x-form.number-input name="difficulties[]" class="w-28 rounded-none" min="1" max="5" placeholder="{{ __('game.objectives.difficulty.placeholder') }}"/>
+                    <x-form.number-input name="difficulties[]" class="w-28 rounded-none" min="1" max="3" placeholder="{{ __('game.objectives.difficulty.placeholder') }}"/>
                     <x-form.select-input name="visibilities[]" class="w-24 rounded-l-none">
                         @if($can_create_public_objectives)
                             <option value="public">
@@ -53,7 +53,7 @@
     <template id="rowTemplate">
         <div class="flex">
             <x-form.text-input name="objectives[]" class="w-96 rounded-r-none" placeholder="Objectif"/>
-            <x-form.number-input name="difficulties[]" class="w-28 rounded-none" min="1" max="5" placeholder="{{ __('game.objectives.difficulty.placeholder') }}"/>
+            <x-form.number-input name="difficulties[]" class="w-28 rounded-none" min="1" max="3" placeholder="{{ __('game.objectives.difficulty.placeholder') }}"/>
             <x-form.select-input name="visibilities[]" class="w-24 rounded-l-none">
                 @if($can_create_public_objectives)
                     <option value="public">

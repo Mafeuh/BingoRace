@@ -9,15 +9,9 @@ class AnonymousParticipant extends Model
 {
     use HasFactory;
 
+    protected $guarded = [];
+
     public function participant() {
         return $this->morphOne(Participant::class, "participantable");
-    }
-
-    public static function CreateAnonymousParticipant(string $username) {
-        $self = AnonymousParticipant::create([
-            "username"=> $username
-        ]);
-
-        $self->participant()->create();
     }
 }

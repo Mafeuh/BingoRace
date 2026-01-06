@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use App\Events\TeamCreated;
 use App\Models\AuthParticipant;
+use App\Models\AnonymousParticipant;
 use App\Models\Room;
 use App\Models\Team;
 use App\Models\User;
@@ -36,7 +37,7 @@ class TeamCreationForm extends Component
     }
 
     public function mount() {
-        $this->user_team = $this->user_in_team(auth()->user());
+        $this->user_team = $this->get_user_team();
     }
 
     public function remove_image() {
@@ -60,17 +61,25 @@ class TeamCreationForm extends Component
             ]);
 
             if($join) {
-                $this->leave_team();
-                
-                $this->user_team = $new_team;
-        
-                $auth = AuthParticipant::create([
-                    'user_id' => auth()->user()->id
-                ]);
-        
-                $auth->participant()->create([
-                    'team_id' => $new_team->id,
-                ]);
+                if(auth()->check()) {
+                    $auth = AuthParticipant::create([
+                        'user_id' => auth()->user()->id
+                    ]);
+            
+                    $auth->participant()->create([
+                        'team_id' => $new_team->id,
+                    ]);
+                } else {
+                    $anon = AnonymousParticipant::find(session()->get('ap_i'));
+
+                    if($anon->participant) {
+                        $anon->participant()->delete();
+                    }
+
+                    $anon->participant()->create([
+                        'team_id' => $new_team->id,
+                    ]);
+                }
             }
             broadcast(new TeamCreated($this->room->id));
         }
@@ -91,18 +100,9 @@ class TeamCreationForm extends Component
         $this->user_team = null;
     }
 
-    public function user_in_team(User $user): ?Team
-    {
-        foreach ($this->room->teams as $team) {
-            foreach ($team->participants as $participant) {
-                if (
-                    $participant->participantable_type === AuthParticipant::class &&
-                    optional($participant->participantable->user)->id === $user->id
-                ) {
-                    return $team;
-                }
-            }
-        }
+    public function get_user_team(): ?Team
+    {  
+        
         return null;
     }
 }

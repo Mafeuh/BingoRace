@@ -17,7 +17,7 @@ class TeamJoined implements ShouldBroadcastNow
 
     public $room_id;
     public $team_id;
-    public $user_id;
+    public ?int $user_id;
 
     /**
      * Create a new event instance.

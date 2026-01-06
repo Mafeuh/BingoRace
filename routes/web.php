@@ -27,6 +27,10 @@ Route::get('cgu', function() {
     return view('cgu');
 });
 
+Route::get('test', function() {
+    return view('layouts.app');
+});
+
 Route::middleware(SetLocale::class)->group(function() {
     Route::get('/lang', function() {
         dd([

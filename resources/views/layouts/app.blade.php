@@ -10,7 +10,7 @@
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+        <link href="https://fonts.bunny.net/css?family=figtree:400,600,800&amp;display=swap" rel="stylesheet">
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
         <script src="https://cdn.tailwindcss.com"></script>
         
@@ -23,7 +23,7 @@
         @livewireStyles
 
     </head>
-    <body class="h-screen flex flex-col" x-data="{darkMode: $persist(true)}" :class="{'dark': darkMode }">
+    <body class="h-full flex flex-col bg-slate-900 text-slate-200 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] bg-fixed" x-data="{darkMode: $persist(true)}" :class="{'dark': darkMode }">
         @php
             $is_maintenance = App\Models\Setting::get('maintenance') === "true";
         @endphp
@@ -43,7 +43,7 @@
             <x-app.header/>
         @endauth
 
-        <div class="bg-gradient-to-r dark:from-red-950 dark:to-blue-950 from-blue-300 to-red-300 flex-grow relative p-2 mb-12">
+        <div class="fixed inset-0 z-[-1] bg-gradient-to-br dark:from-indigo-900 dark:via-slate-900 dark:to-red-900 from-indigo-300 via-slate-300 to-red-300 opacity-80">
             <div>
                 <h1 class="text-center text-2xl text-blue-500 mb-2">
                     @yield('page_title')

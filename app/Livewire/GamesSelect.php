@@ -77,8 +77,7 @@ class GamesSelect extends Component
             'creator_id' => auth()->user()->id
         ]);
 
-        auth()->user()->last_joined_room_id = $new_room->id;
-        auth()->user()->save();
+        session(['room_id' => $new_room->id]);
 
         foreach($this->selected_games_ids as $game_id) {
             RoomSelectedGame::create([

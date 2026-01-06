@@ -4,9 +4,17 @@
         <div class="p-1 transition-all duration-1000 rounded w-min shadow-violet-500 shadow-sm
                     bg-gradient-to-r from-red-400 to-blue-400
                     dark:from-red-700 dark:to-blue-700">
-            <div class="flex">
-                <input name="code" class="border-none w-20 dark:bg-black rounded-l focus:outline-none p-1" 
-                    type="text" maxlength="5" placeholder="{{ __('header.join_room.code') }}">
+            <div class="flex" x-cloak x-data="{ show_code: false }">
+                <div class="p-2" x-on:click="show_code = !show_code">
+                    <span x-show="show_code">
+                        <x-icon.eye-show size="20"/>
+                    </span>
+                    <span x-show="!show_code">
+                        <x-icon.eye-hidden size="20"/>
+                    </span>
+                </div>
+                <input name="code" class="border-none w-20 dark:bg-black text-gray-500 rounded-l focus:outline-none p-1" 
+                    x-bind:type="!show_code ? 'password' : 'text'" maxlength="5" placeholder="{{ __('header.join_room.code') }}">
     
                 <button 
                     class="font-bold w-max p-1 rounded-r px-2

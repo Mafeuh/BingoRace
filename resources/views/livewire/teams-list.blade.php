@@ -3,7 +3,7 @@
         {{ __('room.wait.teams.title', ['amount' => sizeof($room->teams)])}}
     </div>
     
-    @if (!$user_team)
+    @if (!$user_teams)
         <div class="rounded bg-red-100 dark:bg-red-950 border-2 border-red-400 dark:border-red-900 p-2">
             <h1 class="text-red-700 font-bold text-lg">
                 ⚠️ {{ __('room.wait.teams.warning.title') }}
@@ -35,24 +35,31 @@
     
                 <div class="space-y-2">
                     @foreach ($team->participants as $participant)
-                        <span class="bg-white/70 py-1 shadow-lg px-2 rounded inline-block">{{ $participant->participantable->user->name }}@if ($participant->participantable->user->id == auth()->user()->id)&nbsp;({{ __('room.wait.team.self') }})@endif</span>
+                        <span class="bg-white/70 py-1 shadow-lg px-2 rounded inline-block">
+                            {{ $participant->get_name() }}
+                            @if($this->check_if_you($participant))
+                                <span>
+                                    ({{ __('room.wait.team.self') }})
+                                </span>
+                            @endif
+                        </span>
                     @endforeach
                 </div>
     
                 <div class="text-center space-y-2">
-                    @if (!$user_team)
+                    @if (sizeof($user_teams) == 0)
                         <button class="bg-white py-1 px-2 shadow shadow-black rounded-full text-green-800 font-bold" wire:click='join_team({{ $team->id }})'>
                             {{ __('room.wait.team.join') }}
                         </button>
                     @endif
     
-                    @if ($user_team?->id == $team->id)
+                    @if (in_array($team->id, $user_teams->pluck('id')->toArray()))
                         <button class="bg-white py-1 px-2 shadow shadow-black rounded-full font-bold" wire:click='leave_team()'>
                             {{ __('room.wait.team.quit') }}
                         </button>
                     @endif
     
-                    @if (auth()->user()->id == $room->creator_id)
+                    @if (auth()->check() && auth()->user()->id == $room->creator_id)
                         <button class="bg-white py-1 px-2 shadow shadow-black rounded-full text-red-600 font-bold" wire:click='delete_team({{ $team->id }})'>
                             {{ __('room.wait.team.delete') }}
                         </button>

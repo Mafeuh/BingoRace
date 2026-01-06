@@ -48,17 +48,7 @@
         </div>
     @endif
 
-    @php
-        $team = \App\Models\Team::findMany(
-            auth()->user()->participations->pluck('participant.team_id')
-            )->where('room_id', $room->id)->first();
-            
-        $teams = $room->teams;
-    @endphp
-
     <div id="grid" @class(["relative justify-center flex-0 flex my-2", 'opacity-0' => $cache_hide_time - $server_time > 0]) >
-        {{-- <x-bingo-grid :grid="$room->grid" :team="$team" :editable="isset($team)"></x-bingo-grid> --}}
-
         <livewire:bingo-grid :player_team_id="$team->id ?? -1" :room_id="$room->id"/>
 
         @if ($room->duration_seconds != null)

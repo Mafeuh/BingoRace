@@ -2,6 +2,8 @@
 
 return [
     'welcome' => "Bienvenue :name sur BingoRace!",
+    'welcome.guest' => "Bienvenue sur BingoRace!",
+    'welcome.guest.description' => "Tu n'es pas connecté, donc tu ne peux que consulter la liste des jeux et rejoindre une partie.",
 
     'presentation.title' => "Présentation",
     'presentation.text1' => "Ce site permet de simplifier la création de grilles de Bingo avec des objectifs, mais aussi d'intégrer tes propres jeux s'ils ne sont pas déjà présents sur le site.",

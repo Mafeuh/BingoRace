@@ -114,7 +114,7 @@ class RoomSetup extends Component
             $picked = $picked->concat($hard_objectives->random($this->nb_hard));
         } else {
             foreach($this->games_objectives_count as $game_id => $count) {
-                $sub_objectives = $objectives->where('game_id', $game_id);
+                $sub_objectives = $possible_objectives->where('game_id', $game_id);
                 
                 $picked = $picked->concat($sub_objectives->random($count));
             }

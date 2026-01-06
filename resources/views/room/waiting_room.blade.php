@@ -49,7 +49,7 @@
                 </div>
             </x-secondary_panel>
 
-            @if (auth()->user()->id == $room->creator_id)
+            @if (auth()->check() && auth()->user()->id == $room->creator_id)
                 <livewire:room-settings-setter :room="$room"/>
             @endif
         </div>

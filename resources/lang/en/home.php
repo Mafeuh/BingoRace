@@ -2,6 +2,8 @@
 
 return [
     'welcome' => "Welcome :name to BingoRace!",
+    'welcome.guest' => "Welcome to BingoRace!",
+    'welcome.guest.description' => "You are not logged in, so you can only see the list of games and join a room.",
 
     'presentation.title' => "Presentation",
     'presentation.text1' => "This website eases the creation of Bingo grids with objectives. You can also add your own games if you cannot find them in the list.",

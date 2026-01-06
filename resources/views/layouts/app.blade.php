@@ -39,9 +39,7 @@
             </div>
         @endif
 
-        @auth
-            <x-app.header/>
-        @endauth
+        <x-app.header/>
 
         <div class="bg-gradient-to-r dark:from-red-950 dark:to-blue-950 from-blue-300 to-red-300 flex-grow relative p-2 mb-12 overflow-auto">
             <div>

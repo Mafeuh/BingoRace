@@ -48,26 +48,19 @@
         </div>
     @endif
 
-    @php
-        $team = \App\Models\Team::findMany(
-            auth()->user()->participations->pluck('participant.team_id')
-            )->where('room_id', $room->id)->first();
-            
-        $teams = $room->teams;
-    @endphp
-
     <div id="grid" @class(["relative justify-center flex-0 flex my-2", 'opacity-0' => $cache_hide_time - $server_time > 0]) >
-        {{-- <x-bingo-grid :grid="$room->grid" :team="$team" :editable="isset($team)"></x-bingo-grid> --}}
-
         <livewire:bingo-grid :player_team_id="$team->id ?? -1" :room_id="$room->id"/>
 
         @if ($room->duration_seconds != null)
-            <div id="victory_cache" class="bg-green-300/80 hidden absolute w-full h-full z-10 transition-all duration-100 flex flex-col place-content-center items-center rounded-3xl">
+            <div id="victory_cache" class="bg-gradient-to-r 
+                from-blue-900/80 to-red-900/80 
+                dark:from-red-900/80 dark:to-blue-900/80
+                hidden absolute w-full h-full z-10 transition-all duration-100 flex flex-col place-content-center items-center rounded-3xl">
                 <div class="text-center space-y-5">
-                    <h1 class="text-4xl lg:text-8xl text-white font-bold">
+                    <h1 class="text-4xl lg:text-7xl text-white font-bold">
                         {{ __('room.play.ending_cache.description') }}
                     </h1>
-                    <a href="{{ route('room.results') }}" class="bg-emerald-500 p-4 inline-block mt-5">
+                    <a href="{{ route('room.results') }}" class="bg-violet-500 p-2 rounded inline-block mt-5">
                         {{ __('room.play.ending_cache.redirect_to_results') }}
                     </a>
                 </div>

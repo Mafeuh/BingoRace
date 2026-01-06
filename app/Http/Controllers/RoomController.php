@@ -9,6 +9,7 @@ use App\Models\Game;
 use App\Models\Objective;
 use App\Models\Room;
 use App\Models\Team;
+use App\Models\AnonymousParticipant;
 use App\View\Components\redirect;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
@@ -17,7 +18,11 @@ use Illuminate\Http\Request;
 class RoomController extends Controller
 {
     public function results() {
-        $room = Room::find(auth()->user()->last_joined_room_id);
+        $room = Room::find(session()->get('room_id'));
+
+        if(!$room) {
+            return redirect()->back();
+        }
 
         $teams = $room->teams->map(function ($team) {
             $team->objectives_count = count($team->checked_objectives);
@@ -54,7 +59,7 @@ class RoomController extends Controller
     }
 
     public function setup() {
-        $room = Room::find(auth()->user()->last_joined_room_id);
+        $room = Room::find(session()->get('room_id'));
 
         return view("room.setup", [
             'room' => $room,
@@ -63,7 +68,7 @@ class RoomController extends Controller
     }
 
     public function wait() {
-        $r = Room::find(auth()->user()->last_joined_room_id);
+        $r = Room::find(session()->get('room_id'));
 
         if($r->started_at) {
 
@@ -77,7 +82,7 @@ class RoomController extends Controller
     }
 
     public function begin() {
-        $room = Room::find(auth()->user()->last_joined_room_id);
+        $room = Room::find(session()->get('room_id'));
 
         $room->started_at = now();
         $room->started_at_unix = now()->timestamp;
@@ -89,13 +94,31 @@ class RoomController extends Controller
     }
 
     public function play() {
-        $room = Room::find(auth()->user()->last_joined_room_id);
+        $room = Room::find(session()->get('room_id'));
 
         $cache_hide_time = Carbon::parse($room->started_at)->addSeconds(10)->setTimezone('UTC');
+
+        if(auth()->check()) {
+            $team = Team::find(
+                auth()->user()->participations->pluck('participant.team_id')
+                )->where('room_id', $room->id)->first();
+        } else {
+            $an = AnonymousParticipant::find(session()->get('ap_i'));
+
+            if($an->participant) {
+                $team = Team::find(
+                    $an->participant->team_id
+                );
+            } else {
+                $team = null;
+            }
+        }
 
         if($room->started_at != null) {
             return view('room.play', [
                 'room' => $room,
+                'teams' => $room->teams,
+                'team' => $team,
                 'ends_at' => $room->started_at_unix + $room->duration_seconds,
                 'cache_hide_time' => $cache_hide_time->timestamp,
                 'server_time' => now()->timestamp
@@ -114,11 +137,9 @@ class RoomController extends Controller
         $room = Room::all()->where('code', mb_strtoupper($valid['code']))->first();
 
         if ($room) {
-            auth()->user()->last_joined_room_id = $room->id;
-            auth()->user()->save();
+            session(['room_id' => $room->id]);
 
             return redirect('/room/wait');
-
         }
 
         session()->flash('error', 'Ce salon n\'existe pas !');

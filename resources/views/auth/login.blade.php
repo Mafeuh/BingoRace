@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="h-full flex items-center justify-center">
-    <div class="p-10 rounded-3xl shadow-lg
+    <div class="p-10 rounded-2xl w-80
         bg-white shadow-white
         dark:bg-slate-700 dark:shadow-blue-500">
         <h1 class="text-3xl font-bold text-center dark:text-gray-200">
@@ -23,9 +23,7 @@
                     </x-form.label>
                     <x-form.email-input name="email" required :value="old('email')" placeholder="{{ __('login.email.placeholder') }}"/>
     
-                    @error('email')
-                        <div>{{ $message }}</div>
-                    @enderror
+                    <x-form.error name="email"/>
                 </div>
     
                 <!-- Password -->

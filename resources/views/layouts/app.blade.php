@@ -39,9 +39,7 @@
             </div>
         @endif
 
-        @auth
-            <x-app.header/>
-        @endauth
+        <x-app.header/>
 
         <div class="fixed inset-0 z-[-1] bg-gradient-to-br dark:from-indigo-900 dark:via-slate-900 dark:to-red-900 from-indigo-300 via-slate-300 to-red-300 opacity-80">
             <div>

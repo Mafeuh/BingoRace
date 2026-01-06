@@ -12,23 +12,34 @@
     <x-main-panel class="rounded">
         <form method="POST" action="/games/{{$game->id}}/objective" name="blbblbblblb">
             @csrf
-            <div class="mb-5 dark:text-gray-200">
-                <div class="text-center">
+            <div class="mb-5 mx-auto w-96 dark:text-gray-200 space-y-2">
+                <div>
                     @if ($can_create_public_objectives)
                         {{ __('game.objectives.new.can_create_public') }}
                     @else
                         {{ __('game.objectives.new.cannot_create_public') }}
                     @endif
                 </div>
+                <div>
+                    {{ __('game.objectives.difficulty') }}
+                </div>
+                <div>
+                    {{ __('game.objectives.difficulty.default') }}
+                </div>
             </div>
             <div id="rows" class="space-y-0.5 max-h-96 overflow-auto p-1">
                 <div class="flex">
-                    <x-form.text-input name="objectives[]" class="w-full rounded-r-none" placeholder="Objectif"/>
+                    <x-form.text-input name="objectives[]" class="w-96 rounded-r-none" placeholder="Objectif"/>
+                    <x-form.number-input name="difficulties[]" class="w-28 rounded-none" min="1" max="3" placeholder="{{ __('game.objectives.difficulty.placeholder') }}"/>
                     <x-form.select-input name="visibilities[]" class="w-24 rounded-l-none">
                         @if($can_create_public_objectives)
-                            <option value="public">Public</option>
+                            <option value="public">
+                                {{ __('game.objectives.visibility.public') }}
+                            </option>
                         @endif
-                        <option value="private">Privé</option>
+                        <option value="private">
+                            {{ __('game.objectives.visibility.private') }}
+                        </option>
                     </x-form.select-input>
                 </div>
             </div>
@@ -41,12 +52,17 @@
 
     <template id="rowTemplate">
         <div class="flex">
-            <x-form.text-input name="objectives[]" class="rounded-r-none w-full" placeholder="Objectif"/>
+            <x-form.text-input name="objectives[]" class="w-96 rounded-r-none" placeholder="Objectif"/>
+            <x-form.number-input name="difficulties[]" class="w-28 rounded-none" min="1" max="3" placeholder="{{ __('game.objectives.difficulty.placeholder') }}"/>
             <x-form.select-input name="visibilities[]" class="w-24 rounded-l-none">
                 @if($can_create_public_objectives)
-                    <option value="public">Public</option>
+                    <option value="public">
+                        {{ __('game.objectives.visibility.public') }}
+                    </option>
                 @endif
-                <option value="private">Privé</option>
+                <option value="private">
+                    {{ __('game.objectives.visibility.private') }}
+                </option>
             </x-form.select-input>
         </div>
     </template>

@@ -98,4 +98,11 @@ return [
     'objectives.new.can_create_public' => "You are an admin to this game. You can decide on the visibility of the objectives.",
     'objectives.new.cannot_create_public' => "You can only create private objectives.",
     'objectives.edit' => "Editing an objective",
+    'objectives.difficulty' => "You can also indicate the difficulty of each objective between 1 (easy) and 3 (hard)",
+    'objectives.difficulty.default' => "If left empty, the difficulty will be 1.",
+    'objectives.difficulty.placeholder' => "Difficulty",
+
+    'objective.visibility.public' => "Public",
+    'objective.visibility.private' => "Private",
+
 ];

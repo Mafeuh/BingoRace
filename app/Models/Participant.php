@@ -15,6 +15,14 @@ class Participant extends Model
         return $this->morphTo();
     }
 
+    public function get_name() {
+        if($this->participantable_type == "App\Models\AuthParticipant") {
+            return $this->participantable->user->name;
+        } else {
+            return $this->participantable->username;
+        }
+    }
+
     public function team() {
         return $this->hasOne(Team::class, 'id', 'team_id');
     }

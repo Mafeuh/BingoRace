@@ -4,6 +4,7 @@ namespace App\Http;
 
 use App\Http\Middleware\CheckMaintenanceState;
 use App\Http\Middleware\CheckUserPermission;
+use App\Http\Middleware\EnsureAnonymousParticipant;
 use App\Http\Middleware\SetLocale;
 use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
@@ -43,7 +44,8 @@ class Kernel extends HttpKernel
             \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
             SetLocale::class,
-            CheckMaintenanceState::class
+            CheckMaintenanceState::class,
+            EnsureAnonymousParticipant::class,
         ],
 
         'api' => [

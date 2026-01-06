@@ -14,6 +14,8 @@ class UserPrivateObjectivesList extends Component
 {
     public $selected_objectives = [];
     
+    public $new_difficulty = 1;
+
     public $possible_users_ids;
     public $user;
 
@@ -26,6 +28,16 @@ class UserPrivateObjectivesList extends Component
     #[On('refreshPrivate')]
     public function refresh() {
         $this->private_objectives = $this->get_user_private_objectives();
+    }
+
+    public function update_difficulty() {
+        if($this->new_difficulty < 1) $this->new_difficulty = 1; 
+        if($this->new_difficulty > 3) $this->new_difficulty = 3;
+        foreach(Objective::findMany(array_keys(array_filter($this->selected_objectives))) as $objective) {
+            $objective->difficulty = $this->new_difficulty;
+            $objective->save();
+        }
+        $this->refresh();
     }
     
     public function mount() {
@@ -40,6 +52,9 @@ class UserPrivateObjectivesList extends Component
         $this->search_results = User::findMany($this->possible_users_ids);
     }
 
+    public function clearSelection() {
+        $this->selected_objectives = [];
+    }
 
     public function updatedSearchName() {
         if(mb_strlen($this->search_name) > 0) {

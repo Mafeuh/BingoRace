@@ -6,6 +6,7 @@ use App\Events\SquareChecked;
 use App\Models\BingoGrid as ModelsBingoGrid;
 use App\Models\BingoGridSquare;
 use App\Models\CheckedBy;
+use App\Models\AnonymousParticipant;
 use App\Models\Room;
 use App\Models\Team;
 use Carbon\Carbon;
@@ -71,11 +72,20 @@ class BingoGrid extends Component
             CheckedBy::where('team_id', $this->player_team_id)->where('square_id', $square_id)->first()->delete();
             broadcast(new SquareChecked($this->room_id));
         } else {
-            if($can_check) {
+            if(auth()->check()) {
+                $participant = auth()->user()->participations->where('participant.team_id', $this->player_team_id)->first()->participant;
+            } else {
+                $p = AnonymousParticipant::find(session()->get('ap_i'));
+                if($p->participant->team_id == $this->player_team_id) {
+                    $participant = $p->participant;
+                }
+            }
+
+            if($can_check && $participant) {
                 CheckedBy::create([
                     'team_id' => $this->player_team_id,
                     'square_id' => $square_id,
-                    'user_id' => auth()->user()->id
+                    'participant_id' => $participant->id
                 ]);
                 broadcast(new SquareChecked($this->room_id));
             }

@@ -1,3 +1,4 @@
+
 <div wire:poll.5s>
     <div class="grid-cols-{{$grid->width}} w-fit static grid shadow-2xl gap-0.5">
         @foreach ($grid->squares as $square)

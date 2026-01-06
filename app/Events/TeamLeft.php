@@ -16,7 +16,7 @@ class TeamLeft implements ShouldBroadcastNow
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     public $room_id;
-    public $user_id;
+    public ?int $user_id;
 
     /**
      * Create a new event instance.

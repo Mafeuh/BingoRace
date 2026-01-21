@@ -31,6 +31,10 @@ Route::get('test', function() {
     return view('layouts.app');
 });
 
+Route::get('formulaire', function() {
+    return view('special');
+});
+
 Route::middleware(SetLocale::class)->group(function() {
     Route::get('/lang', function() {
         dd([

@@ -11,7 +11,7 @@ class OfficialGamesList extends Component
 
     public function render()
     {
-        $favoriteIds = auth()->user()->favorite_games->pluck('id');
+        $favoriteIds = auth()->user()?->favorite_games->pluck('id') ?? [];
 
         $favorite = Game::getOfficialGames()
             ->whereIn('id', $favoriteIds)

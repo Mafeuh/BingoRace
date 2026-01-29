@@ -1,18 +1,20 @@
 <?php
 
 return [
-    'welcome' => "Welcome :name to BingoRace!",
+    'welcome' => "Welcome to BingoRace",
     'welcome.guest' => "Welcome to BingoRace!",
     'welcome.guest.description' => "You are not logged in, so you can only see the list of games and join a room.",
-
-    'presentation.title' => "Presentation",
-    'presentation.text1' => "This website eases the creation of Bingo grids with objectives. You can also add your own games if you cannot find them in the list.",
-    'presentation.text2' => "You can in a few seconds create a room, choose at least one game, set the size of the grid, invite your friends to your room, create teams and start playing!",
-    'presentation.text3' => "The website already comes with <a href=\"/games/list\" class=\"text-blue-600 font-bold\">a few games</a>, with public objectives that anyone can use in their Bingo games.",
-    'presentation.text4' => "If you do not like the games, that's fine! You can <a href=\"/games/new\" class=\"text-blue-600 font-bold\">add your own game</a>, with every objective you want!",
-    'presentation.text5' => "You can also add a timer to your Bingo games!",
-    'presentation.text6' => "This website is still being developed, so new features are coming!",
     
+    'presentation.title' => "👋 Presentation",
+    'presentation' => "
+        <div>Simplifiez la création de vos parties de Bingo entre amis !</div>
+        <div>Importez vos propres jeux, ou utilisez ceux créés par la communauté !</div>
+        <br>
+        <div>En quelques secondes, créez une partie, choisissez le ou les jeux et les paramètres, et invitez vos amis !</div>
+        <div>Formez vos équipes (avec des images d'équipes rigolotes), et <span class='font-bold'>que les meilleurs gagnent</span> !</div>
+    ",
+
+
     'posts.title' => "News",
     'posts.new' => "New post",
     'posts.empty' => "No posts to show. Maybe only in your language.",
@@ -21,4 +23,10 @@ return [
     'quick_access.start' => "Start a new room!",
     'quick_access.game_list' => "Games list",
     'quick_access.game_new' => "New game",
+
+    'setname.title' => "Offline name definition",
+    'setname.label' => "Choose your name!",
+    'setname.placeholder' => "Nickname",
+    'setname.confirm' => "Confirm",
+    'setname.description' => "This form is meant for players who want to play without being connected. If you have an account, it is better to use it!" 
 ];

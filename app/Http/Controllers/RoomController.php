@@ -96,6 +96,13 @@ class RoomController extends Controller
     public function play() {
         $room = Room::find(session()->get('room_id'));
 
+        if(!$room) {
+
+            session()->flash('error', 'PROBLEME hihi');
+
+            return redirect()->back();
+        }
+
         $cache_hide_time = Carbon::parse($room->started_at)->addSeconds(10)->setTimezone('UTC');
 
         if(auth()->check()) {

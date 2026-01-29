@@ -1,217 +1,111 @@
-<x-main-panel>
-    <div x-data="{
-        count: {{ $pool_size }},
-        max_easy: {{ $max_easy }},
-        max_medium: {{ $max_medium }},
-        max_hard: {{ $max_hard }},
-        width: @entangle('width'),
-        height: @entangle('height'),
-        nb_easy: @entangle('nb_easy'),
-        nb_medium: @entangle('nb_medium'),
-        nb_hard: @entangle('nb_hard'),
-        choose_difficulty_amount: @entangle('choose_difficulty_amount'),
-        not_enough_selection: false,
-        not_enough_difficulty: false,
-        can_submit: false,
-        
-        updateCount(is_disabled, difficulty) {
-            this.count += is_disabled ? -1 : 1;
-
-            if(difficulty == 1) this.max_easy += is_disabled ? -1 : 1;
-            else if(difficulty == 2) this.max_medium += is_disabled ? -1 : 1;
-            else if(difficulty == 3) this.max_hard += is_disabled ? -1 : 1;
-            this.checkValidity();
-        },
-
-        checkValidity() {
-            if(this.nb_easy > this.max_easy) this.nb_easy = this.max_easy;
-            if(this.nb_medium > this.max_medium) this.nb_medium = this.max_medium;
-            if(this.nb_hard > this.max_hard) this.nb_hard = this.max_hard;
-
-            this.not_enough_selection = this.width * this.height > this.count;
-            if(this.choose_difficulty_amount) {
-                this.not_enough_difficulty = this.width * this.height != this.nb_easy + this.nb_medium + this.nb_hard;
-            } else {
-                this.not_enough_difficulty = false;
-            }
-            if(this.not_enough_selection || this.not_enough_difficulty) {
-                this.can_submit = false;
-            } else {
-                this.can_submit = true;
-            }
-        },
-
-        init() {
-            // Exécute au chargement initial
-            this.checkValidity();
-    
-            // Surveille les changements de width et height venant de Livewire
-            this.$watch('width', () => this.checkValidity());
-            this.$watch('height', () => this.checkValidity());
-            // Surveille count si des éléments sont ajoutés/supprimés par d'autres moyens
-            this.$watch('count', () => this.checkValidity());
-
-            this.$watch('nb_easy', () => this.checkValidity());
-            this.$watch('nb_medium', () => this.checkValidity());
-            this.$watch('nb_hard', () => this.checkValidity());
-
-            this.$watch('choose_difficulty_amount', () => this.checkValidity());
-        }
-    }"
-    x-init="checkValidity()">
-        <div class="space-y-2">
-
-            <div class="flex justify-center">
-                <x-secondary_panel :title="__('room.setup.settings.grid.title')">
-                    <div class="grid sm:grid-cols-2">
-                        <div class="text-center">
-                            <x-form.label for="grid_width">
-                                {{ __('room.setup.settings.grid.width') }}
-                            </x-form.label>
-                            <x-form.number-input class="w-32" wire:model.live.debounce.250ms="width" name="grid_width"/>
-                        </div>
+<x-main-panel class="max-w-5xl rounded mx-auto">
+    @vite('resources/js/sample_grid.js')
+    <div class="w-full h-full flex">
+        <div class="w-2/5 space-y-2 pr-2">
+            <h2 class="text-blue-500 font-bold text-center">
+                Paramètres des objectifs
+            </h2>
             
-                        <div class="text-center">
-                            <x-form.label for="grid_height">
-                                {{ __('room.setup.settings.grid.height') }}
-                            </x-form.label>
-                            <x-form.number-input class="w-32" wire:model.live.debounce.250ms="height" name="grid_height"/>
-                        </div>
-                    </div>
-                </x-secondary_panel>
-            </div>
-
-            <div>
-                <div class="text-lg text-center text-blue-500">
-                    {{ __('room.setup.objectives_pool.repartition') }}
-                </div>
-                <x-games-repartition-slider :pool_size="$pool_size" :height="$height" :width="$width" :room="$room"/>
-            </div>
-
-            <div class="text-center justify-center" x-data="{ show_form: false }">
-                <div class="text-lg text-center text-blue-500">
-                    <label for="show_form_input">
-                        {{ __('room.setup.objectives_pool.difficulty.title') }} ?
-                    </label>
-                    <input id="show_form_input" type="checkbox" x-model="show_form" wire:model="choose_difficulty_amount"/>
-                </div>
-                <div x-show="show_form">
-                    <table class="mx-auto text-sm">
-                        <tr class="text-blue-500">
-                            <th>{{ __('room.setup.objectives_pool.difficulty.easy') }}</th>
-                            <th>{{ __('room.setup.objectives_pool.difficulty.medium') }}</th>
-                            <th>{{ __('room.setup.objectives_pool.difficulty.hard') }}</th>
-                        </tr>
-                        <tr class="dark:text-gray-200">
-                            <td>
-                                <input type="number" class="w-24 p-0.5 rounded bg-gray-200 dark:bg-slate-800 border-0" 
-                                    wire:model.live="nb_easy" min="1" :max="max_easy"/>
-                            </td>
-                            <td>
-                                <input id="nb_medium_input" type="number" class="w-24 p-0.5 rounded bg-gray-200 dark:bg-slate-800 border-0" 
-                                    wire:model.live="nb_medium" min="1" :max="max_medium"/>
-                            </td>
-                            <td>
-                                <input id="nb_hard_input" type="number" class="w-24 p-0.5 rounded bg-gray-200 dark:bg-slate-800 border-0" 
-                                    wire:model.live="nb_hard" min="1" :max="max_hard"/>
-                            </td>
-                        </tr>
-                        <tr class="italic dark:text-gray-200">
-                            <td>Max: <span x-text="max_easy"></span></td>
-                            <td>Max: <span x-text="max_medium"></span></td>
-                            <td>Max: <span x-text="max_hard"></span></td>
-                        </tr>
-                    </table>
-                    <div x-show="not_enough_difficulty" class="text-sm text-red-600 dark:text-red-400">
-                        {{ __('room.setup.settings.errors.difficulty') }}
-                    </div>
-                </div>
-            </div>
-            
-            <div>
-                <div class="text-lg text-center text-blue-500">
-                    {{ __('room.setup.objectives_pool.title') }}
-                </div>
-                <div class="text-center italic dark:text-gray-200">
-                    {{ __('room.setup.objectives_pool.greyed') }}
-                </div>
-
-                <div 
-                    class="text-center" 
-                    :class="{ 
-                        'dark:text-gray-200': !not_enough_selection,
-                        'dark:text-red-400 text-red-600': not_enough_selection }">
-                    <span x-text="count"></span> / <span x-text="width * height"></span>
-                    <span class="italic" x-show="not_enough_selection">
-                        {{ __('room.setup.settings.errors.selection') }}
-                    </span>
-                </div>
-
-                <div class="grid sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-1">
-                    @foreach ($room->games as $game)
-                    <div class="relative" style="padding-bottom: 100%">
-                        <div @class([
-                            'absolute w-full h-full rounded flex flex-col',
-                            'bg-red-300 dark:bg-red-950' => $loop->odd,
-                            'bg-blue-300 dark:bg-blue-950' => $loop->even,
-                            ])>
-                            <div class="p-2 justify-center dark:text-gray-200">
-                                <h2 class="text-center text-xl">{{ $game->name }}</h2>
-                            </div>
-                            
-                            <div class="flex-1 overflow-y-auto p-2 space-y-1 text-sm scrollbar-hidden">
-                                <div class="bg-white dark:bg-slate-900 rounded-lg shadow-inner p-1">
-                                    @foreach ($game->public_objectives as $objective)
-                                    <div class="border-b">
-                                        <label x-data="{ disabled: {{ $pool_ids[$objective->id] ? 'false' : 'true' }} }">
-                                            <input class="hidden" type="checkbox" wire:model="pool_ids.{{$objective->id}}"
-                                                x-on:click="disabled = !disabled; updateCount(disabled, {{ $objective->difficulty }})">
-                                            <div :class="disabled ? 'text-gray-400 line-through' : 'text-emerald-800'"
-                                                class="transition-all duration-100 select-none overflow-hidden flex space-x-2 cursor-pointer"
-                                                title="{{ $objective->description }}">
-                                                <span x-text="disabled ? '⚫' : '🟢'"></span>
-                                                <span>{{ $objective->difficulty }}</span>
-                                                <span>{{ $objective->description }}</span>
-                                            </div>
-                                        </label>
-                                    </div>
-                                    @endforeach
-                                </div>
-                                
-                                <div class="bg-white dark:bg-gray-900 rounded-lg shadow-inner p-1">
-                                    @foreach ($game->private_objectives as $objective)
-                                    <div class="border-b">
-                                        <label x-data="{ disabled: {{ $pool_ids[$objective->id] ? 'false' : 'true' }} }">
-                                            <input class="hidden" type="checkbox" wire:model="pool_ids.{{$objective->id}}"
-                                                x-on:click="disabled = !disabled; updateCount(disabled, {{ $objective->difficulty }})">
-                                            <div :class="disabled ? 'text-gray-400 line-through' : 'text-red-800'"
-                                                class="transition-all duration-100 space-x-1 cursor-pointer">
-                                                <span x-text="disabled ? '⚫' : '🔴'"></span>
-                                                <span>{{ $objective->difficulty }}</span>
-                                                <span>{{ $objective->description }}</span>
-                                            </div>
-                                        </label>
-                                    </div>
-                                    @endforeach
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+            <h3 class="text-blue-500 text-left">
+                {{ __('room.setup.objectives_pool.repartition') }}
+            </h3>
+            <i class="text-slate-600 dark:text-slate-400">Déterminez la proportion des objectifs totaux que prendra chaque jeu. Gardez les sliders équilibrés pour avoir autant d'objectifs par jeu.</i>    
+            <div class="p-1 w-fit mx-auto bg-black/10 dark:text-slate-200">
+                <table>
+                    @foreach ($room->games->sortBy('id') as $game)
+                    <tr>
+                        <td>
+                            {{ $loop->index + 1 }}. {{ $game->name }}
+                        </td>
+                        <td class="w-2"></td>
+                        <td class="text-right">
+                            <input type="range" min="10" max="100" id="{{ $game->id }}" wire:model.live.debounce.500ms="games_repartition.{{ $game->id }}"/>
+                        </td>
+                    </tr>
                     @endforeach
+                </table>
+            </div>
+
+            <div class="mx-4 dark:bg-white/5 bg-black/10 p-2" x-data="{ selected_index: 0 }">
+                <div class="flex justify-between">
+                    <button 
+                        class="bg-white/30 px-1 py-0.5 rounded-lg" 
+                        x-bind:disabled="selected_index <= 0" x-on:click="selected_index--">
+                        <<
+                    </button>
+                    @foreach ($room->games as $game)
+                        <span class="py-0.5 dark:text-slate-300" :class="{ 'hidden': selected_index != {{ $loop->index }} }">
+                            {{ $game->name }}
+                        </span>
+                    @endforeach
+                    <button 
+                        class="bg-white/30 px-1 py-0.5 rounded-lg" 
+                        x-on:click="selected_index++" x-bind:disabled="selected_index >= {{ $room->games->count() }} - 1">
+                        >>
+                    </button>
+                </div>
+
+                @foreach ($room->games as $game)
+                    <div class="py-2 space-y-2 text-sm dark:text-slate-900" :class="{ 'hidden': selected_index != {{ $loop->index }} }">
+                        @if ($game->public_objectives->count() > 0)
+                            <div class="bg-blue-500/30 border-blue-700 border-2 p-0.5 rounded-lg h-24 overflow-auto">
+                                @foreach($game->public_objectives as $obj)
+                                <label>
+                                    <div>
+                                        {{ $obj->description }}
+                                    </div>
+                                </label>    
+                                @endforeach
+                            </div>
+                        @endif
+                        @if ($game->private_objectives->count() > 0)
+                            <div class="bg-red-500/30 border-red-700 border-2 p-0.5 rounded-lg h-24 overflow-auto">
+                                @foreach($game->private_objectives as $obj)
+                                    <label>
+                                        <div>
+                                            {{ $obj->description }}
+                                        </div>
+                                    </label>
+                                @endforeach
+                            </div>
+                        @endif
+                    </div>
+                @endforeach
+            </div>
+        </div>
+
+        <div class="w-0.5 bg-white/30"></div>
+        
+        <div class="w-3/5">
+            <h2 class="text-blue-500 font-bold text-center">
+                Aperçu de la grille
+            </h2>
+            <div class="text-center text-slate-500">
+                <i>Les nombres correspondent aux sliders de gauche</i>
+            </div>
+            <div class="mx-auto w-fit mb-2">
+                <div class="flex">
+                    <input 
+                        wire:model="width" 
+                        class="dark:text-slate-200 dark:bg-white/10 p-1 w-16 rounded-l-lg" 
+                        type="number" min="3" max="10" id="width" placeholder="Width">
+                    <input 
+                        wire:model="height" 
+                        class="dark:text-slate-200 dark:bg-white/10 p-1 w-16 rounded-r-lg" 
+                        type="number" min="3" max="10" id="height" placeholder="Height">
                 </div>
             </div>
-        </div>  
-        
-        <div class="text-center pt-5">
-            <div x-show="not_enough_difficulty" class="text-sm text-red-600 dark:text-red-400">
-                {{ __('room.setup.settings.errors.difficulty') }}
+
+            <div class="px-24">
+                <div wire:ignore class="gap-0.5 w-full grid" style="grid-template-columns: {{ $width }}" id="sample_grid">
+
+                </div>
             </div>
-            <div x-show="not_enough_selection" class="text-sm text-red-600 dark:text-red-400">
-                {{ __('room.setup.settings.errors.selection') }}
-            </div>
-            <x-form.button x-bind:disabled="!can_submit" wire:click="selectObjectives">
-                {{ __('room.setup.submit') }}
-            </x-form.button>
         </div>
     </div>
+    <template id="square_template">
+        <div class="bg-white/10 rounded border-2 border-white/30" style="aspect-ratio: 1/1">
+            <div class="text-center h-full content-center dark:text-gray-200 text-xl text"></div>
+        </div>
+    </template>
 </x-main-panel>

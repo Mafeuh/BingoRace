@@ -1,8 +1,88 @@
 @extends('layouts.app')
 
-@section('page_title') {{ __('game.show.title', ['name' => $game->name]) }} @endsection
-
 @section('content')
+
+<div class="bg-white/5 max-w-5xl p-4 mx-auto backdrop-blur-sm rounded border border-white/10">
+    <div class="flex w-full justify-between">
+        <span class="text-blue-500 text-xl font-bold">
+            {{ __('game.show.title', ['name' => $game->name]) }}
+        </span>
+        <span class="text-slate-500">
+            {{ $visibility }}
+        </span>
+    </div>
+
+    <div class="text-slate-600 dark:text-slate-300">
+        Utilisé dans {{ $uses_amount }} parties
+    </div>
+
+    @if($game->description || auth()->user()?->isAdmin() || auth()->user()?->id == $game->creator_id)
+        <div class="w-full bg-black/5 shadow-inner rounded p-2 text-slate-600 dark:text-slate-300">
+            <h2 class="pl-2 font-bold">
+                {{ __('game.show.description.title') }}
+            </h2>
+            <livewire:game-description :game="$game"/>
+        </div>
+    @endif
+
+    
+    <div class="h-px bg-white/30 my-4"></div>
+    
+    <div class="flex space-x-2">
+        <div class="w-1/2">
+            <livewire:public-objectives-list :game="$game"/>
+        </div>
+        <div class="w-1/2">
+            <livewire:user-private-objectives-list :game="$game"/>
+        </div>
+    </div>
+
+
+    @if($danger_zone)
+        <div class="bg-red-500/20 rounded-xl p-2 shadow-sm dark:shadow-red-400 shadow-200">
+            <p class="text-lg text-red-500 font-bold">❗DANGER ZONE❗</p>
+            <div class="h-px bg-red-500/50 my-2"></div>
+
+            <form action="{{ route('games.delete') }}" method="POST">
+                @csrf
+                <input type="hidden" name="game_id" value="{{$game->id}}">
+                <button type="submit" class="bg-red-500 p-2 text-white font-bold rounded-full text-sm">
+                    {{ __('game.show.danger.delete') }}
+                </button>
+            </form>
+
+            <form action="{{ route('games.rename')}}" method="POST">
+                @csrf
+                <input type="hidden" name="game_id" value="{{$game->id}}">
+                <div>
+                    <label class="text-red-500 font-bold" for="new_name">
+                        {{ __('game.show.danger.rename.label') }}
+                    </label>
+                </div>
+                <x-form.text-input :value="$game->name" name="new_name"/>
+                <button type="submit" class="bg-red-500 p-2 text-white font-bold rounded-full text-sm">
+                    {{ __('game.show.danger.rename.submit') }}
+                </button>
+            </form>
+
+            <form enctype="multipart/form-data" class="space-y-2" action="{{ route('games.change_image', ['game' => $game->id]) }}" method="POST">
+                @csrf
+                <div class="sm:w-96">
+                    <label class="text-red-500 font-bold" for="new_name">
+                        {{ __('game.show.danger.change_image.label') }}
+                    </label>
+                    <x-form.filedrop-input name="image" required="true"/>
+                </div>
+                <button type="submit" class="bg-red-500 p-2 text-white font-bold rounded-full text-sm">
+                    {{ __('game.show.danger.change_image.submit') }}
+                </button>
+            </form>
+        </div>
+    @endif
+</div>
+
+{{-- 
+
     <div class="relative">
         <h2 class="text-center dark:text-gray-200">
             @if ($game->is_official)
@@ -174,5 +254,5 @@
                 </button>
             </form>
         </div>
-    @endif
+    @endif --}}
 @endsection

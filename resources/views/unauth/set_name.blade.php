@@ -1,26 +1,28 @@
 @extends('layouts.app')
 
-@section('page_title') Sélection de nom @endsection
+@section('page_title') {{ __('home.setname.title') }} @endsection
 
 @section('content')
 
 <div class="flex justify-center">
-    <x-secondary_panel class="w-fit space-y-2">
-        <form method="post" action="/setname">
+    <x-main-panel class="w-fit space-y-2 rounded p-4">
+        <form method="post" action="/setname" class="space-y-2">
             @csrf
-            <div>
-                Choisis un pseudo !
-                <x-form.text-input name="name" placeholder="Pseudo" value="{{ $name }}"/>
+            <div class="dark:text-slate-200 text-slate-950">
+                {{ __('home.setname.label') }}
+                <x-form.text-input name="name" :placeholder="__('home.setname.placeholder')" value="{{ $name }}"/>
             </div>
             
             <div class="text-center">
-                <x-form.submit-input>Confirmer</x-form.submit-input>
+                <x-form.submit-input>
+                    {{ __('home.setname.confirm') }}
+                </x-form.submit-input>
             </div>
         </form>
-        <div class="max-w-96 text-gray-500 dark:text-gray-400 italic">
-            Ce formulaire est prévu pour jouer sans être connecté. Si tu as un compte, c'est mieux de te connecter !
+        <div class="max-w-96 text-gray-600 dark:text-gray-400 italic">
+            {{ __('home.setname.description') }}
         </div>
-    </x-secondary_panel>
+    </x-main-panel>
 </div>
 
 @endsection

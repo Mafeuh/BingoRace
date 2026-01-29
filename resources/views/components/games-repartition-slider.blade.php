@@ -3,25 +3,27 @@
 <div class="select-none">
     <div class="h-12 flex relative" id="slide_container" data-max="{{ $width * $height }}">
         @for($i = 1; $i < (sizeof($room->games)); $i++)
+        <div class="">
             <div @class([
                 'from-red-400 to-blue-400 dark:from-red-900 dark:to-blue-900' => $i % 2 == 1,
                 'from-blue-400 to-red-400 dark:from-blue-900 dark:to-red-900' => $i % 2 == 0,
-                'absolute h-12 w-4 bg-gradient-to-r -ml-2 cursor-col-resize slider border border-white/50'
+                'absolute h-12 w-4 bg-gradient-to-r -ml-2 cursor-col-resize slider border border-white/20'
             ]) 
                 id="slider{{$i}}" onmousedown="slide('slider{{$i}}')"
                 data-slider_number="{{ $i }}" style="left: {{ $i * 100 / sizeof($room->games)}}%;"></div>
+        </div>
         @endfor
         @foreach ($room->games as $game)
             <div @class([
                 'h-full text-center game text-sm flex flex-col items-center justify-center', 
-                'bg-red-400 dark:bg-red-900' => $loop->odd, 
-                'bg-blue-400 dark:bg-blue-900' => $loop->even, 
+                'bg-red-500/50 dark:bg-red-900' => $loop->odd, 
+                'bg-blue-500/50 dark:bg-blue-900' => $loop->even, 
                 'rounded-l-lg' => $loop->first, 
                 'rounded-r-lg' => $loop->last]) 
                 style="width: {{ 100/sizeof($room->games) }}%;" id="game{{$loop->index}}"
                 data-game_id="{{$game->id}}">
-                <div>{{ $game->name }}</div>
-                <div>
+                <div class="dark:text-slate-200">{{ $game->name }}</div>
+                <div class="dark:text-slate-200">
                     <span class="part">
                         {{ round(1/sizeof($room->games) * $width * $height) }}
                     </span>

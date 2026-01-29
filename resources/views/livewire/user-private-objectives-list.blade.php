@@ -1,4 +1,4 @@
-<x-main-panel class="bg-white p-2 rounded-3xl" x-data="{ selected: [] }" x-on:private-refreshed.window="selected = []">
+<x-main-panel class="p-2 rounded-3xl" x-data="{ selected: [] }" x-on:private-refreshed.window="selected = []">
     @admin()
         <div class="text-center">
             <x-form.text-input placeholder="Nom de l'utilisateur" wire:model.live="search_name"/>
@@ -17,7 +17,7 @@
         </div>
     @endadmin
     <h2 class="text-lg text-center mb-1 dark:text-gray-200">
-        @if ($user == auth()->user())
+        @if (auth()->check() && $user == auth()->user())
             {{ __('game.show.private_objectives.title.you', ['amount' => sizeof($private_objectives)]) }}
             <span>
                 <a href="/games/{{$game->id}}/objective"
@@ -26,7 +26,9 @@
                 </a>
             </span>
         @else
-            {{ __('game.show.private_objectives.title.not_you', ['amount' => sizeof($private_objectives), 'name' => $user->name]) }}
+            @auth
+                {{ __('game.show.private_objectives.title.not_you', ['amount' => sizeof($private_objectives), 'name' => $user->name]) }}
+            @endauth
         @endif
         
         
@@ -35,29 +37,7 @@
         <div class="space-y-2">
             <div class="grid grid-cols-1 xl:grid-cols-2 gap-1 max-h-96 overflow-y-auto overflow-x-visible">
                 @foreach ($private_objectives as $priv_obj)
-                    <input class="hidden" type="checkbox" id="obj{{ $priv_obj->id }}" wire:model="selected_objectives.{{ $priv_obj->id }}">
-                    
-                    <label for="obj{{ $priv_obj->id }}"
-                        x-on:click="
-                            selected.includes({{ $priv_obj->id }})
-                                ? selected = selected.filter(id => id !== {{ $priv_obj->id }})
-                                : selected.push({{ $priv_obj->id }});
-                            " 
-                    :class="selected.includes({{ $priv_obj->id }}) ? 'bg-blue-300 dark:bg-blue-900' : 'mx-2 dark:bg-slate-800 bg-gray-100'"
-                    class="cursor-pointer dark:text-gray-200 relative p-1 text-center rounded-xl transition-all duration-100 select-none">
-                    <div class="flex space-x-2">
-                        <span class="grow">
-                            {{$priv_obj->description}}
-                        </span>
-                        <span @class([ "font-bold",
-                            "text-blue-500" => $priv_obj->difficulty == 1,
-                            "text-green-500" => $priv_obj->difficulty == 2,
-                            "text-orange-400" => $priv_obj->difficulty == 3,
-                            "text-red-500" => $priv_obj->difficulty == 4
-                        ])>{{ $priv_obj->difficulty }}</span>
-                        <a class="right-5" href="/objectives/{{$priv_obj->id}}/edit">✏️</a>
-                    </div>
-                    </label>
+                    <x-objective.line :objective="$priv_obj" :can_manage_objectives="true"/>
                 @endforeach
             </div>
 
@@ -108,8 +88,19 @@
             </div>
         </div>
     @else
-        <div class="text-center dark:text-gray-200">
-            {{ __('game.show.private_objectives.empty') }}
-        </div>
+        @auth
+            <div class="text-center dark:text-gray-200">
+                {{ __('game.show.private_objectives.empty') }}
+            </div>
+        @else
+            <div class="text-center dark:text-gray-200">
+                {{ __('game.show.private_objectives.offline') }}
+            </div>
+            <div class="flex">
+                <a href="/login" class="mx-auto hover:scale-110 transition-all duration-100 bg-gradient-to-r from-red-400 to-blue-400 p-0.5 flex rounded-lg">
+                    <span class="py-2 px-4 hover:dark:bg-blue-950/80 bg-gray-200/80 dark:text-slate-200 font-bold dark:bg-slate-900/80 rounded-lg">Login</span>
+                </a>
+            </div>
+        @endauth
     @endif
 </x-main-panel>

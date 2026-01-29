@@ -1,37 +1,5 @@
-<div class="bg-gray-100 dark:bg-slate-900 relative py-3">
-    {{--     <div class="flex gap-2 justify-center text-sm py-2">
-        
-        <form method="POST" action="/logout">
-            @csrf
-            @auth
-                <span class="text-sm dark:text-white">
-                    {{ __('footer.status.connected_as') }} 
-                    <b class="text-blue-500">
-                        {{ auth()->user()->name}} @admin()🗿@endadmin
-                    </b>
-                    <button type="submit" class="py-1.5 px-2 rounded-full dark:bg-red-900 dark:text-red-300 bg-red-100 text-red-600">
-                        {{ __('footer.status.logout') }}
-                    </button>
-                </span>
-            @endauth
-        </form>
-        
-        @admin()
-        <a href="/admin" class="py-1.5 px-2 text-sm rounded-full dark:bg-blue-900 dark:text-blue-300 bg-blue-100 text-blue-600">
-            {{ __('footer.status.admin_zone')}}
-        </a>
-        @endadmin
-        
-        @if (App\Models\Setting::get('maintenance') === "true")
-            <span class="text-red-900 font-bold ml-5 my-1">Maintenance active</span>
-        @endif
-    </div>
-
-    <div class="absolute right-2 bottom-0">
-        <x-app.light_switch/>
-    </div> --}}
-
-    <div class="mx-auto max-w-6xl justify-between items-center flex">
+<div class="bg-gray-100 dark:bg-slate-900 relative py-3 text-sm">
+    <div class="mx-auto max-w-5xl justify-between items-center flex">
         <div class="flex">
             <a href="{{ route('lang.switch', 'fr') }}" @class([
                 'bg-blue-500 rounded-full' => App::getLocale() === 'fr',
@@ -49,7 +17,7 @@
 
         @auth
             <div class="flex">
-                <div class="bg-slate-800 text-slate-500 px-5 py-1 rounded-full flex space-x-3">
+                <div class="dark:bg-slate-800 bg-slate-200 text-slate-500 px-5 py-1 rounded-full flex space-x-3">
                     <div>
                         {{ __('footer.status.connected_as') }}
                         <span @class([
@@ -62,7 +30,12 @@
                     </div>
                     <div class="w-px bg-slate-700"></div>
                     <div>
-                        test
+                        <form action="/logout" method="post">
+                            @csrf
+                            <button class="text-red-500">
+                                {{ __('footer.status.logout') }}
+                            </button>
+                        </form>
                     </div>
                 </div>
             </div>

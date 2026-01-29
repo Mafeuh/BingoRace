@@ -25,7 +25,7 @@ class PublicObjectivesList extends Component
     }
 
     public function mount() {
-        $this->can_manage_public_objectives = auth()->user()->isAdmin() || auth()->user()->id == $this->game->creator_id;
+        $this->can_manage_public_objectives = auth()->user()?->isAdmin() || auth()->user()?->id == $this->game->creator_id;
         $this->refresh();
     }
 
@@ -68,7 +68,7 @@ class PublicObjectivesList extends Component
         $objectives = Objective::findMany(array_keys(array_filter($this->selected_objectives)));
 
         foreach($objectives as $objective) {
-            if($objective->game->creator_id == auth()->user()->id || auth()->user()->isAdmin()) {
+            if($objective->game->creator_id == auth()->user()?->id || auth()->user()?->isAdmin()) {
                 $objective->hidden = true;
                 $objective->save();
             }

@@ -11,8 +11,7 @@
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,600,800&amp;display=swap" rel="stylesheet">
-        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-        <script src="https://cdn.tailwindcss.com"></script>
+        {{-- <script src="https://cdn.tailwindcss.com"></script> --}}
         
         @livewireScripts 
         @vite([
@@ -21,9 +20,8 @@
         ])
 
         @livewireStyles
-
     </head>
-    <body class="h-full flex flex-col bg-slate-900 text-slate-200 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] bg-fixed" x-data="{darkMode: $persist(true)}" :class="{'dark': darkMode }">
+    <body :class="{'dark': darkMode }" class="h-screen flex flex-col bg-slate-900 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] bg-fixed" x-data="{darkMode: $persist(true)}">
         @php
             $is_maintenance = App\Models\Setting::get('maintenance') === "true";
         @endphp
@@ -41,17 +39,16 @@
 
         <x-app.header/>
 
-        <div class="fixed inset-0 z-[-1] bg-gradient-to-br dark:from-indigo-900 dark:via-slate-900 dark:to-red-900 from-indigo-300 via-slate-300 to-red-300 opacity-80">
+        <div class="p-2 flex-grow overflow-auto inset-0 bg-gradient-to-br from-indigo-200/80 to-red-200/80 dark:from-blue-900/80 dark:to-red-900/80">
             <div>
-                <h1 class="text-center text-2xl text-blue-500 mb-2">
+                <h1 class="text-center text-2xl text-blue-500 font-bold mb-2">
                     @yield('page_title')
                 </h1>
             </div>
-
             @yield('content')
         </div>
 
-        <div class="fixed bottom-0 left-0 w-full">
+        <div class="w-full">
             <x-footer></x-footer>
         </div>
 

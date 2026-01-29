@@ -52,10 +52,22 @@ Route::middleware(SetLocale::class)->group(function() {
     })->name('lang.switch');
     
     Route::get('/', function () {
+        $colors = collect([
+            'green',
+            'red',
+            'blue'
+        ]);
+        $posts = HomepagePost::where('lang_slug', app()->getLocale())->orderBy('created_at', 'desc')->where('hidden', false)->take(2)->get();
         if(auth()->check()) {
-            return view('auth-home');
+            return view('auth-home', [
+                'posts' => $posts,
+                'colors' => $colors->random(2)
+            ]);
         } else {
-            return view('unauth-home');
+            return view('unauth-home', [
+                'posts' => $posts,
+                'colors' => $colors->random(2)
+            ]);
         }
     })->name('home');
     

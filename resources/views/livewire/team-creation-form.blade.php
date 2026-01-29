@@ -1,5 +1,5 @@
 <x-main-panel>
-    <p class="text-center text-xl py-2">
+    <p class="text-center text-xl py-2 dark:text-slate-200">
         {{ __('room.wait.teams.new_team.title') }}
     </p>
     <div class="space-y-5">

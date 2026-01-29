@@ -1,6 +1,10 @@
 <?php
 
 return [
+    'visibility.public' => "Public, créé par :name",
+    'visibility.private' => "Privé",
+    'visibility.official' => "Officiel",
+    
     'card.public_objectives' => ":amount objectifs public",
     'card.private_objectives' => ":amount objectifs privés",
 
@@ -50,10 +54,6 @@ return [
     'list.private_games.empty' => "Aucun jeu à afficher.",
 
     'show.title' => "Informations sur :name",
-    'show.permissions.admin' => "Vous êtes admin ! Vous avez tous les droits mouahaha !",
-    'show.permissions.public_game' => "Ce jeu est un jeu public ! N'importe qui peut ajouter ses propres objectifs dessus pour ses parties personnelles.",
-    'show.permissions.creator_auth' => "C'est ton jeu, c'est tes règles ! Importe tes propres objectifs, privés ou publics !",
-    'show.permissions.default' => "Ce jeu a été ajouté par :creator_name. C'est le/la seul.e personne à pouvoir ajouter des objectifs.",
 
     'show.description.title' => "Description",
     'show.description.empty' => "Ce jeu n'a pas de description",
@@ -63,6 +63,7 @@ return [
     'show.private_objectives.title.you' => "Tes :amount objectifs privés",
     'show.private_objectives.title.not_you' => "Les :amount objectifs privés de :name",
     'show.private_objectives.empty' => "Tu n'as pas encore créé d'objectif !",
+    'show.private_objectives.offline' => "Tu dois être connecté pour créer des objectifs !",
     'show.danger.delete' => "Supprimer le jeu",
     'show.danger.rename.label' => "Renommer le jeu",
     'show.danger.rename.submit' => "Valider",
@@ -75,9 +76,6 @@ return [
     'show.flag.reason.validate' => "Signaler",
     
     'show.visibility.title' => "Changer la visibilité",
-    'show.visibility.is_public' => "Ce jeu est public, créé par :name",
-    'show.visibility.is_private' => "Ce jeu est privé.",
-    'show.visibility.is_official' => "Ce jeu est officiel.",
     'show.visibility.to_public' => "Mets le public!",
     'show.visibility.to_private' => "Mets le privé!",
     'show.visibility.to_official_on' => "Mets le officiel!",

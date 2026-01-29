@@ -10,8 +10,10 @@ use Livewire\Component;
 
 class RoomSetup extends Component
 {
-    // Number of objectives per game
-    public $games_objectives_count = [];
+    // % of total objectives per game
+    public $games_repartition = [];
+
+    public $number_of_objectives_per_game = [];
 
     public Room $room;
     public int $width = 5;
@@ -31,15 +33,40 @@ class RoomSetup extends Component
     public int $nb_easy = 0;
     public int $nb_medium = 0;
     public int $nb_hard = 0;
+
+    public $shown_game_id = 0;
     
-    public function updatedWidth()
-    {
-        $this->dispatch('trigger-distribute');
+    public function updatedGamesRepartition() {
+        $this->distributeObjectives();
     }
 
-    public function updatedHeight()
-    {
-        $this->dispatch('trigger-distribute');
+    private function distributeObjectives() {
+        $totalCells = $this->width * $this->height;
+        $sumPercentages = $this->games_repartition->sum();
+    
+        // 1. Calculer les valeurs plancher (floor) et stocker les restes
+        $ratios = $this->games_repartition->map(function($percent) use ($sumPercentages, $totalCells) {
+            $exact = ($percent / $sumPercentages) * $totalCells;
+            return [
+                'floor' => (int) floor($exact),
+                'remainder' => $exact - floor($exact)
+            ];
+        });
+    
+        $allocated = $ratios->sum('floor');
+        $toDistribute = $totalCells - $allocated;
+    
+        // 2. Trier par reste décroissant pour donner les cases manquantes aux plus grands restes
+        $results = $ratios->sortByDesc('remainder')->map(function($item) use (&$toDistribute) {
+            if ($toDistribute > 0) {
+                $toDistribute--;
+                return $item['floor'] + 1;
+            }
+            return $item['floor'];
+        });
+    
+        // 3. Remettre dans l'ordre original des clés et convertir en tableau
+        $this->number_of_objectives_per_game = $results->toArray();
     }
 
     public function updatePoolSize() {
@@ -52,6 +79,8 @@ class RoomSetup extends Component
     }
 
     public function mount() {
+        $games = $this->room->games;
+
         $this->pool = $this->room->games
         ->flatMap(function ($game) {
             return $game->public_objectives->concat($game->private_objectives);
@@ -66,6 +95,12 @@ class RoomSetup extends Component
         $this->max_hard = $this->pool->where('difficulty', 3)->count();
 
         $this->pool_size = count(array_filter($this->pool_ids));
+
+        $this->games_repartition = $this->room->games->mapWithKeys(function($game) {
+            return [$game->id => "50"];
+        });
+
+        $this->distributeObjectives();
     }
 
     public function selectObjectives() {

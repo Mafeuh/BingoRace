@@ -12,7 +12,7 @@
     
     <!-- Zone scrollable -->
     <div class="overflow-y-auto mt-5 flex-1">
-        <div class="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-2 2xl:grid-cols-3 gap-1">
+        <div class="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-2 2xl:grid-cols-3 gap-1 p-2">
             @foreach($favorite as $game_it)
             <div wire:key="fav-{{$game_it->id}}">
                 <x-game-card :game="$game_it"/>

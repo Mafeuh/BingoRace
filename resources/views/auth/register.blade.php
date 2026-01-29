@@ -1,12 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="h-full flex items-center justify-center">
-
-    <div class="p-10 rounded-3xl shadow-lg
-        bg-white shadow-white
-        dark:bg-slate-700 dark:shadow-blue-500">
-        <h1 class="text-3xl font-bold text-center dark:text-gray-200">
+<div class="flex h-full">
+    <div class="m-auto bg-white/20 dark:bg-white/5 px-6 py-4 backdrop-blur-md rounded border border-white/10">
+        <h1 class="text-center text-xl text-blue-300">
             {{ __('register.title') }}
         </h1>
         

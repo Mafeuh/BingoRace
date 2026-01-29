@@ -8,6 +8,7 @@ use App\Models\Game;
 use App\Models\Objective;
 use App\Models\PrivateObjective;
 use App\Models\PublicObjective;
+use App\Models\RoomSelectedGame;
 use App\View\Components\redirect;
 
 class GamesController extends Controller
@@ -163,10 +164,17 @@ class GamesController extends Controller
         $public_objectives = $game->public_objectives();
         $private_objectives = $game->private_objectives();
 
+        $visibility = __('game.visibility.private');
+        if ($game->is_official) $visibility = __('game.visibility.official');
+        if ($game->is_public) $visibility = __('game.visibility.public');
 
         if(($game->is_official || $game->is_public || $game->creator_id == auth()->user()->id) || auth()->user()->isAdmin()) {
             return view('games.show', [
-                'game'=> $game
+                'game'=> $game,
+                'visibility' => $visibility,
+                'uses_amount' => RoomSelectedGame::where('game_id', $game->id)->count(),
+                'danger_zone' => auth()->user()?->isAdmin() ?? false || auth()->user()?->id == $game->creator_id ?? false,
+                'public_objectives_amount' => $game->public_objectives->count()
             ]);
         }
         return redirect()->back();

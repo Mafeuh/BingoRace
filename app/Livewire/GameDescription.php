@@ -18,13 +18,12 @@ class GameDescription extends Component
     public function save_changes() {
         $this->game->description = $this->description;
         $this->game->save();
-        $this->message = "Sauvegardé !";
     }
 
     public function mount() {
         $this->description = $this->game->description;
 
-        $this->can_edit = auth()->user()->isAdmin() || auth()->user()->id == $this->game->creator_id;
+        $this->can_edit = auth()->user()?->isAdmin() || auth()->user()?->id == $this->game->creator_id;
     }
 
     public function render()

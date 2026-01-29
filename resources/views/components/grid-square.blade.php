@@ -36,11 +36,11 @@
                     background-size: cover;
                     background-position: center;
                 ">
-                    <div class="bg-[{{$team_it->color}}]/70 w-full h-full"></div>
+                    <div style="background-color: {{$team_it->color}}" class="opacity-50 w-full h-full"></div>
                 </div>
             @else
                 <div>
-                    <div class="bg-[{{$team_it->color}}] w-full h-full"></div>
+                    <div style="background-color: {{$team_it->color}}" class="w-full h-full"></div>
                 </div>
             @endif
         @endforeach

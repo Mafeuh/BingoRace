@@ -20,7 +20,7 @@ class UserPrivateObjectivesList extends Component
     public $user;
 
     public Game $game;
-    public $private_objectives;
+    public $private_objectives = [];
 
     public $search_name = "";
     public $search_results;
@@ -44,6 +44,8 @@ class UserPrivateObjectivesList extends Component
         if ($this->user == null) {
             $this->user = auth()->user();
         }
+
+        if ($this->user == null) return;
 
         $this->possible_users_ids = $this->game->private_objectives()->with("objectiveable")->get()->pluck("objectiveable")->pluck("user_id");
 

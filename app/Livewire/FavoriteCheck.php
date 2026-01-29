@@ -13,7 +13,7 @@ class FavoriteCheck extends Component
     public bool $is_favorite;
     public function mount() {
         $this->game = Game::find($this->game_id);
-        $this->is_favorite = auth()->user()->hasFavorite($this->game);
+        $this->is_favorite = auth()->user()?->hasFavorite($this->game) ?? false;
     }
     public function render()
     {

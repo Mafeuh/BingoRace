@@ -1,11 +1,10 @@
 <div>
     <input type="hidden" name="selected_color" id="selected" wire:model="selected_color">
     
-    <div class="bg-gray-200 dark:bg-slate-900 flex overflow-x-scroll p-2 scrollbar-hidden scroll-smooth transition-all duration-100" id="color-scroll">
+    <div class="bg-white/40 dark:bg-slate-900/30 flex overflow-x-scroll p-2 scrollbar-hidden scroll-smooth transition-all duration-100" id="color-scroll">
         @foreach ($colors as $name => $color)
-        @php $class_color = 'bg-['.$color.']'; @endphp
-            <div id="{{ $color }}" onclick="select_color('{{ $color }}')" @class([
-                'relative size-28 flex-shrink-0 scrollbar-hidden ' . $class_color,
+            <div id="{{ $color }}" onclick="select_color('{{ $color }}')" style="background-color: {{ $color }}" @class([
+                'relative size-24 flex-shrink-0 scrollbar-hidden ',
                 'rounded-l-lg' => $loop->first, 
                 'rounded-r-lg' => $loop->last, 
             ])>

@@ -3,7 +3,7 @@
 @section('page_title') {{ __('room.wait.title') }} @endsection
 
 @section('content')
-<div class="h-fit">
+<div class="max-w-6xl mx-auto">
     <div>
         <h2 class="text-lg text-center dark:text-gray-200">
             {{ __('room.wait.code.label') }}
@@ -27,14 +27,14 @@
     </div>
     
     <div class="h-fit gap-5 sm:flex">
-        <div class="space-y-5 sm:w-1/3 text-sm">
+        <div class="space-y-5 w-1/3 text-sm">
             <livewire:teams-list :room="$room" />
     
             <livewire:team-creation-form :room="$room" />
         </div>
         
-        <div class="sm:w-2/3 lg:w-1/2">
-            <x-secondary_panel class="m-5 rounded">
+        <div class="w-2/3">
+            <x-secondary_panel class="m-2 rounded">
                 <div class="font-bold text-blue-500">
                     {{ __('room.wait.rules.title') }}
                 </div>

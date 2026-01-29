@@ -1,6 +1,10 @@
 <?php
 
 return [
+    'visibility.public' => "Public, created by :name.",
+    'visibility.private' => "Private",
+    'visibility.official' => "Official",
+    
     'card.public_objectives' => ":amount public objectives",
     'card.private_objectives' => ":amount private objectives",
 
@@ -50,10 +54,6 @@ return [
     'list.private_games.empty' => "No games to show.",
 
     'show.title' => "About :name",
-    'show.permissions.admin' => "You are an admin! You can do everything!",
-    'show.permissions.public_game' => "This game is public! Everybody can add their own objectives.",
-    'show.permissions.creator_auth' => "Your game, your rules! Create either public or private objectives!",
-    'show.permissions.default' => "This game was added by :creator_name. You can only add private objectives.",
 
     'show.description.title' => "Description",
     'show.description.empty' => "This game does not have a description",
@@ -63,6 +63,7 @@ return [
     'show.private_objectives.title.you' => "Your :amount private objectives",
     'show.private_objectives.title.not_you' => ":name's :amount private objectives",
     'show.private_objectives.empty' => "You did not create private objectives for this game!",
+    'show.private_objectives.offline' => "You must be logged in to create objectives!",
     'show.danger.delete' => "Delete the game",
     'show.danger.rename.label' => "Rename the game",
     'show.danger.rename.submit' => "Validate",
@@ -76,9 +77,6 @@ return [
 
     
     'show.visibility.title' => "Change visibility",
-    'show.visibility.is_public' => "This game is public, created by :name.",
-    'show.visibility.is_private' => "This game is private.",
-    'show.visibility.is_official' => "This game is official.",
     'show.visibility.to_public' => "Make it public!",
     'show.visibility.to_private' => "Make it private!",
     'show.visibility.to_official_on' => "Make it official!",

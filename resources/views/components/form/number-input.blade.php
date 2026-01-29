@@ -1,1 +1,1 @@
-<input {{ $attributes->merge(['class' => 'border-1 border-gray-200 dark:text-white dark:bg-slate-800 dark:border-slate-900 rounded-full text-center py-2']) }} type="number"/>
+<input {{ $attributes->merge(['class' => 'border-1 bg-black/10 border-black/30 dark:text-white dark:bg-black/20 dark:border-black/30 rounded-full text-center py-2']) }} type="number"/>

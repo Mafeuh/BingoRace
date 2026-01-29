@@ -1,5 +1,3 @@
-console.log('Echo.js chargé !');
-
 import Echo from 'laravel-echo';
 
 import Pusher from 'pusher-js';

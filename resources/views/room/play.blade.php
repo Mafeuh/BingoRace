@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="relative">
+<div>
     <livewire:team-scores :room="$room"/>
 
     @if ($cache_hide_time - $server_time > 0)

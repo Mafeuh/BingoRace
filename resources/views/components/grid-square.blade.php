@@ -27,7 +27,7 @@
             {{ $square->objective->description }}
         </div>
     </div>
-    <div class="absolute w-full h-full -z-10 bg-white dark:bg-slate-600">
+    <div class="absolute w-full h-full -z-10 bg-white/50 dark:bg-slate-600/50">
         <div class="w-full h-full grid grid-cols-{{ min(sizeof($square->checked_by), 5) }}">
         @foreach ($square->checked_by as $team_it)
             @if ($team_it->image_url)

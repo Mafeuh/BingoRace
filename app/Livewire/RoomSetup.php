@@ -10,133 +10,70 @@ use Livewire\Component;
 
 class RoomSetup extends Component
 {
-    // % of total objectives per game
-    public $games_repartition = [];
-
-    public $number_of_objectives_per_game = [];
-
+    protected $listeners = ['update-quotas' => 'updateQuotas'];
+    
     public Room $room;
     public int $width = 5;
     public int $height = 5;
-    public int $min_pool_size = 25;
-    public bool $can_start = true;
 
-    public int $pool_size;
-    public array $pool_ids;
+    public $games_repartition = []; 
+    public $pool_ids = []; // [id => true] par défaut
+    
+    public bool $choose_difficulty_amount = false;
+    public int $nb_easy = 0;
+    public int $nb_medium = 0;
+    public int $nb_hard = 0;
 
     public int $max_easy;
     public int $max_medium;
     public int $max_hard;
 
-    public bool $choose_difficulty_amount = false;
+    public $quotas = [];
 
-    public int $nb_easy = 0;
-    public int $nb_medium = 0;
-    public int $nb_hard = 0;
-
-    public $shown_game_id = 0;
-    
-    public function updatedGamesRepartition() {
-        $this->distributeObjectives();
-    }
-
-    private function distributeObjectives() {
-        $totalCells = $this->width * $this->height;
-        $sumPercentages = $this->games_repartition->sum();
-    
-        // 1. Calculer les valeurs plancher (floor) et stocker les restes
-        $ratios = $this->games_repartition->map(function($percent) use ($sumPercentages, $totalCells) {
-            $exact = ($percent / $sumPercentages) * $totalCells;
-            return [
-                'floor' => (int) floor($exact),
-                'remainder' => $exact - floor($exact)
-            ];
-        });
-    
-        $allocated = $ratios->sum('floor');
-        $toDistribute = $totalCells - $allocated;
-    
-        // 2. Trier par reste décroissant pour donner les cases manquantes aux plus grands restes
-        $results = $ratios->sortByDesc('remainder')->map(function($item) use (&$toDistribute) {
-            if ($toDistribute > 0) {
-                $toDistribute--;
-                return $item['floor'] + 1;
-            }
-            return $item['floor'];
-        });
-    
-        // 3. Remettre dans l'ordre original des clés et convertir en tableau
-        $this->number_of_objectives_per_game = $results->toArray();
-    }
-
-    public function updatePoolSize() {
-        $this->min_pool_size = $this->width * $this->height;
-        $this->dispatch('updatedPoolSize');
-    }
-    public function render()
+    public function updateQuotas($quotas)
     {
-        return view('livewire.room-setup');
+        // Livewire 3 envoie les données sous forme de tableau associatif
+        $this->quotas = $quotas;
     }
 
-    public function mount() {
-        $games = $this->room->games;
+    public function mount()
+    {
+        // 1. Répartition par défaut
+        $this->games_repartition = $this->room->games->mapWithKeys(fn($g) => [$g->id => 50])->toArray();
 
-        $this->pool = $this->room->games
-        ->flatMap(function ($game) {
+        // 2. ACTIVER TOUT PAR DÉFAUT
+        $allObjectives = $this->room->games->flatMap(function ($game) {
             return $game->public_objectives->concat($game->private_objectives);
         });
+        $this->pool_ids = $allObjectives->pluck('id')->mapWithKeys(fn($id) => [$id => true])->toArray();
 
-        $this->pool_ids = $this->pool->mapWithKeys(function($objective) {
-                return [ $objective->id => true ];
-            })->toArray();
+        // 3. Quotas de difficulté par défaut
+        $total = $this->width * $this->height;
+        $this->nb_easy = ceil($total / 3);
+        $this->nb_medium = floor($total / 3);
+        $this->nb_hard = $total - ($this->nb_easy + $this->nb_medium);
 
-        $this->max_easy = $this->pool->where('difficulty', 1)->count();
-        $this->max_medium = $this->pool->where('difficulty', 2)->count();
-        $this->max_hard = $this->pool->where('difficulty', 3)->count();
-
-        $this->pool_size = count(array_filter($this->pool_ids));
-
-        $this->games_repartition = $this->room->games->mapWithKeys(function($game) {
-            return [$game->id => "50"];
-        });
-
-        $this->distributeObjectives();
+        $this->max_easy = $allObjectives->where('difficulty', 1)->count();
+        $this->max_medium = $allObjectives->where('difficulty', 2)->count();
+        $this->max_hard = $allObjectives->where('difficulty', 3)->count();
     }
 
-    public function selectObjectives() {
-        $valid = true;
+    public function submit()
+    {
+        $activeIds = array_keys(array_filter($this->pool_ids));
+        $possible_objectives = Objective::whereIn('id', $activeIds)->get();
 
-        $total = $this->width * $this->height;
-
-        if($this->choose_difficulty_amount) {
-            if($this->nb_easy + $this->nb_medium + $this->nb_hard != $total) {
-                $valid = false;
-            }
-        }
-        if($this->pool_size < $total) {
-            $valid = false;
-        }
-
-        if(!$valid) {
+        if ($possible_objectives->count() < ($this->width * $this->height)) {
+            $this->dispatch('notify-error', 'Nombre d\'objectifs insuffisant.');
             return;
         }
 
-        if($this->room->grid) {
-            $grid = $this->room->grid;
-            $grid->squares()->delete();
-            $grid->width = $this->width;
-            $grid->height = $this->height;
-            $grid->save();
-        } else {
-            $grid = BingoGrid::create([
-                'width' => $this->width,
-                'height' => $this->height,
-                'room_id' => $this->room->id
-            ]);
-        }
-        
-        $possible_objectives = Objective::findMany(array_keys($this->pool_ids, true, true));
-        
+        $grid = BingoGrid::updateOrCreate(
+            ['room_id' => $this->room->id],
+            ['width' => $this->width, 'height' => $this->height]
+        );
+        $grid->squares()->delete();
+
         $picked = collect([]);
 
         if($this->choose_difficulty_amount) {
@@ -148,22 +85,27 @@ class RoomSetup extends Component
             $picked = $picked->concat($medium_objectives->random($this->nb_medium));
             $picked = $picked->concat($hard_objectives->random($this->nb_hard));
         } else {
-            foreach($this->games_objectives_count as $game_id => $count) {
+            foreach($this->quotas as $game_id => $count) {
                 $sub_objectives = $possible_objectives->where('game_id', $game_id);
                 
                 $picked = $picked->concat($sub_objectives->random($count));
             }
         }
-        
+
         $picked = $picked->shuffle();
-        
-        foreach($picked as $picked_objective) {
+
+        foreach ($picked as $obj) {
             BingoGridSquare::create([
                 'grid_id' => $grid->id,
-                'objective_id' => $picked_objective->id
+                'objective_id' => $obj->id
             ]);
         }
 
         return redirect('/room/wait');
+    }
+
+    public function render()
+    {
+        return view('livewire.room-setup');
     }
 }

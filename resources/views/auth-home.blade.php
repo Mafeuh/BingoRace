@@ -37,6 +37,11 @@
             <h2 class="text-blue-500 text-xl font-bold">
                 📰 {{ __('home.posts.title') }}
             </h2>
+            @admin()
+            <div class="my-2">
+                <a class="p-2 dark:bg-slate-900/50 bg-slate-100 rounded-lg border-2 dark:border-slate-600 dark:text-slate-300" href="/post/new">📃 {{ __('home.posts.new') }}</a>
+            </div>
+            @endadmin
             <div class="space-y-4 mt-4">
                 @foreach ($posts as $post)
                 <div class="border-y border-r dark:border-black/50 backdrop-blur-sm border-slate-300 rounded-lg">

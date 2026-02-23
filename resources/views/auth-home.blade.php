@@ -28,9 +28,9 @@
             <h2 class="text-blue-500 text-lg font-bold">
                 {{ __('home.presentation.title') }}
             </h2>
-            <p>
+            <div class="dark:text-slate-300">
                 {!! __('home.presentation') !!}
-            </p>
+            </div>
         </div>
 
         <div class="w-2/3 pl-6">

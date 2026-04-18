@@ -22,6 +22,13 @@
         @livewireStyles
     </head>
     <body :class="{'dark': darkMode }" class="h-screen flex flex-col bg-slate-900 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] bg-fixed" x-data="{darkMode: $persist(true)}">
+        
+        <script>
+            if (localStorage.getItem('_x_darkMode') === true || localStorage.getItem('_x_darkMode') === null) {
+                document.body.classList.add('dark');
+            }
+        </script>
+        
         @php
             $is_maintenance = App\Models\Setting::get('maintenance') === "true";
         @endphp

@@ -25,12 +25,8 @@
         
         <script>
             var dark_mode_enabled = localStorage.getItem('_x_darkMode');
-            console.log(dark_mode_enabled === "true");
-            if (dark_mode_enabled === "true") {
+            if (dark_mode_enabled && dark_mode_enabled === "true") {
                 document.body.classList.add('dark');
-                console.log("Dark mode enabled");
-            } else {
-                console.log("Dark mode disabled");
             }
         </script>
         

@@ -25,6 +25,7 @@
         
         <script>
             var dark_mode_enabled = localStorage.getItem('_x_darkMode');
+            
             if (dark_mode_enabled && dark_mode_enabled === "true") {
                 document.body.classList.add('dark');
             }

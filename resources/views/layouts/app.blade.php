@@ -24,7 +24,9 @@
     <body :class="{'dark': darkMode }" class="h-screen flex flex-col bg-slate-900 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] bg-fixed" x-data="{darkMode: $persist(true)}">
         
         <script>
-            if (localStorage.getItem('_x_darkMode') === true || localStorage.getItem('_x_darkMode') === null) {
+            var dark_mode_enabled = localStorage.getItem('_x_darkMode');
+            console.log(dark_mode_enabled);
+            if (dark_mode_enabled === true || dark_mode_enabled === null) {
                 document.body.classList.add('dark');
                 console.log("Dark mode enabled");
             } else {

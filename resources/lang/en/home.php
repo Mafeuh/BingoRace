@@ -7,11 +7,11 @@ return [
     
     'presentation.title' => "👋 Presentation",
     'presentation' => "
-        <div>Simplifiez la création de vos parties de Bingo entre amis !</div>
-        <div>Importez vos propres jeux, ou utilisez ceux créés par la communauté !</div>
+        <div>Simplify the creation of Bingo games with your friends!</div>
+        <div>Use your own games and objectives, or use the ones created by the community!</div>
         <br>
-        <div>En quelques secondes, créez une partie, choisissez le ou les jeux et les paramètres, et invitez vos amis !</div>
-        <div>Formez vos équipes (avec des images d'équipes rigolotes), et <span class='font-bold'>que les meilleurs gagnent</span> !</div>
+        <div>In a few seconds, create a room, select the game(s) and settings, and invite your friends!</div>
+        <div>Create and join teams (with funny images), and <span class='font-bold'>let the game begin</span> !</div>
     ",
 
 

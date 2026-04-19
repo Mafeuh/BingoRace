@@ -9,7 +9,7 @@ use App\Http\Middleware\CheckMaintenanceState;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\GamesController;
 use App\Http\Controllers\PostsController;
-use App\Http\Controllers\AnonymoususerController;
+use App\Http\Controllers\AnonymousUserController;
 use App\Http\Middleware\CheckUserPermission;
 use App\Http\Middleware\SetLocale;
 use App\Http\Middleware\EnsureAnonymousParticipant;

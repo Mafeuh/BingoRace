@@ -7,11 +7,11 @@ return [
 
     'presentation.title' => "👋 Présentation",
     'presentation' => "
-        <div class='dark:text-slate-200'>Simplifiez la création de vos parties de Bingo entre amis !</div>
-        <div class='dark:text-slate-200'>Importez vos propres jeux, ou utilisez ceux créés par la communauté !</div>
+        <div>Simplifiez la création de vos parties de Bingo entre amis !</div>
+        <div>Importez vos propres jeux, ou utilisez ceux créés par la communauté !</div>
         <br>
-        <div class='dark:text-slate-200'>En quelques secondes, créez une partie, choisissez le ou les jeux et les paramètres, et invitez vos amis !</div>
-        <div class='dark:text-slate-200'>Formez vos équipes (avec des images d'équipes rigolotes), et <span class='font-bold'>que les meilleurs gagnent</span> !</div>
+        <div>En quelques secondes, créez une partie, choisissez le ou les jeux et les paramètres, et invitez vos amis !</div>
+        <div>Formez vos équipes (avec des images d'équipes rigolotes), et <span class='font-bold'>que les meilleurs gagnent</span> !</div>
     ",
 
     'posts.title' => "Actualités",

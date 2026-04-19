@@ -166,7 +166,7 @@ class GamesController extends Controller
 
         $visibility = __('game.visibility.private');
         if ($game->is_official) $visibility = __('game.visibility.official');
-        if ($game->is_public) $visibility = __('game.visibility.public');
+        if ($game->is_public) $visibility = __('game.visibility.public', ['name' => $game->creator->name]);
 
         if(($game->is_official || $game->is_public || $game->creator_id == auth()->user()->id) || auth()->user()->isAdmin()) {
             return view('games.show', [

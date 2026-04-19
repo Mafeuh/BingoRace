@@ -26,6 +26,7 @@
         <script>
             if (localStorage.getItem('_x_darkMode') === true || localStorage.getItem('_x_darkMode') === null) {
                 document.body.classList.add('dark');
+                console.log("test");
             }
         </script>
         

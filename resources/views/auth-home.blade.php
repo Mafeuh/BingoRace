@@ -23,7 +23,7 @@
         </div>
     </div>
 
-    <div class="max-w-5xl flex mx-auto justify-between">
+    <div class="max-w-5xl flex mx-auto justify-between relative" x-data="{ show_patch_notes: false }">
         <div class="w-1/3 text-justify text-slate-700 dark:bg-white/5 backdrop-blur-xl bg-white/20 p-6 border border-gray-300 dark:border-gray-600 rounded-l-lg">
             <h2 class="text-blue-500 text-lg font-bold">
                 {{ __('home.presentation.title') }}
@@ -34,9 +34,14 @@
         </div>
 
         <div class="w-2/3 pl-6">
-            <h2 class="text-blue-500 text-xl font-bold">
-                📰 {{ __('home.posts.title') }}
-            </h2>
+            <div class="flex justify-between">
+                <h2 class="text-blue-500 text-xl font-bold">
+                    📰 {{ __('home.posts.title') }}
+                </h2>
+                <span class="py-0.5 px-1.5 text-sm border rounded-full border-gray-500 bg-gray-500/10 text-gray-500 cursor-pointer" x-on:click="show_patch_notes = true">
+                    Patch notes
+                </span>
+            </div>
             <div class="space-y-4 mt-4">
                 @foreach ($posts as $post)
                 <div class="border-y border-r dark:border-black/50 backdrop-blur-sm border-slate-300 rounded-lg">
@@ -60,6 +65,31 @@
                 </div>
                 @endforeach
             </div>
+        </div>
+
+        <div class="absolute bg-black/50 backdrop-blur-sm p-2 rounded-lg border w-full" x-cloak x-show="show_patch_notes">
+            <div class="flex justify-between">
+                <h2 class="text-gray-200 text-lg ml-2 font-bold">Patch notes</h2>
+                <span class="cursor-pointer" x-on:click="show_patch_notes = false">❌</span>
+            </div>
+
+            @admin()
+                <form method="POST" action="{{ route('admin.new_patch_note') }}" class="bg-gray-900 p-2 rounded-lg">
+                    @csrf
+                    <div class="flex justify-between space-x-2">
+                        <x-form.text-input class="w-full" name="description" placeholder="Description de patch note"/>
+                        <x-form.button>+</x-form.button>
+                    </div>
+                </form>
+            @endadmin
+
+            <ul class="list-disc ml-4 divide-y text-slate-200 max-h-96 overflow-auto">
+                @foreach ($patch_notes as $patch)
+                    <li class="py-4">
+                        <span>{{ $patch->created_at }}</span> - {{ $patch->description }}
+                    </li>
+                @endforeach
+            </ul>
         </div>
     </div>
 @endsection

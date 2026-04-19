@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Permission;
 use App\Models\Room;
+use App\Models\PatchNote;
 use App\View\Components\redirect;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
@@ -25,5 +26,21 @@ class AdminController extends Controller
         auth()->user()->save();
 
         return redirect('room/wait');
+    }
+
+    public function new_patch_note() {
+        $valid = request()->validate([
+            'description' => 'required'
+        ]);
+
+        if(!auth()->user()->isAdmin()) {
+            return redirect('/');
+        }
+
+        PatchNote::create([
+            'description' => $valid['description']
+        ]);
+
+        return redirect()->back();
     }
 }

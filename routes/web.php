@@ -15,6 +15,7 @@ use App\Http\Middleware\SetLocale;
 use App\Http\Middleware\EnsureAnonymousParticipant;
 use App\Models\HomepagePost;
 use App\Models\AnonymousParticipant;
+use App\Models\PatchNote;
 use App\View\Components\redirect;
 use Illuminate\Support\Facades\Broadcast;
 
@@ -58,15 +59,18 @@ Route::middleware(SetLocale::class)->group(function() {
             'blue'
         ]);
         $posts = HomepagePost::where('lang_slug', app()->getLocale())->orderBy('created_at', 'desc')->where('hidden', false)->take(2)->get();
+        $patch_notes = PatchNote::orderByDesc('created_at')->get();
         if(auth()->check()) {
             return view('auth-home', [
                 'posts' => $posts,
-                'colors' => $colors->random(2)
+                'colors' => $colors->random(2),
+                'patch_notes' => $patch_notes
             ]);
         } else {
             return view('unauth-home', [
                 'posts' => $posts,
-                'colors' => $colors->random(2)
+                'colors' => $colors->random(2),
+                'patch_notes' => $patch_notes
             ]);
         }
     })->name('home');
@@ -81,6 +85,7 @@ Route::middleware(SetLocale::class)->group(function() {
         ], function() {
             Route::get('/', [AdminController::class, 'index'])->name('admin.index');
             Route::post('/join', [AdminController::class, 'join_room'])->name('admin.join_room');
+            Route::post('/new_patch_note', [AdminController::class, 'new_patch_note'])->name('admin.new_patch_note');
         }
     );
 

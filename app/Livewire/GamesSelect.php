@@ -26,6 +26,7 @@ class GamesSelect extends Component
 
     public function queryBuilder() {
         $lang = $this->lang;
+
         $search = trim($this->search);
 
         // On récupère les groupes d'IDs

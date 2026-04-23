@@ -110,7 +110,7 @@
                                     <th>Moyen</th>
                                     <th>Difficile</th>
                                 </tr>
-                                <tr class="text-xxs dark:text-slate-200">
+                                <tr class="text-xs dark:text-slate-200">
                                     <td>Max: <span x-text="max_easy"></span></td>
                                     <td>Max: <span x-text="max_medium"></span></td>
                                     <td>Max: <span x-text="max_hard"></span></td>
@@ -120,7 +120,7 @@
                                         <input 
                                             x-model.number="nb_easy" 
                                             class="w-20 p-1 rounded disabled:text-gray-500 disabled:cursor-not-allowed" 
-                                            :class="nb_easy <= max_easy ? 'dark:bg-black/30 border-black' : 'dark:bg-red-500/20 border-red-500'"
+                                            :class="nb_easy <= max_easy || !manage_difficulty ? 'dark:bg-black/30 border-black' : 'dark:bg-red-500/20 border-red-500'"
                                             type="number" name="easy_amount" id="easy_input"
                                             min="0" :max="max_easy" x-on:change="checkDifficultyValidity"
                                             x-bind:disabled="!manage_difficulty">
@@ -129,7 +129,7 @@
                                         <input 
                                             x-model.number="nb_medium" 
                                             class="w-20 p-1 rounded disabled:text-gray-500 disabled:cursor-not-allowed" 
-                                            :class="nb_medium <= max_medium ? 'dark:bg-black/30 border-black' : 'dark:bg-red-500/20 border-red-500'"
+                                            :class="nb_medium <= max_medium || !manage_difficulty ? 'dark:bg-black/30 border-black' : 'dark:bg-red-500/20 border-red-500'"
                                             type="number" name="medium_amount" id="medium_input"
                                             min="0" :max="max_medium" x-on:change="checkDifficultyValidity"
                                             x-bind:disabled="!manage_difficulty">
@@ -138,7 +138,7 @@
                                         <input 
                                             x-model.number="nb_hard" 
                                             class="w-20 p-1 rounded disabled:text-gray-500 disabled:cursor-not-allowed" 
-                                            :class="nb_hard <= max_hard ? 'dark:bg-black/30 border-black' : 'dark:bg-red-500/20 border-red-500'"
+                                            :class="nb_hard <= max_hard || !manage_difficulty ? 'dark:bg-black/30 border-black' : 'dark:bg-red-500/20 border-red-500'"
                                             type="number" name="hard_amount" id="hard_input"
                                             min="0" :max="max_hard" x-on:change="checkDifficultyValidity"
                                             x-bind:disabled="!manage_difficulty">

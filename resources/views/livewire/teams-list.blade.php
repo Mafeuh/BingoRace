@@ -16,8 +16,8 @@
     
     <div class="grid grid-cols-2">
         @foreach ($room->teams as $team)
-            <div class="m-1 rounded-2xl p-2" style="background-color: {{ $team->color }}">
-                <div class="text-xl text-center truncate">
+            <div class="m-1 rounded-2xl p-2 border-2" style="border: solid {{ $team->color }} ;background-color: {{ $team->color }}55; background-opacity: 50%;">
+                <div class="text-xl text-center truncate font-bold" style="color: {{ $team->color }}">
                     <p>{{ $team->name == '' ? '/' : $team->name}}</p>
                 </div>
                 

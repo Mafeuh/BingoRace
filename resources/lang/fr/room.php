@@ -81,8 +81,8 @@ return [
 
     'wait.title' => "La partie est sur le point de commencer !",
     'wait.code.label' => "Code de la salle :",
-    'wait.code.reveal' => "Révéler !",
-    'wait.code.copy' => "Copier ?",
+    'wait.code.reveal' => "*****",
+    'wait.code.copy' => "Copier",
     'wait.code.copied' => "Copié !",
 
     'wait.rules.title' => "Rappel des règles:",

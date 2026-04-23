@@ -81,8 +81,8 @@ return [
 
     'wait.title' => "The game is about to start!",
     'wait.code.label' => "Room code:",
-    'wait.code.reveal' => "Reveal!",
-    'wait.code.copy' => "Copy?",
+    'wait.code.reveal' => "*****",
+    'wait.code.copy' => "Copy",
     'wait.code.copied' => "Copied!",
 
     'wait.rules.title' => "The rules:",

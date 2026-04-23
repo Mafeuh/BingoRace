@@ -60,9 +60,6 @@ class GamesSelect extends Component
             ->where('name', 'like', "%{$search}%");
     }
 
-
-
-
     public function mount() {
         $this->lang = app()->getLocale();
     }
@@ -84,7 +81,9 @@ class GamesSelect extends Component
                 'room_id' => $new_room->id,
                 'game_id' => $game_id
             ]);
-        }        
+        }
+        
+        session()->save();
         
         return redirect('/room/setup');
     }

@@ -92,7 +92,7 @@
     
             <div class="text-center">
                 <x-form.button wire:click="start" :disabled="!$this->can_start">
-                    Valider !
+                    {{ __('room.start.game_selection.submit') }}
                 </x-form.button>
             </div>
         </div>

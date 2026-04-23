@@ -25,7 +25,13 @@
                             'text-red-500' => auth()->user()->isAdmin(),
                             'text-blue-500' => !auth()->user()->isAdmin(),
                         ])>
+                        @admin()
+                        <a href="/admin">
                             {{ auth()->user()->name }}
+                        </a>
+                        @else
+                            {{ auth()->user()->name }}
+                        @endadmin
                         </span>
                     </div>
                     <div class="w-px bg-slate-700"></div>

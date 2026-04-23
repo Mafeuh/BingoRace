@@ -1,11 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
-<div>
-    <livewire:team-scores :room="$room"/>
-
+<div class="relative">
     @if ($cache_hide_time - $server_time > 0)
-        <div id="cache" class="bg-gradient-to-r from-blue-300 to-red-300 dark:bg-blue-900 absolute w-full h-full z-10 transition-all duration-100 flex flex-col place-content-center items-center rounded-3xl">
+        <div id="cache" class="absolute bg-gradient-to-r from-blue-300 dark:from-blue-950 to-red-300 dark:to-red-950 dark:bg-blue-900 absolute w-full h-full z-10 transition-all duration-100 flex flex-col place-content-center items-center rounded-3xl">
             <div class="text-center space-y-5">
                 <h1 class="text-4xl lg:text-8xl text-white font-bold">
                     {{ __('room.play.starting_cache.title') }}
@@ -47,7 +45,8 @@
             </script>
         </div>
     @endif
-
+    <livewire:team-scores :room="$room"/>
+    
     <div id="grid" @class(["relative justify-center flex-0 flex my-2", 'opacity-0' => $cache_hide_time - $server_time > 0]) >
         <livewire:bingo-grid :player_team_id="$team->id ?? -1" :room_id="$room->id"/>
 
@@ -101,4 +100,5 @@
                 });
         });
     </script>
+</div>
 @endsection

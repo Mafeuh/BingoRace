@@ -1,6 +1,4 @@
 <x-main-panel class="max-w-5xl rounded mx-auto">
-    @vite('resources/js/room_setup.js')
-
     <div x-data="objectiveManager({
             pool: @entangle('pool_ids'),
             max_easy: {{ $max_easy }},

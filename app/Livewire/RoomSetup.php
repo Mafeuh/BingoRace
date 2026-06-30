@@ -6,13 +6,14 @@ use App\Models\Room;
 use App\Models\BingoGrid;
 use App\Models\Objective;
 use App\Models\BingoGridSquare;
+use App\Models\RoomSelectedGame;
 use Livewire\Component;
 
 class RoomSetup extends Component
 {
     protected $listeners = ['update-quotas' => 'updateQuotas'];
     
-    public Room $room;
+    public $games;
     public int $width = 5;
     public int $height = 5;
 
@@ -39,10 +40,10 @@ class RoomSetup extends Component
     public function mount()
     {
         // 1. Répartition par défaut
-        $this->games_repartition = $this->room->games->mapWithKeys(fn($g) => [$g->id => 50])->toArray();
+        $this->games_repartition = $this->games->mapWithKeys(fn($g) => [$g->id => 50])->toArray();
 
         // 2. ACTIVER TOUT PAR DÉFAUT
-        $allObjectives = $this->room->games->flatMap(function ($game) {
+        $allObjectives = $this->games->flatMap(function ($game) {
             return $game->public_objectives->concat($game->private_objectives);
         });
         $this->pool_ids = $allObjectives->pluck('id')->mapWithKeys(fn($id) => [$id => true])->toArray();
@@ -68,11 +69,27 @@ class RoomSetup extends Component
             return;
         }
 
+        $room = Room::create([
+            'creator_id' => auth()->user()->id
+        ]);
+
+        foreach ($this->games as $game) {
+            RoomSelectedGame::create([
+                'room_id' => $room->id,
+                'game_id' => $game->id
+            ]);
+        }
+
+        auth()->user()->last_joined_room_id = $room->id;
+        auth()->user()->save();
+
         $grid = BingoGrid::updateOrCreate(
-            ['room_id' => $this->room->id],
+            ['room_id' => $room->id],
             ['width' => $this->width, 'height' => $this->height]
         );
         $grid->squares()->delete();
+
+        $room->save();
 
         $picked = collect([]);
 

@@ -4,6 +4,6 @@
 
 @section('content')
 
-<livewire:room-setup :room="$room"/>
+<livewire:room-setup :games="$games"/>
 
 @endsection

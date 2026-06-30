@@ -59,26 +59,35 @@ class RoomController extends Controller
     }
 
     public function setup() {
-        $room = Room::find(session()->get('room_id'));
+        $games_ids = session()->get('games');
+        
+        if(!$games_ids) {
+            return redirect('/room/start');
+        }
+        
+        $games = Game::findMany($games_ids);
 
         return view("room.setup", [
-            'room' => $room,
-            'games' => $room->games,
+            'games' => $games,
         ]);
     }
 
     public function wait() {
-        $r = Room::find(session()->get('room_id'));
-
-        if($r->started_at) {
-
+        if(auth()->check()) {
+            $room_id = auth()->user()->last_joined_room_id;
+        } else {
+            $room_id = session('room_id');
+        }
+        
+        $room = Room::find($room_id);
+        
+        if($room->started_at) {
             return redirect("/room/play");
         } else {
             return view('room.waiting_room', [
-                'room' => $r
+                'room' => $room
             ]);
         }
-
     }
 
     public function begin() {
@@ -145,6 +154,7 @@ class RoomController extends Controller
 
         if ($room) {
             session(['room_id' => $room->id]);
+            session()->save();
 
             return redirect('/room/wait');
         }

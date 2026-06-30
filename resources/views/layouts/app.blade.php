@@ -35,8 +35,11 @@
             $is_maintenance = App\Models\Setting::get('maintenance') === "true";
         @endphp
 
-        @if ($is_maintenance && auth()->user() && !auth()->user()->isAdmin())
-            <div class="fixed left-0 top-0 w-full h-full bg-red-500/80 z-50 flex flex-col place-content-center items-center">
+        <x-app.header/>
+
+        <div class="relative p-2 flex-grow overflow-auto inset-0 bg-gradient-to-br from-indigo-200/80 to-red-200/80 dark:from-blue-900/80 dark:to-red-900/80">
+            @if ($is_maintenance && auth()->user() && !auth()->user()->isAdmin())
+            <div class="absolute left-0 top-0 w-full h-full bg-red-500/80 z-50 flex flex-col place-content-center items-center">
                 <h1 class="text-5xl text-white font-bold">
                     {{ __('maintenance.title') }}
                 </h1>
@@ -44,11 +47,7 @@
                     {{ __('maintenance.come_back_later')}}
                 </h2>
             </div>
-        @endif
-
-        <x-app.header/>
-
-        <div class="p-2 flex-grow overflow-auto inset-0 bg-gradient-to-br from-indigo-200/80 to-red-200/80 dark:from-blue-900/80 dark:to-red-900/80">
+            @endif
             <div>
                 <h1 class="text-center text-2xl text-blue-500 font-bold mb-2">
                     @yield('page_title')

@@ -138,12 +138,10 @@ Route::middleware(SetLocale::class)->group(function() {
     Route::prefix('room')->group(function() {
         Route::middleware(['auth', 'verified'])->group(function () {
             Route::get('start', [RoomController::class,'start']);
-            Route::post('start', [RoomController::class,'start_post']);
             
-            Route::get('setup', [RoomController::class, 'setup']);
-            Route::post('setup', [RoomController::class,'setup_post']);
+            Route::get('setup', [RoomController::class, 'setup'])->name('room.setup');
 
-            Route::post('begin', [RoomController::class,'begin'])->name('room-start');
+            Route::post('begin', [RoomController::class,'begin'])->name('room.begin');
         });
 
         Route::middleware([EnsureAnonymousParticipant::class])->group(function() {

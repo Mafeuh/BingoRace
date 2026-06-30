@@ -57,7 +57,7 @@
             {{ __('room.wait.start.button') }}
         </span>
     
-        <form action="{{ route('room-start') }}" method="POST" class="text-center">
+        <form action="{{ route('room.begin') }}" method="POST" class="text-center">
             @csrf
             <x-form.button type="submit">
                 {{ __('room.wait.start.button') }}
@@ -65,6 +65,3 @@
         </form>
     </div>
 </x-main-panel>
-{{-- 
-<div class="bg-white w-full rounded-xl p-2 text-center flex flex-col justify-center items-center">
-</div> --}}

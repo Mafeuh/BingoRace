@@ -5,6 +5,7 @@ namespace App\Livewire;
 use App\Models\Game;
 use App\Models\Room;
 use App\Models\RoomSelectedGame;
+use App\View\Components\redirect;
 use Illuminate\Database\Eloquent\Collection;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
@@ -71,22 +72,10 @@ class GamesSelect extends Component
             return redirect('/room/start');
         }
 
-        $new_room = Room::create([
-            'creator_id' => auth()->user()->id
-        ]);
-
-        session(['room_id' => $new_room->id]);
-
-        foreach($this->selected_games_ids as $game_id) {
-            RoomSelectedGame::create([
-                'room_id' => $new_room->id,
-                'game_id' => $game_id
-            ]);
-        }
-        
+        session()->put('games', $this->selected_games_ids);
         session()->save();
         
-        return redirect('/room/setup');
+        return redirect()->route('room.setup');
     }
 
     public function select_game(int $game_id) {

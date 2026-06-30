@@ -23,9 +23,9 @@
             
             <div class="p-2 bg-black/10 rounded-lg">
                 <table class="w-full text-xs">
-                    @foreach ($room->games->sortBy('id') as $game)
+                    @foreach ($games->sortBy('id') as $game)
                     <tr>
-                        <td class="dark:text-slate-300">{{ $game->name }}</td>
+                        <td class="dark:text-slate-300">{{ $loop->index + 1 }}. {{ $game->name }}</td>
                         <td class="text-right">
                             <input type="range" min="10" max="100" 
                                 data-game-id="{{ $game->id }}"
@@ -44,7 +44,7 @@
                     </button>
     
                     <div x-show="showSelection" class="space-y-4">
-                        @foreach ($room->games as $game)
+                        @foreach ($games as $game)
                             <div 
                                 class="p-2 rounded border" 
                                 :class="is_game_valid[{{ $game->id }}] ? 'bg-white/5 border-gray-500' : 'bg-red-500/20 border-red-500'">
